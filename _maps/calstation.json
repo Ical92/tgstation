@@ -1,0 +1,40 @@
+{
+	"version": 1,
+	"map_name": "Cal Station",
+	"map_path": "map_files/CalStation",
+	"map_file": "calstation.dmm",
+	"space_ruin_levels": 0,
+	"space_empty_levels": 0,
+	"planetary": 1,
+	"shuttles": {
+		"cargo": "cargo_box",
+		"ferry": "ferry_fancy",
+		"whiteship": "whiteship_box",
+		"emergency": "emergency_box"
+	},
+	"traits": [
+		{
+			"Up": 1,
+			"Linkage": null,
+			"Gravity": true,
+			"Baseturf": "/turf/open/misc/grass",
+			"No Parallax": true
+		},
+		{
+			"Down": -1,
+			"Up": 1,
+			"Linkage": null,
+			"Gravity": true,
+			"Baseturf": "/turf/open/openspace",
+			"No Parallax": true
+		},
+		{
+			"Down": -1,
+			"Linkage": null,
+			"Gravity": true,
+			"Weather_Snowstorm": true,
+			"Baseturf": "/turf/open/openspace",
+			"No Parallax": true
+		}
+	]
+}

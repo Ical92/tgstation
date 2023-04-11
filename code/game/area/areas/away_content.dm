@@ -52,3 +52,13 @@ Unused icons for new areas are "awaycontent1" ~ "awaycontent30"
 /area/awaymission/secret/powered/fullbright
 	static_lighting = FALSE
 	base_lighting_alpha = 255
+
+/area/awaymission/jungle
+	name = "Jungle"
+	icon = 'icons/area/areas_away_missions.dmi'
+	icon_state = "awaycontent3"
+	has_gravity = STANDARD_GRAVITY
+	ambience_index = AMBIENCE_AWAY
+	sound_environment = SOUND_ENVIRONMENT_FOREST
+	area_flags = UNIQUE_AREA
+	map_generator = /datum/map_generator/jungle_generator
