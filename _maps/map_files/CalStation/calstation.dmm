@@ -9,11 +9,14 @@
 /obj/effect/turf_decal/trimline/yellow/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/trimline/red/line{
-	dir = 4;
-	pixel_x = -8
-	},
 /turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"aw" = (
+/obj/effect/turf_decal/trimline/red/end{
+	dir = 8
+	},
+/obj/machinery/light/red/directional/west,
+/turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 "aF" = (
 /turf/open/misc/grass/jungle,
@@ -28,12 +31,60 @@
 /obj/structure/sign/warning/secure_area/directional/north,
 /turf/open/misc/dirt/jungle/dark,
 /area/awaymission/secret/powered)
+"bk" = (
+/obj/machinery/vending/wardrobe/viro_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
 "bo" = (
 /turf/cordon,
 /area/space)
+"bu" = (
+/obj/effect/turf_decal/trimline/red/mid_joiner,
+/obj/machinery/holopad,
+/obj/effect/turf_decal/trimline/yellow/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/yellow/corner,
+/obj/effect/turf_decal/trimline/blue/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/blue/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
 "bG" = (
 /turf/open/misc/dirt/jungle/dark,
 /area/awaymission)
+"bJ" = (
+/obj/machinery/vending/wardrobe/hydro_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"cd" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"cl" = (
+/obj/machinery/door/window/right/directional/south,
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
+"cu" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/records/security/laptop,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"cx" = (
+/obj/structure/stairs/wood{
+	dir = 1
+	},
+/obj/structure/stairs/wood,
+/obj/structure/stairs/wood{
+	dir = 1
+	},
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
 "cK" = (
 /turf/closed/wall,
 /area/awaymission)
@@ -58,14 +109,63 @@
 /obj/machinery/light/red/dim/directional/north,
 /turf/open/misc/dirt/jungle/dark,
 /area/awaymission/secret/powered)
+"el" = (
+/obj/structure/table,
+/obj/machinery/light/directional/west,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"en" = (
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/red/line,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"ep" = (
+/obj/effect/turf_decal/trimline/yellow/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/blue/line{
+	dir = 8
+	},
+/turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
 "eV" = (
 /obj/effect/turf_decal/trimline/green/line,
 /turf/open/floor/iron/white/textured_large,
+/area/awaymission/secret/powered)
+"fg" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/red/warning,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"fr" = (
+/obj/effect/turf_decal/trimline/blue/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/yellow/corner,
+/obj/machinery/holopad,
+/turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"fw" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "fz" = (
 /obj/structure/fence/door,
 /turf/open/misc/dirt/jungle/dark,
 /area/awaymission)
+"fC" = (
+/obj/effect/turf_decal/siding/white,
+/obj/machinery/button/curtain{
+	pixel_x = -24
+	},
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
 "fG" = (
 /obj/effect/turf_decal/trimline/green/corner{
 	dir = 8
@@ -77,6 +177,27 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/awaymission/secret/powered)
+"gf" = (
+/obj/machinery/vending/wardrobe/jani_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"gN" = (
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"hr" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/stairs/medium{
+	dir = 1
+	},
+/area/awaymission/secret/powered)
 "hs" = (
 /turf/closed/mineral/random/jungle,
 /area/awaymission/secret/powered)
@@ -87,6 +208,57 @@
 /obj/machinery/light/cold/directional/east,
 /turf/open/misc/grass/jungle,
 /area/awaymission/secret/powered)
+"id" = (
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
+"iy" = (
+/obj/effect/turf_decal/trimline/red/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/red/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/red/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/red/corner,
+/obj/machinery/holopad,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"iI" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"iT" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
+"jj" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"jm" = (
+/obj/effect/turf_decal/siding/white,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"jT" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
 "kw" = (
 /obj/effect/turf_decal/trimline/green/line{
 	dir = 8
@@ -96,9 +268,78 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/awaymission/secret/powered)
+"ky" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"kF" = (
+/obj/structure/railing,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"kU" = (
+/obj/machinery/vending/wardrobe/chap_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"kW" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"ll" = (
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"ls" = (
+/obj/structure/flora/grass/jungle/b/style_random,
+/obj/structure/flora/bush/jungle/a/style_random,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/north,
+/turf/open/misc/grass/jungle,
+/area/awaymission/secret/powered)
+"mo" = (
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"mC" = (
+/obj/machinery/light/warm/directional/west,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"mP" = (
+/obj/effect/turf_decal/trimline/red/end{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
 "nc" = (
 /obj/effect/turf_decal/trimline/green/corner,
 /turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"ni" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/chair/comfy/brown{
+	color = "#c45c57";
+	dir = 1;
+	layer = 2
+	},
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"nZ" = (
+/obj/machinery/vending/wardrobe/robo_wardrobe,
+/turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "on" = (
 /obj/effect/turf_decal/siding/dark{
@@ -112,10 +353,59 @@
 	dir = 1
 	},
 /area/awaymission/secret/powered)
+"oU" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"pc" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/red/end{
+	dir = 4
+	},
+/obj/machinery/light/red/directional/east,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"pl" = (
+/obj/structure/railing,
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
+"px" = (
+/obj/effect/turf_decal/trimline/red/warning,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
 "qd" = (
 /obj/effect/landmark/observer_start,
 /turf/open/misc/dirt/jungle/dark,
 /area/awaymission)
+"qQ" = (
+/obj/machinery/vending/wardrobe/det_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"rP" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"sl" = (
+/obj/structure/chair/comfy/brown{
+	color = "#c45c57";
+	dir = 1;
+	layer = 2
+	},
+/obj/structure/railing,
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
 "ss" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -123,24 +413,38 @@
 /obj/machinery/door/airlock/grunge,
 /turf/open/floor/iron/white/textured_large,
 /area/awaymission/secret/powered)
-"sM" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 4
+"sB" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
 	},
-/obj/structure/chair{
-	pixel_x = -2
-	},
-/turf/open/floor/iron/white/smooth_half{
-	dir = 1
-	},
+/obj/machinery/light/dim/directional/east,
+/turf/open/floor/carpet/green,
 /area/awaymission/secret/powered)
 "tX" = (
 /turf/open/misc/dirt/jungle/dark,
+/area/awaymission/secret/powered)
+"ud" = (
+/obj/machinery/vending/wardrobe/science_wardrobe,
+/turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "uE" = (
 /turf/open/floor/iron/white/textured_half{
 	dir = 8
 	},
+/area/awaymission/secret/powered)
+"uF" = (
+/obj/machinery/door/airlock/maintenance,
+/turf/open/floor/plating,
+/area/awaymission/secret/powered)
+"uN" = (
+/obj/machinery/vending/wardrobe/bar_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"uQ" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 "vd" = (
 /obj/effect/turf_decal/trimline/green/line{
@@ -148,9 +452,66 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/awaymission/secret/powered)
+"vl" = (
+/obj/machinery/vending/wardrobe/engi_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"vm" = (
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 9
+	},
+/obj/effect/turf_decal/trimline/red/corner,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"vJ" = (
+/obj/structure/railing/corner,
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
+"vX" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"wG" = (
+/obj/machinery/vending/clothing,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"xb" = (
+/obj/machinery/vending/wardrobe/atmos_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"xs" = (
+/obj/structure/flora/grass/jungle/a/style_random,
+/obj/structure/flora/bush/jungle/a/style_random,
+/obj/machinery/light/directional/south,
+/obj/structure/window/reinforced/spawner/west,
+/turf/open/misc/grass/jungle,
+/area/awaymission/secret/powered)
 "xK" = (
 /turf/open/space/basic,
 /area/space)
+"xM" = (
+/obj/structure/flora/grass/jungle/a/style_random,
+/obj/structure/flora/bush/jungle/c/style_random,
+/turf/open/misc/grass/jungle,
+/area/awaymission/secret/powered)
+"xT" = (
+/obj/structure/railing/corner,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"yK" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"za" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
 "zc" = (
 /obj/effect/turf_decal/trimline/green/line{
 	dir = 4
@@ -180,6 +541,18 @@
 	dir = 8
 	},
 /area/awaymission/secret/powered)
+"zy" = (
+/obj/machinery/vending/autodrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"zP" = (
+/obj/structure/railing,
+/obj/effect/turf_decal/trimline/red/corner,
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
 "Ad" = (
 /turf/closed/wall,
 /area/awaymission/secret/powered)
@@ -189,6 +562,27 @@
 /obj/machinery/light/cold/directional/east,
 /turf/open/misc/grass/jungle,
 /area/awaymission/secret/powered)
+"Bt" = (
+/obj/machinery/computer/security,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"Bu" = (
+/obj/structure/table/wood,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"BY" = (
+/obj/machinery/button/curtain{
+	pixel_x = -24
+	},
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
+"CS" = (
+/obj/structure/stairs/wood,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
 "De" = (
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/rock/pile/jungle/style_random,
@@ -197,8 +591,17 @@
 	},
 /turf/open/misc/grass/jungle,
 /area/awaymission/secret/powered)
+"Dk" = (
+/obj/machinery/light/red/directional/north,
+/obj/machinery/computer/crew,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
 "Dm" = (
 /turf/open/floor/iron/white/textured_large,
+/area/awaymission/secret/powered)
+"DT" = (
+/obj/structure/table,
+/turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "EF" = (
 /obj/structure/window/reinforced/spawner/east,
@@ -209,11 +612,35 @@
 	},
 /turf/open/misc/grass/jungle,
 /area/awaymission/secret/powered)
+"Fh" = (
+/obj/machinery/vending/wardrobe/cargo_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
 "FX" = (
 /obj/effect/turf_decal/trimline/green/corner{
 	dir = 4
 	},
 /turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"Gl" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
+"Gm" = (
+/turf/open/openspace,
+/area/awaymission/secret/powered)
+"Gp" = (
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 8
+	},
+/obj/structure/chair/comfy/brown{
+	color = "#c45c57";
+	dir = 1;
+	layer = 2
+	},
+/turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "GQ" = (
 /obj/effect/turf_decal/siding/dark{
@@ -226,12 +653,46 @@
 	dir = 1
 	},
 /area/awaymission/secret/powered)
+"GR" = (
+/obj/structure/table,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
 "Hc" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/grunge,
 /turf/open/floor/iron/white/textured_edge{
 	dir = 1
 	},
+/area/awaymission/secret/powered)
+"Hj" = (
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 8
+	},
+/obj/machinery/light/red/directional/north,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"Hs" = (
+/obj/structure/stairs/south,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/stairs/medium{
+	dir = 1
+	},
+/area/awaymission/secret/powered)
+"HD" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"HG" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"In" = (
+/obj/machinery/vending/wardrobe/chef_wardrobe,
+/turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "It" = (
 /obj/effect/turf_decal/trimline/green/line{
@@ -242,16 +703,194 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/awaymission/secret/powered)
+"Jh" = (
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"Jo" = (
+/obj/effect/turf_decal/trimline/red/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/red/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/red/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/red/corner,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"JB" = (
+/obj/machinery/light/directional/east,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"JN" = (
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 4
+	},
+/obj/structure/chair/comfy/brown{
+	color = "#c45c57";
+	dir = 1;
+	layer = 2
+	},
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"JS" = (
+/obj/structure/curtain/cloth/fancy/mechanical/start_closed{
+	desc = "A set of curtains serving as a fancy theater backdrop. They can only be opened by a button.";
+	id = "theater_curtains";
+	name = "Theater Curtains"
+	},
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
+"Ke" = (
+/obj/machinery/light/warm/directional/east,
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
+"Kv" = (
+/obj/structure/railing,
+/obj/structure/chair/comfy/brown{
+	color = "#c45c57";
+	dir = 1;
+	layer = 2
+	},
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"KA" = (
+/obj/structure/stairs/south,
+/turf/open/floor/iron/stairs/medium{
+	dir = 1
+	},
+/area/awaymission/secret/powered)
+"KE" = (
+/obj/machinery/vending/wardrobe/law_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
 "KN" = (
 /obj/structure/sign/warning/secure_area,
 /turf/closed/wall,
 /area/awaymission)
+"KO" = (
+/obj/machinery/light/directional/west,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"La" = (
+/obj/effect/turf_decal/trimline/red/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/red/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"LN" = (
+/obj/structure/railing,
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"Mg" = (
+/obj/effect/turf_decal/trimline/red/end{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"Mj" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen,
+/turf/open/floor/plating,
+/area/awaymission/secret/powered)
 "Mm" = (
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/flora/bush/jungle/b/style_random,
 /obj/structure/flora/grass/jungle/a/style_random,
 /obj/machinery/light/cold/directional/west,
 /turf/open/misc/grass/jungle,
+/area/awaymission/secret/powered)
+"My" = (
+/obj/machinery/vending/wardrobe/cent_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"ML" = (
+/obj/structure/flora/bush/jungle/b/style_random,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/east,
+/turf/open/misc/grass/jungle,
+/area/awaymission/secret/powered)
+"MX" = (
+/obj/machinery/door/airlock/security/glass,
+/turf/open/floor/iron/dark/textured,
+/area/awaymission/secret/powered)
+"Nm" = (
+/obj/structure/stairs/wood,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"Nv" = (
+/obj/structure/railing,
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"Nz" = (
+/obj/machinery/light/warm/directional/west,
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
+"OI" = (
+/obj/effect/turf_decal/trimline/yellow/end{
+	dir = 4
+	},
+/turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"Pb" = (
+/obj/machinery/light/warm/directional/east,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"Ps" = (
+/obj/machinery/vending/wardrobe/sec_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"PR" = (
+/obj/structure/railing,
+/obj/structure/chair/comfy/brown{
+	color = "#c45c57";
+	dir = 1;
+	layer = 2
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"PU" = (
+/obj/structure/railing,
+/obj/structure/chair/comfy/brown{
+	color = "#c45c57";
+	dir = 1;
+	layer = 2
+	},
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"Qy" = (
+/obj/machinery/holopad,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"Rf" = (
+/obj/machinery/vending/wardrobe/chem_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"Rr" = (
+/obj/effect/turf_decal/trimline/yellow/line,
+/turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"RR" = (
+/obj/effect/turf_decal/trimline/blue/line,
+/turf/open/floor/iron/white/herringbone,
 /area/awaymission/secret/powered)
 "RV" = (
 /obj/effect/turf_decal/siding/dark{
@@ -263,6 +902,10 @@
 /turf/open/floor/iron/white/smooth_half{
 	dir = 1
 	},
+/area/awaymission/secret/powered)
+"Si" = (
+/obj/machinery/door/airlock/glass,
+/turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "Sj" = (
 /obj/effect/turf_decal/trimline/green/corner{
@@ -277,6 +920,36 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/awaymission/secret/powered)
+"Sr" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"SI" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"Td" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"Tp" = (
+/turf/closed/indestructible/fakedoor,
+/area/awaymission/secret/powered)
+"TN" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
 "TQ" = (
 /obj/effect/turf_decal/trimline/green/corner{
 	dir = 1
@@ -289,6 +962,10 @@
 	pixel_y = -16
 	},
 /turf/open/floor/iron/white/textured_large,
+/area/awaymission/secret/powered)
+"TY" = (
+/obj/machinery/vending/wardrobe/curator_wardrobe,
+/turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "Up" = (
 /obj/effect/turf_decal/trimline/yellow/corner{
@@ -311,22 +988,35 @@
 	dir = 8
 	},
 /area/awaymission/secret/powered)
-"Uy" = (
-/obj/effect/turf_decal/siding/dark{
-	dir = 4
-	},
-/obj/structure/table/reinforced/rglass{
-	pixel_x = -2
-	},
-/turf/open/floor/iron/white/smooth_half{
-	dir = 1
-	},
+"Uw" = (
+/obj/machinery/light/red/directional/south,
+/turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 "UF" = (
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/flora/rock/pile/jungle/style_random,
 /obj/machinery/light/cold/directional/west,
 /turf/open/misc/grass/jungle,
+/area/awaymission/secret/powered)
+"Vp" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"Vq" = (
+/obj/machinery/vending/wardrobe/medi_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"VT" = (
+/obj/structure/flora/grass/jungle/a/style_random,
+/obj/structure/flora/rock/pile/jungle/style_random,
+/obj/machinery/light/red/directional/south,
+/turf/open/misc/grass/jungle,
+/area/awaymission/secret/powered)
+"VX" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/awaymission/secret/powered)
 "VY" = (
 /obj/structure/sign/warning/no_smoking,
@@ -340,8 +1030,19 @@
 	dir = 8
 	},
 /area/awaymission/secret/powered)
+"Wv" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/machinery/light/dim/directional/west,
+/turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
 "WB" = (
 /turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"WP" = (
+/obj/machinery/holopad,
+/turf/open/floor/wood/tile,
 /area/awaymission/secret/powered)
 "Xi" = (
 /obj/structure/window/reinforced/spawner/east,
@@ -352,13 +1053,17 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
 	},
-/obj/structure/chair{
-	dir = 1;
-	pixel_x = -2
+/obj/effect/turf_decal/trimline/red/warning{
+	dir = 4
 	},
 /turf/open/floor/iron/white/smooth_half{
 	dir = 1
 	},
+/area/awaymission/secret/powered)
+"Xq" = (
+/obj/structure/table,
+/obj/machinery/light/directional/east,
+/turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "Ya" = (
 /obj/structure/window/reinforced/spawner/west,
@@ -371,6 +1076,37 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"Ym" = (
+/turf/open/floor/iron/stairs/medium{
+	dir = 1
+	},
+/area/awaymission/secret/powered)
+"Yw" = (
+/obj/effect/turf_decal/trimline/blue/end{
+	dir = 8
+	},
+/turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"YM" = (
+/obj/structure/flora/grass/jungle/a/style_random,
+/obj/structure/flora/rock/pile/jungle/style_random,
+/obj/machinery/light/directional/south,
+/obj/structure/window/reinforced/spawner/east,
+/turf/open/misc/grass/jungle,
+/area/awaymission/secret/powered)
+"YP" = (
+/obj/machinery/vending/wardrobe/gene_wardrobe,
+/turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"YX" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "Zc" = (
 /obj/effect/turf_decal/trimline/green/corner{
@@ -93512,20 +94248,20 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
 xK
 xK
 xK
@@ -93769,20 +94505,20 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+bo
 xK
 xK
 xK
@@ -94026,20 +94762,20 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Jh
+Jh
+Jh
+Jh
+Jh
+aw
+Jh
+Jh
+Jh
+Mg
+Ad
+bo
 xK
 xK
 xK
@@ -94283,20 +95019,20 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Jh
+vm
+ll
+ll
+ll
+iy
+gN
+gN
+gN
+Jo
+Tp
+bo
 xK
 xK
 xK
@@ -94540,22 +95276,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Jh
+en
+xT
+Vp
+Vp
+pc
+Jh
+Jh
+Jh
+mP
+Ad
+bo
+bo
+bo
 xK
 xK
 xK
@@ -94797,22 +95533,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Hj
+La
+zP
+xM
+VT
+Ad
+Mj
+Mj
+MX
+Ad
+Ad
+Ad
+Ad
+bo
 xK
 xK
 xK
@@ -95054,22 +95790,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Jh
+Jh
+fg
+hr
+Hs
+Ad
+mo
+mo
+mo
+mC
+mo
+mo
+Ad
+bo
 xK
 xK
 xK
@@ -95311,22 +96047,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Jh
+Jh
+px
+Ym
+KA
+Ad
+mo
+mo
+mo
+Bu
+mo
+mo
+Ad
+bo
 xK
 xK
 xK
@@ -95568,22 +96304,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+mo
+mo
+mo
+cu
+fw
+mo
+Ad
+bo
 xK
 xK
 xK
@@ -95807,40 +96543,40 @@ xK
 xK
 xK
 xK
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+Ad
+mo
+mo
+mo
+Pb
+mo
+mo
+Ad
+bo
 xK
 xK
 xK
@@ -96064,6 +96800,22 @@ xK
 xK
 xK
 xK
+bo
+hs
+Ad
+Ad
+Ad
+Ad
+Ad
+hs
+hs
+hs
+hs
+hs
+hs
+hs
+hs
+bo
 xK
 xK
 xK
@@ -96072,32 +96824,16 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+bo
 xK
 xK
 xK
@@ -96321,6 +97057,22 @@ xK
 xK
 xK
 xK
+bo
+Ad
+Ad
+mo
+mo
+mo
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+hs
+bo
 xK
 xK
 xK
@@ -96329,32 +97081,16 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
 xK
 xK
 xK
@@ -96578,22 +97314,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+mo
+mo
+mo
+mo
+KO
+mo
+mo
+mo
+mo
+ML
+YM
+Ad
+Ad
+bo
 xK
 xK
 xK
@@ -96835,22 +97571,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+Ym
+KA
+Ad
+bo
 xK
 xK
 xK
@@ -97092,22 +97828,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+mo
+mo
+Qy
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+Ym
+KA
+Ad
+bo
 xK
 xK
 xK
@@ -97349,22 +98085,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+Ym
+KA
+Ad
+bo
 xK
 xK
 xK
@@ -97596,32 +98332,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+Ad
+mo
+mo
+mo
+mo
+JB
+mo
+mo
+mo
+mo
+ls
+xs
+Ad
+Ad
+bo
 xK
 xK
 xK
@@ -97853,32 +98589,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+hs
+hs
+hs
+Ad
+Ad
+Ad
+Ad
+Ad
+hs
+hs
+Ad
+Ad
+mo
+mo
+mo
+Ad
+VX
+Si
+VX
+Ad
+Ad
+Ad
+Ad
+hs
+bo
 xK
 xK
 xK
@@ -98110,32 +98846,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Ad
+Ad
+Ad
+DT
+el
+DT
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Td
+kW
+iI
+Wv
+Sr
+Sr
+uF
+hs
+bo
 xK
 xK
 xK
@@ -98367,32 +99103,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+mo
+KO
+mo
+mo
+mo
+mo
+mo
+KO
+mo
+fC
+JS
+BY
+Nz
+id
+pl
+rP
+HG
+Nm
+Nm
+Nm
+YX
+Ad
+hs
+bo
 xK
 xK
 xK
@@ -98624,32 +99360,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+mo
+In
+kU
+My
+Fh
+uN
+xb
+wG
+mo
+jm
+JS
+id
+id
+id
+pl
+rP
+kF
+sl
+Kv
+Kv
+Gp
+Ad
+hs
+bo
 xK
 xK
 xK
@@ -98881,32 +99617,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+jm
+JS
+id
+id
+id
+pl
+rP
+LN
+PR
+PR
+PR
+ni
+Ad
+hs
+bo
 xK
 xK
 xK
@@ -99138,32 +99874,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+mo
+bk
+Ps
+ud
+nZ
+Vq
+KE
+gf
+mo
+jm
+JS
+id
+WP
+id
+pl
+rP
+LN
+PR
+PR
+PR
+ni
+Ad
+hs
+bo
 xK
 xK
 xK
@@ -99395,32 +100131,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+mo
+jm
+JS
+id
+id
+vJ
+iT
+rP
+LN
+PR
+PR
+PR
+ni
+Ad
+hs
+bo
 xK
 xK
 xK
@@ -99652,32 +100388,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+mo
+bJ
+YP
+vl
+qQ
+TY
+Rf
+zy
+mo
+jm
+JS
+id
+id
+cl
+cx
+jj
+Nv
+PU
+PU
+PU
+JN
+Ad
+hs
+bo
 xK
 xK
 xK
@@ -99909,32 +100645,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+mo
+JB
+mo
+mo
+mo
+mo
+mo
+JB
+mo
+jm
+JS
+id
+Ke
+TN
+Gl
+rP
+HG
+CS
+CS
+CS
+oU
+Ad
+hs
+bo
 xK
 xK
 xK
@@ -100166,32 +100902,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Ad
+Ad
+Ad
+DT
+Xq
+DT
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+HD
+za
+vX
+sB
+vX
+vX
+uF
+hs
+bo
 xK
 xK
 xK
@@ -100423,32 +101159,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+hs
+hs
+hs
+Ad
+Ad
+Ad
+Ad
+Ad
+hs
+hs
+hs
+hs
+hs
+hs
+hs
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+hs
+bo
 xK
 xK
 xK
@@ -100680,32 +101416,32 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
 xK
 xK
 xK
@@ -160080,15 +160816,15 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
 xK
 xK
 xK
@@ -160325,27 +161061,27 @@ xK
 xK
 xK
 xK
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+bo
 xK
 xK
 xK
@@ -160582,27 +161318,27 @@ xK
 xK
 xK
 xK
+bo
+hs
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+bo
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Gm
+Jh
+Jh
+uQ
+GR
+Ad
+bo
 xK
 xK
 xK
@@ -160839,27 +161575,27 @@ xK
 xK
 xK
 xK
+bo
+hs
+Ad
+WB
+WB
+RR
+WB
+WB
+Ad
+bo
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+Ad
+Gm
+Jh
+Jh
+Jh
+GR
+Ad
+bo
 xK
 xK
 xK
@@ -161096,30 +161832,30 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+hs
+Ad
+WB
+WB
+RR
+WB
+WB
+Ad
+bo
+bo
+bo
+bo
+Ad
+Ad
+Dk
+cd
+Uw
+Ad
+Ad
+bo
+bo
+bo
+bo
 xK
 xK
 xK
@@ -161353,29 +162089,29 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
 bo
-bo
-bo
-bo
-bo
-bo
-bo
-bo
-bo
-bo
-bo
-bo
-bo
-bo
+hs
+Ad
+WB
+WB
+RR
+WB
+WB
+Ad
+hs
+hs
+hs
+hs
+hs
+Ad
+Bt
+Jh
+Jh
+Ad
+hs
+hs
+hs
+hs
 bo
 bo
 bo
@@ -161610,24 +162346,24 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
 bo
 hs
+Ad
+WB
+WB
+RR
+WB
+WB
+Ad
+hs
+hs
 hs
 Ad
 Ad
 Ad
-Ad
-Ad
-Ad
+VX
+MX
+VX
 Ad
 Ad
 Ad
@@ -161867,23 +162603,23 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
 bo
+hs
+Ad
+WB
+WB
+RR
+WB
+WB
+Ad
+Ad
 Ad
 Ad
 Ad
 UF
 Ad
-sM
-Uy
+Xn
+Xn
 Xn
 Ad
 Mm
@@ -162124,17 +162860,17 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
 bo
 Ad
+Ad
+jT
+yK
+RR
+WB
+WB
+WB
+WB
+WB
 WB
 Zc
 Yb
@@ -162381,23 +163117,23 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
 bo
 Ad
+Gm
+Gm
+WB
+RR
 WB
 WB
 WB
 WB
 WB
 WB
+WB
+WB
+WB
+WB
+Yw
 WB
 WB
 WB
@@ -162638,23 +163374,23 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
 bo
 Ad
+Gm
+Gm
+WB
+fr
+ep
+ep
+ep
+ep
+ep
 ak
 ak
 ak
 ak
 ak
-ak
+bu
 ak
 ak
 ak
@@ -162895,23 +163631,23 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
 bo
 Ad
+Gm
+Gm
+WB
+Rr
 WB
 WB
 WB
 WB
 WB
 WB
+WB
+WB
+WB
+WB
+OI
 WB
 WB
 WB
@@ -163152,17 +163888,17 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
 bo
 Ad
+Ad
+ky
+SI
+Rr
+WB
+WB
+WB
+WB
+WB
 WB
 nc
 zc
@@ -163409,16 +164145,16 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
 bo
+hs
+Ad
+WB
+WB
+Rr
+WB
+WB
+Ad
+Ad
 Ad
 Ad
 Ad
@@ -163666,16 +164402,16 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
 bo
+hs
+Ad
+WB
+WB
+Rr
+WB
+WB
+Ad
+hs
 hs
 hs
 Ad
@@ -163923,15 +164659,15 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+hs
+Ad
+WB
+WB
+Rr
+WB
+WB
+Ad
 bo
 bo
 bo
@@ -164180,16 +164916,16 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+hs
+Ad
+WB
+WB
+Rr
+WB
+WB
+Ad
+bo
 xK
 xK
 xK
@@ -164437,16 +165173,16 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+hs
+Ad
+WB
+WB
+Rr
+WB
+WB
+Ad
+bo
 xK
 xK
 xK
@@ -164694,16 +165430,16 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+hs
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+bo
 xK
 xK
 xK
@@ -164951,16 +165687,16 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
+bo
 xK
 xK
 xK
