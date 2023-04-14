@@ -32,7 +32,6 @@
 			"Down": -1,
 			"Linkage": null,
 			"Gravity": true,
-			"Weather_Snowstorm": true,
 			"Baseturf": "/turf/open/openspace",
 			"No Parallax": true
 		}
