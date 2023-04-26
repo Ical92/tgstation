@@ -84,6 +84,25 @@
 /obj/machinery/vending/wardrobe/hydro_wardrobe,
 /turf/open/floor/wood,
 /area/awaymission/secret/powered)
+"bP" = (
+/obj/structure/stairs/south,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/stairs/medium{
+	dir = 1
+	},
+/area/awaymission/secret/powered)
+"bT" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"bW" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
 "cd" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -95,10 +114,8 @@
 /turf/open/floor/wood/tile,
 /area/awaymission/secret/powered)
 "cq" = (
-/obj/structure/railing{
-	dir = 8
-	},
 /obj/machinery/light/small/red/dim/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "cu" = (
@@ -193,6 +210,10 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/cafeteria,
 /area/awaymission/secret/powered)
+"eg" = (
+/obj/machinery/door/window/left/directional/south,
+/turf/open/floor/catwalk_floor,
+/area/awaymission/secret/powered)
 "el" = (
 /obj/structure/table,
 /obj/machinery/light/directional/west,
@@ -215,8 +236,8 @@
 /turf/open/floor/iron/white/herringbone,
 /area/awaymission/secret/powered)
 "eH" = (
-/obj/effect/decal/fakelattice,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
+/obj/structure/lattice,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "eV" = (
@@ -262,6 +283,10 @@
 	},
 /turf/open/floor/wood,
 /area/awaymission/secret/powered)
+"fF" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/catwalk_floor,
+/area/awaymission/secret/powered)
 "fG" = (
 /obj/effect/turf_decal/trimline/yellow/corner,
 /obj/effect/turf_decal/trimline/blue/warning{
@@ -278,11 +303,33 @@
 /obj/machinery/vending/wardrobe/jani_wardrobe,
 /turf/open/floor/wood,
 /area/awaymission/secret/powered)
+"gq" = (
+/obj/effect/turf_decal/trimline/yellow/warning,
+/obj/effect/turf_decal/stripes{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
 "gt" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
 /turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"gy" = (
+/obj/machinery/computer/department_orders/science{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/secret/powered)
+"gM" = (
+/obj/structure/table/reinforced,
+/obj/item/pipe_dispenser{
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/obj/item/pipe_dispenser,
+/turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
 "gN" = (
 /obj/effect/turf_decal/trimline/red/line{
@@ -294,17 +341,22 @@
 /turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 "gW" = (
-/obj/effect/decal/fakelattice,
-/obj/effect/decal/fakelattice,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
 /obj/structure/cable,
 /obj/structure/cable,
+/obj/structure/lattice,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
+"ha" = (
+/obj/effect/turf_decal/box/red/corners{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/secret/powered)
 "hn" = (
-/obj/effect/decal/fakelattice,
 /obj/structure/cable,
+/obj/structure/lattice,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "hr" = (
@@ -319,10 +371,8 @@
 /turf/closed/mineral/random/jungle,
 /area/awaymission/secret/powered)
 "hu" = (
-/obj/structure/railing{
-	dir = 1
-	},
 /obj/machinery/light/small/red/dim/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "hz" = (
@@ -361,6 +411,7 @@
 /area/awaymission/secret/powered)
 "hY" = (
 /obj/machinery/light/red/dim/directional/west,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/catwalk_floor,
 /area/awaymission/secret/powered)
 "id" = (
@@ -518,6 +569,13 @@
 	},
 /turf/open/floor/iron/white/herringbone,
 /area/awaymission/secret/powered)
+"kA" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/green/corner,
+/turf/open/floor/iron/white,
+/area/awaymission/secret/powered)
 "kF" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/siding/wood/corner{
@@ -581,22 +639,32 @@
 "mo" = (
 /turf/open/floor/wood,
 /area/awaymission/secret/powered)
-"mw" = (
-/obj/effect/decal/fakelattice,
-/obj/effect/decal/fakelattice,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
-/obj/structure/cable,
-/turf/open/openspace,
+"my" = (
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 "mC" = (
 /obj/machinery/light/warm/directional/west,
 /turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"mN" = (
+/obj/machinery/light/cold/directional/west,
+/turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
 "mP" = (
 /obj/effect/turf_decal/trimline/red/end{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"mX" = (
+/obj/machinery/rnd/production/protolathe/department/science,
+/turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
 "nc" = (
 /obj/effect/turf_decal/trimline/green/corner,
@@ -649,6 +717,17 @@
 "oJ" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"oO" = (
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 1
+	},
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = -6
 	},
 /turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
@@ -705,13 +784,6 @@
 	},
 /turf/open/floor/iron/white/herringbone,
 /area/awaymission/secret/powered)
-"ps" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/railing/corner,
-/turf/open/openspace,
-/area/awaymission/secret/powered)
 "px" = (
 /obj/effect/turf_decal/trimline/red/warning,
 /turf/open/floor/iron/dark,
@@ -728,14 +800,6 @@
 /obj/effect/landmark/observer_start,
 /turf/open/misc/dirt/jungle/dark,
 /area/awaymission)
-"qf" = (
-/obj/effect/decal/fakelattice,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
-/obj/structure/cable,
-/turf/open/openspace,
-/area/awaymission/secret/powered)
 "qy" = (
 /turf/open/floor/iron/kitchen,
 /area/awaymission/secret/powered)
@@ -755,6 +819,10 @@
 	},
 /obj/machinery/light/red/directional/north,
 /turf/open/indestructible/dark,
+/area/awaymission/secret/powered)
+"rM" = (
+/obj/effect/turf_decal/trimline/green/line,
+/turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
 "rP" = (
 /obj/effect/turf_decal/siding/wood{
@@ -804,6 +872,7 @@
 /area/awaymission/secret/powered)
 "sw" = (
 /obj/structure/table/reinforced,
+/obj/item/disk/tech_disk/debug,
 /turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
 "sB" = (
@@ -819,8 +888,18 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/awaymission/secret/powered)
+"sS" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/material,
+/turf/open/floor/iron/white,
+/area/awaymission/secret/powered)
 "tX" = (
 /turf/open/misc/dirt/jungle/dark,
+/area/awaymission/secret/powered)
+"tZ" = (
+/obj/structure/flora/bush/jungle/c/style_random,
+/obj/structure/window/reinforced/spawner/directional/north,
+/turf/open/misc/grass/jungle,
 /area/awaymission/secret/powered)
 "ud" = (
 /obj/machinery/vending/wardrobe/science_wardrobe,
@@ -873,6 +952,12 @@
 /obj/machinery/portable_atmospherics/canister/hydrogen,
 /turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
+"vb" = (
+/obj/machinery/computer/rdconsole{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/secret/powered)
 "vd" = (
 /obj/effect/turf_decal/trimline/green/corner{
 	dir = 1
@@ -880,10 +965,8 @@
 /turf/open/floor/iron/white/textured_large,
 /area/awaymission/secret/powered)
 "vj" = (
-/obj/structure/railing{
-	dir = 1
-	},
 /obj/machinery/light/small/red/dim/directional/west,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "vl" = (
@@ -965,9 +1048,7 @@
 /turf/open/misc/grass/jungle,
 /area/awaymission/secret/powered)
 "xx" = (
-/obj/structure/railing{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "xB" = (
@@ -975,8 +1056,8 @@
 /turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
 "xI" = (
-/obj/effect/decal/fakelattice,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
+/obj/structure/lattice,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "xK" = (
@@ -992,10 +1073,10 @@
 /turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 "xW" = (
-/obj/effect/decal/fakelattice,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
 /obj/structure/cable,
+/obj/structure/lattice,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "xZ" = (
@@ -1005,13 +1086,9 @@
 /turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "yx" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/railing{
-	dir = 4
-	},
 /obj/machinery/light/small/red/dim/directional/south,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "yy" = (
@@ -1062,9 +1139,9 @@
 	},
 /area/awaymission/secret/powered)
 "zr" = (
-/obj/effect/decal/fakelattice,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
 /obj/structure/cable,
+/obj/structure/lattice,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "zs" = (
@@ -1109,19 +1186,16 @@
 /area/awaymission/secret/powered)
 "zZ" = (
 /obj/machinery/light/red/dim/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/catwalk_floor,
 /area/awaymission/secret/powered)
 "Ad" = (
 /turf/closed/wall,
 /area/awaymission/secret/powered)
 "Ah" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/railing{
-	dir = 8
-	},
 /obj/machinery/light/small/red/dim/directional/south,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "Aj" = (
@@ -1188,6 +1262,10 @@
 /obj/machinery/oven,
 /turf/open/floor/iron/kitchen,
 /area/awaymission/secret/powered)
+"BC" = (
+/obj/effect/turf_decal/box/red/corners,
+/turf/open/floor/iron/white,
+/area/awaymission/secret/powered)
 "BD" = (
 /obj/machinery/door/airlock/science/glass,
 /turf/open/floor/iron/white,
@@ -1225,6 +1303,9 @@
 /area/awaymission/secret/powered)
 "CD" = (
 /obj/machinery/light/cold/directional/east,
+/obj/effect/turf_decal/siding/dark/corner{
+	dir = 4
+	},
 /turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
 "CO" = (
@@ -1262,6 +1343,12 @@
 	},
 /turf/open/floor/iron/white/textured_large,
 /area/awaymission/secret/powered)
+"Dz" = (
+/obj/effect/turf_decal/box/red/corners{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/secret/powered)
 "DF" = (
 /obj/structure/railing{
 	dir = 4
@@ -1274,6 +1361,12 @@
 /obj/machinery/light/cold/directional/north,
 /turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
+"DL" = (
+/obj/structure/flora/rock/pile/jungle/style_random,
+/obj/structure/flora/bush/jungle/a/style_random,
+/obj/structure/window/reinforced/spawner/directional/north,
+/turf/open/misc/grass/jungle,
+/area/awaymission/secret/powered)
 "DT" = (
 /obj/structure/table,
 /turf/open/floor/wood,
@@ -1281,12 +1374,6 @@
 "DZ" = (
 /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
-/area/awaymission/secret/powered)
-"Eb" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/openspace,
 /area/awaymission/secret/powered)
 "Ec" = (
 /turf/closed/indestructible/riveted,
@@ -1336,6 +1423,12 @@
 "Fh" = (
 /obj/machinery/vending/wardrobe/cargo_wardrobe,
 /turf/open/floor/wood,
+/area/awaymission/secret/powered)
+"Fp" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 "Fx" = (
 /obj/machinery/camera/preset/ordnance{
@@ -1453,6 +1546,12 @@
 	},
 /turf/open/floor/carpet/green,
 /area/awaymission/secret/powered)
+"HF" = (
+/obj/structure/flora/bush/jungle/c/style_random,
+/obj/structure/flora/rock/pile/jungle/style_random,
+/obj/structure/window/reinforced/spawner/directional/north,
+/turf/open/misc/grass/jungle,
+/area/awaymission/secret/powered)
 "HG" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/carpet/green,
@@ -1461,13 +1560,15 @@
 /obj/machinery/light/red/directional/north,
 /turf/open/indestructible/dark,
 /area/awaymission/secret/powered)
+"HL" = (
+/obj/effect/turf_decal/trimline/yellow/warning,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
 "Im" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/railing/corner{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "In" = (
@@ -1487,15 +1588,17 @@
 /turf/open/floor/iron/white/textured_large,
 /area/awaymission/secret/powered)
 "IC" = (
-/obj/structure/railing{
-	dir = 4
-	},
 /obj/machinery/light/small/red/dim/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "IG" = (
 /turf/closed/mineral/random/jungle,
 /area/space)
+"IO" = (
+/obj/structure/railing/corner,
+/turf/open/floor/iron/white,
+/area/awaymission/secret/powered)
 "Jf" = (
 /obj/machinery/door/airlock,
 /turf/open/floor/wood,
@@ -1587,9 +1690,9 @@
 /turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "KG" = (
-/obj/effect/decal/fakelattice,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
+/obj/structure/lattice,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "KN" = (
@@ -1610,14 +1713,26 @@
 /turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 "Ld" = (
-/obj/structure/railing{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/openspace,
+/area/awaymission/secret/powered)
+"Lt" = (
+/obj/machinery/light/cold/directional/east,
+/obj/effect/turf_decal/siding/dark/corner,
+/turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
 "LN" = (
 /obj/structure/railing,
 /turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"LP" = (
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 4
+	},
+/obj/effect/turf_decal/arrows{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 "Mg" = (
 /obj/effect/turf_decal/trimline/red/end{
@@ -1637,6 +1752,12 @@
 /obj/machinery/light/cold/directional/west,
 /turf/open/misc/grass/jungle,
 /area/awaymission/secret/powered)
+"Mr" = (
+/obj/machinery/atmospherics/components/binary/volume_pump{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
 "My" = (
 /obj/machinery/vending/wardrobe/cent_wardrobe,
 /turf/open/floor/wood,
@@ -1650,6 +1771,9 @@
 "MX" = (
 /obj/machinery/door/airlock/security/glass,
 /turf/open/floor/iron/dark/textured,
+/area/awaymission/secret/powered)
+"Nf" = (
+/turf/open/floor/glass/reinforced,
 /area/awaymission/secret/powered)
 "Ni" = (
 /obj/machinery/light/red/directional/east,
@@ -1670,6 +1794,10 @@
 "Nz" = (
 /obj/machinery/light/dim/directional/west,
 /turf/open/floor/wood/tile,
+/area/awaymission/secret/powered)
+"NK" = (
+/obj/machinery/light/cold/directional/east,
+/turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
 "NM" = (
 /obj/effect/turf_decal/trimline/yellow/warning{
@@ -1696,6 +1824,12 @@
 /obj/machinery/light/red/directional/west,
 /turf/open/indestructible/dark,
 /area/awaymission/secret/powered)
+"Om" = (
+/obj/effect/turf_decal/box/red/corners{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/secret/powered)
 "Oo" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/iron/cafeteria,
@@ -1710,6 +1844,13 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white/herringbone,
+/area/awaymission/secret/powered)
+"OW" = (
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/trimline/green/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
 "Pb" = (
 /obj/machinery/light/warm/directional/east,
@@ -1757,6 +1898,10 @@
 	pixel_y = 4
 	},
 /turf/open/floor/iron/kitchen,
+/area/awaymission/secret/powered)
+"PK" = (
+/obj/machinery/atmospherics/components/trinary/filter,
+/turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 "PR" = (
 /obj/structure/railing,
@@ -1852,12 +1997,11 @@
 /turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "Rl" = (
-/obj/effect/decal/fakelattice,
-/obj/effect/decal/fakelattice,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
 /obj/structure/cable,
+/obj/structure/lattice,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "Rr" = (
@@ -1879,6 +2023,14 @@
 	dir = 1
 	},
 /area/awaymission/secret/powered)
+"Sc" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/stairs/medium{
+	dir = 1
+	},
+/area/awaymission/secret/powered)
 "Si" = (
 /obj/machinery/door/airlock/glass,
 /turf/open/floor/wood,
@@ -1892,6 +2044,11 @@
 	pixel_y = -16
 	},
 /turf/open/floor/iron/white/textured_large,
+/area/awaymission/secret/powered)
+"Sn" = (
+/obj/structure/flora/bush/jungle/b/style_random,
+/obj/structure/window/reinforced/spawner/directional/north,
+/turf/open/misc/grass/jungle,
 /area/awaymission/secret/powered)
 "Sr" = (
 /obj/effect/turf_decal/siding/wood{
@@ -1987,14 +2144,21 @@
 	dir = 8
 	},
 /area/awaymission/secret/powered)
+"Uu" = (
+/obj/effect/turf_decal/trimline/yellow/warning,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
 "Uw" = (
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 "UE" = (
-/obj/effect/decal/fakelattice,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
 /obj/structure/cable,
+/obj/structure/lattice,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "UF" = (
@@ -2002,6 +2166,12 @@
 /obj/structure/flora/rock/pile/jungle/style_random,
 /obj/machinery/light/cold/directional/west,
 /turf/open/misc/grass/jungle,
+/area/awaymission/secret/powered)
+"UN" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
 "Va" = (
 /obj/effect/turf_decal/box/white/corners,
@@ -2133,7 +2303,7 @@
 /turf/open/misc/grass/jungle,
 /area/awaymission/secret/powered)
 "YO" = (
-/obj/structure/railing,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "YP" = (
@@ -2179,6 +2349,12 @@
 /area/awaymission/secret/powered)
 "ZA" = (
 /turf/open/floor/iron,
+/area/awaymission/secret/powered)
+"ZE" = (
+/obj/machinery/atmospherics/components/binary/tank_compressor{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
 /area/awaymission/secret/powered)
 
 (1,1,1) = {"
@@ -91679,21 +91855,21 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
 xK
 xK
 xK
@@ -91936,21 +92112,21 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+vM
+vM
+vM
+mN
+vM
+vM
+vM
+vM
+mN
+vM
+vM
+rM
+HF
+Ad
 xK
 xK
 Ad
@@ -92193,21 +92369,21 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+vM
+ha
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+Om
+rM
+Sn
+Ad
 xK
 xK
 Ad
@@ -92450,29 +92626,29 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+OW
+Ad
+Ad
+Ad
 xK
 Ad
 xI
-mw
 UE
 UE
-qf
+UE
+Rl
 xW
 xW
 Ad
@@ -92707,22 +92883,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+UN
+hr
+Hs
+Ad
 xK
 Ad
 Gm
@@ -92964,22 +93140,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+da
+vM
+Nf
+Nf
+Nf
+Nf
+Nf
+Nf
+Nf
+Nf
+vM
+vM
+Ym
+KA
+Ad
 xK
 Ad
 Gm
@@ -93221,22 +93397,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+IO
+Sc
+bP
+Ad
 xK
 Ad
 KG
@@ -93478,22 +93654,22 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+kA
+Ad
+Ad
+Ad
 xK
 Ad
 Gm
@@ -93735,21 +93911,21 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+vM
+Dz
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+vM
+BC
+rM
+DL
+Ad
 xK
 xK
 Ad
@@ -93992,21 +94168,21 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+vM
+vM
+vM
+NK
+vM
+vM
+vM
+vM
+NK
+vM
+vM
+rM
+tZ
+Ad
 xK
 xK
 Ad
@@ -94249,21 +94425,21 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
 xK
 xK
 xK
@@ -157493,7 +157669,7 @@ hP
 vx
 vx
 vx
-vx
+my
 vx
 vx
 vx
@@ -157501,7 +157677,7 @@ PV
 aM
 vM
 vM
-vM
+gy
 Ad
 DJ
 wy
@@ -157746,12 +157922,12 @@ xK
 Ad
 da
 xB
-NM
+oO
 Ad
 cq
 Ld
 Ld
-ps
+Ld
 yx
 Ad
 oj
@@ -157998,8 +158174,8 @@ xK
 xK
 xK
 xK
-xK
-xK
+Ad
+Ad
 Ad
 vM
 xB
@@ -158255,9 +158431,9 @@ xK
 xK
 xK
 xK
-xK
-xK
 Ad
+Gm
+Gm
 vM
 xB
 BU
@@ -158267,8 +158443,8 @@ Gm
 Gm
 YO
 QH
-QH
-oj
+fF
+Uu
 aM
 vM
 vM
@@ -158512,9 +158688,9 @@ xK
 xK
 xK
 xK
-xK
-xK
 Ad
+Gm
+Gm
 vM
 xB
 Am
@@ -158524,12 +158700,12 @@ Gm
 Gm
 jJ
 QH
-QH
-oj
+eg
+gq
 aM
 vM
 vM
-vM
+mX
 Ad
 DJ
 wy
@@ -158769,9 +158945,9 @@ xK
 xK
 xK
 xK
-xK
-xK
 Ad
+Gm
+Gm
 vM
 cC
 QY
@@ -158781,8 +158957,8 @@ Gm
 Gm
 YO
 QH
-QH
-oj
+fF
+HL
 aM
 vM
 vM
@@ -159026,8 +159202,8 @@ xK
 xK
 xK
 xK
-xK
-xK
+Ad
+Ad
 Ad
 vM
 xB
@@ -159043,7 +159219,7 @@ oj
 aM
 vM
 FT
-sw
+sS
 VX
 QT
 wy
@@ -159291,8 +159467,8 @@ xB
 NM
 Ad
 IC
-Eb
-Eb
+Im
+Im
 Im
 Ah
 Ad
@@ -159300,7 +159476,7 @@ oj
 aM
 vM
 vM
-sw
+gM
 VX
 QT
 wy
@@ -159549,7 +159725,7 @@ um
 km
 km
 km
-km
+LP
 km
 km
 km
@@ -159557,7 +159733,7 @@ ax
 aM
 vM
 vM
-vM
+vb
 Ad
 DJ
 wy
@@ -160060,11 +160236,11 @@ Ad
 vM
 vM
 vM
-vM
-CD
-vM
-vM
-vM
+Lt
+lJ
+lJ
+lJ
+lJ
 CD
 vM
 vM
@@ -160318,10 +160494,10 @@ Ad
 Ad
 Ad
 Ad
-Ad
-Ad
-Ad
-Ad
+km
+km
+km
+km
 Ad
 qc
 qc
@@ -160574,11 +160750,11 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
+Ad
+bT
+bT
+bT
+Fp
 Ad
 Ox
 ur
@@ -160831,11 +161007,11 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
+Ad
+ZE
+bW
+Mr
+Jh
 Ad
 Wc
 ur
@@ -161088,11 +161264,11 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
+Ad
+bT
+PK
+bT
+Fp
 Ad
 Ad
 Ad
@@ -161345,12 +161521,12 @@ xK
 xK
 xK
 xK
-xK
-xK
-xK
-xK
-xK
-xK
+Ad
+Ad
+Ad
+Ad
+Ad
+Ad
 xK
 xK
 xK
