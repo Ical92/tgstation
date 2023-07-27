@@ -9,7 +9,7 @@
 
 /obj/item/bodypart/chest/bovine
 	icon = 'icons/mob/species/bovine/bodyparts.dmi'
-	icon_state = "bovine_chest_m"
+	icon_state = "bovine_chest"
 	icon_static = 'icons/mob/species/bovine/bodyparts.dmi'
 	limb_id = SPECIES_BOVINE
 	is_dimorphic = FALSE
