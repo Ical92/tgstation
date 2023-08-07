@@ -39,6 +39,7 @@
 	RegisterSignal(server, COMSIG_BITRUNNER_DOMAIN_COMPLETE, PROC_REF(on_domain_completed))
 	RegisterSignal(server, COMSIG_BITRUNNER_SEVER_AVATAR, PROC_REF(on_sever_connection))
 	RegisterSignal(server, COMSIG_BITRUNNER_SHUTDOWN_ALERT, PROC_REF(on_shutting_down))
+	RegisterSignal(server, COMSIG_BITRUNNER_THREAT_CREATED, PROC_REF(on_threat_created))
 	RegisterSignal(src, COMSIG_BITRUNNER_SAFE_DISCONNECT, PROC_REF(on_safe_disconnect))
 	RegisterSignal(src, COMSIG_MIND_TRANSFERRED, PROC_REF(on_mind_transfer))
 
@@ -56,6 +57,10 @@
 
 /// Unregisters damage & death signals
 /datum/mind/proc/disconnect_avatar_signals()
+	var/datum/action/avatar_domain_info/action = locate() in current.actions
+	if(action)
+		action.Remove(current)
+
 	UnregisterSignal(current, COMSIG_MOB_APPLY_DAMAGE)
 	UnregisterSignal(current, COMSIG_LIVING_DEATH)
 
@@ -85,7 +90,7 @@
 	current.playsound_local(current, 'sound/machines/terminal_success.ogg', 50, TRUE)
 	current.throw_alert(
 		ALERT_BITRUNNER_COMPLETED,
-		/atom/movable/screen/alert/qserver_domain_complete,
+		/atom/movable/screen/alert/bitrunning/qserver_domain_complete,
 		new_master = entered
 	)
 
@@ -107,6 +112,11 @@
 /datum/mind/proc/on_mind_transfer(datum/mind/source, mob/living/previous_body)
 	SIGNAL_HANDLER
 
+	var/datum/action/avatar_domain_info/action = locate() in previous_body.actions
+	if(action)
+		action.Grant(current)
+		action.Remove(previous_body)
+
 	disconnect_avatar_signals(previous_body)
 	connect_avatar_signals(current)
 
@@ -117,7 +127,7 @@
 	current.playsound_local(current, 'sound/machines/terminal_alert.ogg', 50, TRUE)
 	current.throw_alert(
 		ALERT_BITRUNNER_CROWBAR,
-		/atom/movable/screen/alert/netpod_crowbar,
+		/atom/movable/screen/alert/bitrunning/netpod_crowbar,
 		new_master = intruder
 	)
 
@@ -127,7 +137,7 @@
 
 	current.throw_alert(
 		ALERT_BITRUNNER_INTEGRITY,
-		/atom/movable/screen/alert/netpod_damaged,
+		/atom/movable/screen/alert/bitrunning/netpod_damaged,
 		new_master = source
 	)
 
@@ -144,12 +154,22 @@
 	full_avatar_disconnect(forced = TRUE, broken_netpod = broken_netpod)
 
 /// Triggers when the server is shutting down
-/datum/mind/proc/on_shutting_down(datum/source, obj/machinery/quantum_server/server)
+/datum/mind/proc/on_shutting_down(datum/source, mob/living/hackerman)
 	SIGNAL_HANDLER
 
 	current.playsound_local(current, 'sound/machines/terminal_alert.ogg', 50, TRUE)
 	current.throw_alert(
 		ALERT_BITRUNNER_SHUTDOWN,
-		/atom/movable/screen/alert/qserver_shutting_down,
-		new_master = server
+		/atom/movable/screen/alert/bitrunning/qserver_shutting_down,
+		new_master = hackerman,
+	)
+
+/// Server has spawned a ghost role threat
+/datum/mind/proc/on_threat_created(datum/source)
+	SIGNAL_HANDLER
+
+	current.throw_alert(
+		ALERT_BITRUNNER_THREAT,
+		/atom/movable/screen/alert/bitrunning/qserver_threat_spawned,
+		new_master = source,
 	)

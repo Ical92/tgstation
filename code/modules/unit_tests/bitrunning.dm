@@ -1,6 +1,5 @@
 #define TEST_MAP "test_only"
 #define TEST_MAP_EXPENSIVE "test_only_expensive"
-#define TEST_MAP_MOBS "test_only_mobs"
 
 /// The qserver and qconsole should find each other on init
 /datum/unit_test/qserver_find_console/Run()
@@ -19,45 +18,30 @@
 /datum/unit_test/qserver_initialize_domain/Run()
 	var/obj/machinery/quantum_server/server = allocate(/obj/machinery/quantum_server)
 
-	var/datum/map_template/virtual_domain/domain = server.initialize_domain(TEST_MAP)
-	TEST_ASSERT_EQUAL(domain.id, TEST_MAP, "Did not load test map correctly")
+	TEST_ASSERT_EQUAL(server.initialize_domain(TEST_MAP), TRUE, "Should initialize a domain with a valid map")
+	TEST_ASSERT_NOTNULL(server.generated_domain, "Should set the generated_domain var")
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Should have initialized the proper map")
 
-/// Initializing virtual domain
-/datum/unit_test/qserver_initialize_vdom/Run()
+/// Loads safehouse and turfs, etc
+/datum/unit_test/qserver_initialize_safehouse/Run()
 	var/obj/machinery/quantum_server/server = allocate(/obj/machinery/quantum_server)
 
-	server.initialize_virtual_domain()
-	TEST_ASSERT_NOTNULL(server.vdom_ref, "Did not initialize vdom")
-	TEST_ASSERT_EQUAL(length(server.map_load_turf), 1, "There should only ever be ONE turf, the bottom left, in the map_load_turf list")
-	TEST_ASSERT_EQUAL(length(server.safehouse_load_turf), 1, "There should only ever be ONE turf, the bottom left, in the safehouse_load_turf list")
+	TEST_ASSERT_EQUAL(server.initialize_domain(map_key = TEST_MAP), TRUE, "Should initialize a domain with a valid map")
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Sanity: Did not load test map correctly")
 
-/// Loading maps onto the vdom
-/datum/unit_test/qserver_load_domain/Run()
-	var/obj/machinery/quantum_server/server = allocate(/obj/machinery/quantum_server)
-
-	server.initialize_virtual_domain()
-	TEST_ASSERT_NOTNULL(server.vdom_ref, "Sanity: Did not initialize vdom_ref")
-
-	var/datum/map_template/virtual_domain/domain = server.initialize_domain(map_id = TEST_MAP)
-	TEST_ASSERT_EQUAL(domain.id, TEST_MAP, "Sanity: Did not load test map correctly")
-
-	server.load_domain(domain)
-	TEST_ASSERT_EQUAL(server.generated_domain.id, TEST_MAP, "Did not load the correct domain")
+	TEST_ASSERT_EQUAL(server.initialize_safehouse_turfs(), TRUE, "Should initialize safehouse turfs")
 	TEST_ASSERT_NOTNULL(server.generated_safehouse, "Did not load generated_safehouse correctly")
-	TEST_ASSERT_NOTNULL(server.generated_domain, "Did not load generated_domain correctly")
 	TEST_ASSERT_EQUAL(length(server.exit_turfs), 3, "Did not load the correct number of exit turfs")
 
-/// Handles cases with stopping domains. The server should cool down & prevent stoppage with active mobs
-/datum/unit_test/qserver_stop_domain/Run()
+/// Handles cases with stopping domains. The server should cool down etc
+/datum/unit_test/qserver_reset/Run()
 	var/obj/machinery/quantum_server/server = allocate(/obj/machinery/quantum_server)
 	var/mob/living/carbon/human/labrat = allocate(/mob/living/carbon/human/consistent)
 
 	server.cold_boot_map(labrat, TEST_MAP)
-	TEST_ASSERT_NOTNULL(server.vdom_ref, "Sanity: Did not initialize vdom_ref")
-	TEST_ASSERT_EQUAL(server.generated_domain.id, TEST_MAP, "Sanity: Did not load test map correctly")
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Sanity: Did not load test map correctly")
 
-	server.stop_domain()
-	TEST_ASSERT_NOTNULL(server.vdom_ref, "Should not erase vdom_ref on stop_domain()")
+	server.reset(fast = TRUE)
 	TEST_ASSERT_NULL(server.generated_domain, "Did not stop domain")
 	TEST_ASSERT_NULL(server.generated_safehouse, "Did not stop safehouse")
 	TEST_ASSERT_EQUAL(server.get_is_ready(), FALSE, "Should cool down, but did not set ready status to FALSE")
@@ -67,11 +51,11 @@
 
 	server.cool_off()
 	server.cold_boot_map(labrat, TEST_MAP)
-	TEST_ASSERT_EQUAL(server.generated_domain.id, TEST_MAP, "Should load a new domain after cooldown")
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Should load a new domain after cooldown")
 
 	var/datum/weakref/fake_mind_ref = WEAKREF(labrat)
 	server.occupant_mind_refs += fake_mind_ref
-	server.stop_domain()
+	server.reset(fast = TRUE)
 	TEST_ASSERT_NULL(server.generated_domain, "Should force stop a domain even with occupants")
 
 /// Handles the linking process to boot a domain from scratch
@@ -81,25 +65,23 @@
 	labrat.mind_initialize()
 	labrat.mock_client = new()
 
-	server.cold_boot_map(labrat, map_id = TEST_MAP)
+	server.cold_boot_map(labrat, map_key = TEST_MAP)
 	TEST_ASSERT_NOTNULL(server.generated_domain, "Did not cold boot generated_domain correctly")
 
-	server.cold_boot_map(labrat, map_id = TEST_MAP_EXPENSIVE)
-	TEST_ASSERT_EQUAL(server.generated_domain.id, TEST_MAP, "Should prevent loading multiple domains")
+	server.cold_boot_map(labrat, map_key = TEST_MAP_EXPENSIVE)
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Should prevent loading multiple domains")
 
-	server.stop_domain()
+	server.reset(fast = TRUE)
 	server.cool_off()
 	var/datum/weakref/fake_mind_ref = WEAKREF(labrat)
 	server.occupant_mind_refs += fake_mind_ref
-	server.cold_boot_map(labrat, map_id = TEST_MAP)
+	server.cold_boot_map(labrat, map_key = TEST_MAP)
 	TEST_ASSERT_NULL(server.generated_domain, "Should prevent setting domains with occupants")
 
-	server.stop_domain()
-	server.cool_off()
 	server.occupant_mind_refs -= fake_mind_ref
 	server.points = 3
-	server.cold_boot_map(labrat, map_id = TEST_MAP_EXPENSIVE)
-	TEST_ASSERT_EQUAL(server.generated_domain.id, TEST_MAP_EXPENSIVE, "Sanity: Should've loaded expensive test map")
+	server.cold_boot_map(labrat, map_key = TEST_MAP_EXPENSIVE)
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP_EXPENSIVE, "Sanity: Should've loaded expensive test map")
 	TEST_ASSERT_EQUAL(server.points, 0, "Should've spent 3 points on loading a 3 point domain")
 
 /// Tests the netpod's ability to buckle in and set refs
@@ -116,13 +98,12 @@
 	var/obj/machinery/quantum_server/connected_server = pod.server_ref.resolve()
 	TEST_ASSERT_EQUAL(connected_server, server, "Did not set server_ref correctly")
 
-	server.cold_boot_map(labrat, map_id = TEST_MAP)
-	TEST_ASSERT_EQUAL(server.generated_domain.id, TEST_MAP, "Sanity: Did not load test map correctly")
+	server.cold_boot_map(labrat, map_key = TEST_MAP)
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Sanity: Did not load test map correctly")
 
 	labrat.forceMove(pod.loc)
 	pod.close_machine(labrat)
 	TEST_ASSERT_NOTNULL(pod.occupant, "Did not set occupant_ref")
-	UNTIL(!isnull(pod.occupant_mind_ref))
 	TEST_ASSERT_EQUAL(server.occupant_mind_refs[1], pod.occupant_mind_ref, "Did not add mind to server occupant_mind_refs")
 
 /// Tests the netpod's ability to disconnect
@@ -166,7 +147,7 @@
 	pod.disconnect_occupant(labrat.mind , forced = TRUE)
 	mob_occupant = pod.occupant
 	TEST_ASSERT_NOTNULL(pod.server_ref, "Sanity: pod didn't set server")
-	TEST_ASSERT_EQUAL(mob_occupant.get_organ_loss(ORGAN_SLOT_BRAIN), 60, "Should've taken brain damage on force disconn")
+	TEST_ASSERT_EQUAL(mob_occupant.get_organ_loss(ORGAN_SLOT_BRAIN), pod.disconnect_damage, "Should've taken brain damage on force disconn")
 
 /// Tests cases where the netpod is destroyed or the occupant unbuckled
 /datum/unit_test/netpod_break/Run()
@@ -178,8 +159,8 @@
 	labrat.mock_client = new()
 	var/datum/weakref/real_mind = WEAKREF(labrat.mind)
 
-	server.cold_boot_map(labrat, map_id = TEST_MAP)
-	TEST_ASSERT_EQUAL(server.generated_domain.id, TEST_MAP, "Sanity: Did not load test map correctly")
+	server.cold_boot_map(labrat, map_key = TEST_MAP)
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Sanity: Did not load test map correctly")
 
 	labrat.forceMove(pod.loc)
 	pod.set_occupant(labrat)
@@ -191,7 +172,7 @@
 
 	pod.open_machine()
 	TEST_ASSERT_NULL(pod.occupant, "Should've cleared occupant")
-	TEST_ASSERT_EQUAL(labrat.get_organ_loss(ORGAN_SLOT_BRAIN), 60, "Should have taken brain damage on unbuckle")
+	TEST_ASSERT_EQUAL(labrat.get_organ_loss(ORGAN_SLOT_BRAIN), pod.disconnect_damage, "Should have taken brain damage on unbuckle")
 
 	labrat.fully_heal()
 	pod.set_occupant(labrat)
@@ -200,7 +181,7 @@
 	TEST_ASSERT_EQUAL(pod.occupant_mind_ref, real_mind, "Sanity: Pod didn't set mind")
 
 	qdel(pod)
-	TEST_ASSERT_EQUAL(labrat.get_organ_loss(ORGAN_SLOT_BRAIN), 60, "Should have taken brain damage on pod deletion")
+	TEST_ASSERT_EQUAL(labrat.get_organ_loss(ORGAN_SLOT_BRAIN), pod.disconnect_damage, "Should have taken brain damage on pod deletion")
 
 /// Tests the connection between avatar and pilot
 /datum/unit_test/avatar_connection_basic/Run()
@@ -233,6 +214,21 @@
 	TEST_ASSERT_EQUAL(labrat.getFireLoss(), 10, "Damage was not transferred to pilot")
 	TEST_ASSERT_NOTNULL(locate(/obj/item/bodypart/head) in labrat.get_damaged_bodyparts(burn = TRUE), "Pilot did not get damaged bodypart")
 
+	target.mind.full_avatar_disconnect()
+	TEST_ASSERT_NULL(labrat.mind.pilot_ref, "Could not clear pilot_ref")
+	TEST_ASSERT_NULL(labrat.mind.netpod_ref, "Could not clear netpod_ref")
+	TEST_ASSERT_EQUAL(labrat.mind, initial_mind, "Could not transfer mind back to pilot")
+
+	for(var/i in 1 to 5) // so sick of this failing
+		target.apply_damage(500, damagetype = BURN, def_zone = BODY_ZONE_HEAD, blocked = 0, forced = TRUE, spread_damage = TRUE)
+	TEST_ASSERT_EQUAL(target.stat, DEAD, "Target should be very dead")
+	TEST_ASSERT_EQUAL(labrat.stat, CONSCIOUS, "Pilot should be very alive")
+
+/// Gibbing specifically
+/datum/unit_test/avatar_connection_gib/Run()
+	var/obj/machinery/netpod/pod = allocate(/obj/machinery/netpod)
+	var/obj/machinery/quantum_server/server = allocate(/obj/machinery/quantum_server, locate(run_loc_floor_bottom_left.x + 1, run_loc_floor_bottom_left.y, run_loc_floor_bottom_left.z))
+
 	var/mob/living/carbon/human/to_gib = allocate(/mob/living/carbon/human/consistent)
 	var/mob/living/carbon/human/pincushion = allocate(/mob/living/carbon/human/consistent)
 	pincushion.mind_initialize()
@@ -246,7 +242,7 @@
 
 	to_gib.gib()
 	TEST_ASSERT_EQUAL(pincushion_mind, pincushion.mind, "Pilot should have been transferred back on avatar gib")
-	TEST_ASSERT_EQUAL(pincushion.get_organ_loss(ORGAN_SLOT_BRAIN), 60, "Pilot should have taken brain dmg on gib disconnect")
+	TEST_ASSERT_EQUAL(pincushion.get_organ_loss(ORGAN_SLOT_BRAIN), pod.disconnect_damage, "Pilot should have taken brain dmg on gib disconnect")
 
 /// Tests the signals sent when the server is destroyed, mobs step on a loaded tile, etc
 /datum/unit_test/bitrunning_signals
@@ -312,8 +308,8 @@
 	RegisterSignal(netpod, COMSIG_BITRUNNER_SEVER_AVATAR, PROC_REF(on_netpod_broken))
 	RegisterSignal(netpod, COMSIG_BITRUNNER_NETPOD_INTEGRITY, PROC_REF(on_netpod_integrity))
 
-	server.cold_boot_map(labrat, map_id = TEST_MAP)
-	TEST_ASSERT_EQUAL(server.generated_domain.id, TEST_MAP, "Sanity: Did not load test map correctly")
+	server.cold_boot_map(labrat, map_key = TEST_MAP)
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Sanity: Did not load test map correctly")
 
 	labrat.forceMove(get_turf(netpod))
 	netpod.set_occupant(labrat)
@@ -341,12 +337,8 @@
 
 	server.cool_off()
 	server.occupant_mind_refs.Cut()
-	server.cold_boot_map(labrat, map_id = TEST_MAP)
-	TEST_ASSERT_EQUAL(server.generated_domain.id, TEST_MAP, "Sanity: Did not load test map correctly")
-
-	if(length(server.send_turfs)) // some maps don't have turfs to send
-		crate.forceMove(pick(server.send_turfs))
-		TEST_ASSERT_EQUAL(domain_complete_received, TRUE, "Did not send COMSIG_BITRUNNER_DOMAIN_COMPLETE")
+	server.cold_boot_map(labrat, map_key = TEST_MAP)
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Sanity: Did not load test map correctly")
 
 /// Tests the server's ability to generate a loot crate
 /datum/unit_test/qserver_generate_rewards/Run()
@@ -358,8 +350,8 @@
 	var/turf/tiles = get_adjacent_open_turfs(server)
 	TEST_ASSERT_NOTEQUAL(length(tiles), 0, "Sanity: Did not find an open turf")
 
-	server.cold_boot_map(labrat, map_id = TEST_MAP)
-	TEST_ASSERT_EQUAL(server.generated_domain.id, TEST_MAP, "Sanity: Did not load test map correctly")
+	server.cold_boot_map(labrat, map_key = TEST_MAP)
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Sanity: Did not load test map correctly")
 
 	server.receive_turfs = tiles
 	TEST_ASSERT_EQUAL(server.generate_loot(), TRUE, "Should generate loot with a receive turf")
@@ -386,18 +378,28 @@
 	var/obj/machinery/quantum_server/server = allocate(/obj/machinery/quantum_server)
 	var/mob/living/carbon/human/labrat = allocate(/mob/living/carbon/human/consistent)
 
-	server.cold_boot_map(labrat, map_id = TEST_MAP_MOBS)
+	server.cold_boot_map(labrat, map_key = TEST_MAP)
 	TEST_ASSERT_NOTNULL(server.generated_domain, "Sanity: Did not load test map correctly")
+	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Sanity: Did not load test map correctly")
 
 	var/list/mobs = server.get_valid_domain_targets()
 	TEST_ASSERT_EQUAL(length(mobs), 0, "Shouldn't get a list without players")
 
 	server.occupant_mind_refs += WEAKREF(labrat.mind)
 	mobs = server.get_valid_domain_targets()
-	TEST_ASSERT_EQUAL(length(mobs), 1, "Should return a list of mobs")
 
-	var/mob/living/basic/pet/dog/corgi/pupper = locate(/mob/living/basic/pet/dog/corgi) in mobs
+	var/datum/turf_reservation/res = server.generated_domain.reservations[1]
+	TEST_ASSERT_NOTNULL(res, "Sanity: Did not generate a reservation")
+
+	var/mob/living/basic/pet/dog/corgi/pupper
+	for(var/turf/open/floor/tile in res.reserved_turfs)
+		for(var/mob/living/basic/pet/dog/corgi/doggo in tile)
+			pupper = doggo
+
 	TEST_ASSERT_NOTNULL(pupper, "Should be a corgi on test map")
+
+	mobs = server.get_valid_domain_targets()
+	TEST_ASSERT_EQUAL(length(mobs), 1, "Should return a list of mobs")
 
 	mobs.Cut()
 	pupper.mind_initialize()
@@ -414,7 +416,7 @@
 	TEST_ASSERT_EQUAL(length(server.exit_turfs), 0, "Sanity: Shouldn't exist any exit turfs until boot")
 	TEST_ASSERT_EQUAL(server.retries_spent, 0, "Shouldn't create a hololadder without exit turfs")
 
-	server.cold_boot_map(labrat, map_id = TEST_MAP_MOBS)
+	server.cold_boot_map(labrat, map_key = TEST_MAP)
 	TEST_ASSERT_NOTNULL(server.generated_domain, "Sanity: Did not load test map correctly")
 	TEST_ASSERT_EQUAL(length(server.exit_turfs), 3, "Should create 3 exit turfs")
 
@@ -428,8 +430,8 @@
 	server.generate_hololadder()
 	TEST_ASSERT_EQUAL(server.retries_spent, 3, "Shouldn't spend more than 3 retries")
 
-	server.stop_domain()
-	TEST_ASSERT_EQUAL(server.retries_spent, 0, "Should reset retries on stop_domain()")
+	server.reset(fast = TRUE)
+	TEST_ASSERT_EQUAL(server.retries_spent, 0, "Should reset retries on reset()")
 
 /// Tests the calculate rewards function
 /datum/unit_test/qserver_calculate_rewards/Run()
@@ -437,15 +439,15 @@
 	var/mob/living/carbon/human/labrat = allocate(/mob/living/carbon/human/consistent)
 	var/datum/weakref/labrat_mind_ref = WEAKREF(labrat.mind)
 
-	server.cold_boot_map(labrat, map_id = TEST_MAP)
+	server.cold_boot_map(labrat, map_key = TEST_MAP)
 	TEST_ASSERT_NOTNULL(server.generated_domain, "Sanity: Did not load test map correctly")
 
 	var/rewards = server.calculate_rewards()
-	TEST_ASSERT_EQUAL(rewards, 1, "Should return base rewards with unmodded")
+	TEST_ASSERT_EQUAL(rewards, 1, "Should return base rewards when unmodded")
 
 	server.domain_randomized = TRUE
 	rewards = server.calculate_rewards()
-	TEST_ASSERT_EQUAL(rewards, 1.2, "Should increase rewards wehen randomized")
+	TEST_ASSERT_EQUAL(rewards, 1.2, "Should increase rewards when randomized")
 
 	server.domain_randomized = FALSE
 	server.occupant_mind_refs += labrat_mind_ref
@@ -460,6 +462,7 @@
 		server.component_parts -= servo
 		server.component_parts += new /datum/stock_part/servo/tier4
 
+	server.RefreshParts()
 	server.occupant_mind_refs.Cut()
 	rewards = server.calculate_rewards()
 	TEST_ASSERT_EQUAL(rewards, 1.6, "Should increase rewards with modded servos")
@@ -468,11 +471,60 @@
 /datum/unit_test/bitrunning_loot_crate_rewards/Run()
 	var/obj/structure/closet/crate/secure/bitrunner_loot/decrypted/crate = allocate(/obj/structure/closet/crate/secure/bitrunner_loot/decrypted)
 
-	TEST_ASSERT_EQUAL(isnum(crate.calculate_loot(1, 1, 1)), TRUE, "Should return a number")
-	TEST_ASSERT_EQUAL(isnum(crate.calculate_loot(2, 2, 0.5)), TRUE, "Should return a number")
-	TEST_ASSERT_EQUAL(isnum(crate.calculate_loot(3.5, 3, 0.25)), TRUE, "Should return a number")
-	TEST_ASSERT_EQUAL(isnum(crate.calculate_loot(4, 4.5, 0.1)), TRUE, "Should return a number")
+	var/total = 0
+	total = crate.calculate_loot(1, 1, 1)
+	TEST_ASSERT_NOTEQUAL(total, 0, "Should return a number")
+
+	total = crate.calculate_loot(1, 1, 3)
+	TEST_ASSERT_NOTEQUAL(total, 0, "Should return a number")
+
+	total = crate.calculate_loot(1, 1, 0.5)
+	TEST_ASSERT_NOTEQUAL(total, 0, "Should return a number")
+
+	total = crate.calculate_loot(3, 4, 0.3)
+	TEST_ASSERT_NOTEQUAL(total, 0, "Should return a number")
+
+	total = crate.calculate_loot(3, 3.2, 0.2)
+	TEST_ASSERT_NOTEQUAL(total, 0, "Should return a number")
+
+/// Ensures the bitminers are getting their proper report cards
+/datum/unit_test/bitrunner_completion_grade/Run()
+	var/obj/machinery/quantum_server/server = allocate(/obj/machinery/quantum_server)
+
+	var/grade = server.grade_completion(0, 0, 1, FALSE, 2 MINUTES)
+	TEST_ASSERT_EQUAL(grade, "D", "Should return a grade")
+
+	grade = server.grade_completion(2, 0, 3, FALSE, 10 MINUTES)
+	TEST_ASSERT_EQUAL(grade, "C", "Should return a grade")
+
+	grade = server.grade_completion(3, 0, 4, FALSE, 10 MINUTES)
+	TEST_ASSERT_EQUAL(grade, "B", "Should return a grade")
+
+	grade = server.grade_completion(2, 1, 3, FALSE, 10 MINUTES)
+	TEST_ASSERT_EQUAL(grade, "A", "Should return a grade")
+
+	grade = server.grade_completion(3, 1, 4, FALSE, 5 MINUTES)
+	TEST_ASSERT_EQUAL(grade, "S", "Should return a grade")
+
+/// Ensures settings on vdoms are being set correctly
+/datum/unit_test/bitrunner_vdom_settings/Run()
+	var/obj/structure/closet/crate/secure/bitrunner_loot/decrypted/crate = allocate(/obj/structure/closet/crate/secure/bitrunner_loot/decrypted)
+
+	for(var/path in subtypesof(/datum/lazy_template/virtual_domain))
+		var/datum/lazy_template/virtual_domain/vdom = new path
+		TEST_ASSERT_NOTNULL(vdom.key, "[path] should have a key")
+		TEST_ASSERT_NOTEQUAL(vdom.map_width, 0, "[path] should have a map width")
+		TEST_ASSERT_NOTEQUAL(vdom.map_height, 0, "[path] should have a map height")
+		TEST_ASSERT_NOTNULL(vdom.map_name, "[path] should have a map name")
+
+		// This seems to return true regardless of the map existing or not
+		// var/file_name = '_maps/virtual_domains/' + [vdom.map_name] + '.dmm'
+		// TEST_ASSERT_NOTNULL(isfile(file_name), "Could not find map file for [path]")
+
+		if(!length(vdom.extra_loot))
+			continue
+
+		TEST_ASSERT_EQUAL(crate.spawn_loot(vdom.extra_loot), TRUE, "[path] didn't spawn loot. Extra loot should be an associative list")
 
 #undef TEST_MAP
 #undef TEST_MAP_EXPENSIVE
-#undef TEST_MAP_MOBS

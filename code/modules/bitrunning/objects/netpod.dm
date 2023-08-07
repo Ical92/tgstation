@@ -1,8 +1,10 @@
+#define BASE_DISCONNECT_DAMAGE 40
+
 /obj/machinery/netpod
 	name = "net pod"
 
 	base_icon_state = "netpod"
-	custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT)
+	circuit = /obj/item/circuitboard/machine/netpod
 	desc = "A link to the netverse. It has an assortment of cables to connect yourself to a virtual domain."
 	icon = 'icons/obj/machines/bitrunning.dmi'
 	icon_state = "netpod"
@@ -16,11 +18,11 @@
 	/// The linked quantum server
 	var/datum/weakref/server_ref
 	/// A player selected outfit by clicking the netpod
-	var/datum/outfit/netsuit = /datum/outfit/job/miner
+	var/datum/outfit/netsuit = /datum/outfit/job/bitrunner
+	/// The amount of brain damage done from force disconnects
+	var/disconnect_damage
 	/// Static list of outfits to select from
 	var/list/cached_outfits = list()
-	/// Cached mob actions, stops mobs from keeping abilities
-	var/list/datum/action/cached_actions = list()
 
 /obj/machinery/netpod/Initialize(mapload)
 	. = ..()
@@ -30,12 +32,14 @@
 /obj/machinery/netpod/LateInitialize()
 	. = ..()
 
+	disconnect_damage = BASE_DISCONNECT_DAMAGE
+
 	RegisterSignals(src, list(
 		COMSIG_QDELETING,
 		COMSIG_MACHINERY_BROKEN,
 		COMSIG_MACHINERY_POWER_LOST,
 		),
-		PROC_REF(on_opened_or_destroyed),
+		PROC_REF(on_broken),
 	)
 	RegisterSignal(src, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(src, COMSIG_ATOM_TAKE_DAMAGE, PROC_REF(on_take_damage))
@@ -45,15 +49,13 @@
 
 /obj/machinery/netpod/Destroy()
 	. = ..()
-	cached_actions.Cut()
 	cached_outfits.Cut()
 
 /obj/machinery/netpod/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
 
 	if(isnull(held_item))
-		context[SCREENTIP_CONTEXT_LMB] = "Open Machine"
-		context[SCREENTIP_CONTEXT_RMB] = "Select Outfit"
+		context[SCREENTIP_CONTEXT_LMB] = "Select Outfit"
 		return CONTEXTUAL_SCREENTIP_SET
 
 	if(istype(held_item, /obj/item/crowbar) && occupant)
@@ -63,7 +65,7 @@
 	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/machinery/netpod/update_icon_state()
-	if(machine_stat & (BROKEN | NOPOWER))
+	if(!is_operational)
 		icon_state = base_icon_state
 		return ..()
 
@@ -78,57 +80,41 @@
 	return ..()
 
 /obj/machinery/netpod/MouseDrop_T(mob/target, mob/user)
-	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user))
+	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user) || !is_operational)
 		return
 	close_machine(target)
 
-/obj/machinery/netpod/attack_hand(mob/living/user, list/modifiers)
+/obj/machinery/netpod/crowbar_act(mob/living/user, obj/item/tool)
 	if(user.combat_mode)
-		return ..()
+		attack_hand(user)
+		return TOOL_ACT_TOOLTYPE_SUCCESS
 
-	if(occupant && user != occupant)
-		balloon_alert(user, "it's sealed shut!")
-		return TRUE
+	if(default_pry_open(tool, user) || default_deconstruction_crowbar(tool))
+		return TOOL_ACT_TOOLTYPE_SUCCESS
 
-	if(!state_open)
-		open_machine()
-		return TRUE
-
-	if(get_turf(user) == get_turf(src))
-		close_machine(user)
-		return TRUE
-
-	// Had the issue where calling close_machine() would pull you inside
-	state_open = FALSE
-	playsound(src, 'sound/machines/tramclose.ogg', 60, TRUE, frequency = 65000)
-	flick("[base_icon_state]_closing", src)
-	set_density(TRUE)
-
-	update_appearance()
-	return TRUE
-
-/obj/machinery/netpod/attack_hand_secondary(mob/user, list/modifiers)
-	var/mob/living/carbon/human/player = user
-	if(!ishuman(player) || player.combat_mode)
-		return ..()
-
+/obj/machinery/netpod/screwdriver_act(mob/living/user, obj/item/tool)
 	if(occupant)
-		balloon_alert(player, "in use!")
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		balloon_alert(user, "in use!")
+		return TOOL_ACT_TOOLTYPE_SUCCESS
 
-	ui_interact(player)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(state_open)
+		balloon_alert(user, "close first.")
+		return TOOL_ACT_TOOLTYPE_SUCCESS
+
+	if(default_deconstruction_screwdriver(user, "[base_icon_state]_panel", "[base_icon_state]_closed", tool))
+		update_appearance() // sometimes icon doesnt properly update during flick()
+		ui_close(user)
+		return TOOL_ACT_TOOLTYPE_SUCCESS
+
+/obj/machinery/netpod/attack_hand(mob/living/user, list/modifiers)
+	. = ..()
+	if(!state_open && user == occupant)
+		container_resist_act(user)
 
 /obj/machinery/netpod/Exited(atom/movable/gone, direction)
 	. = ..()
 	if(!state_open && gone == occupant)
 		container_resist_act(gone)
-
-/obj/machinery/netpod/container_resist_act(mob/living/user)
-	user.visible_message(span_notice("[occupant] emerges from [src]!"),
-		span_notice("You climb out of [src]!"),
-		span_notice("With a hiss, you hear a machine opening."))
-	open_machine()
 
 /obj/machinery/netpod/Exited(atom/movable/gone, direction)
 	. = ..()
@@ -139,15 +125,21 @@
 	if(!state_open)
 		container_resist_act(user)
 
+/obj/machinery/netpod/container_resist_act(mob/living/user)
+	user.visible_message(span_notice("[occupant] emerges from [src]!"),
+		span_notice("You climb out of [src]!"),
+		span_notice("With a hiss, you hear a machine opening."))
+	open_machine()
+
 /obj/machinery/netpod/open_machine(drop = TRUE, density_to_set = FALSE)
-	if(!state_open && !panel_open)
-		on_opened_or_destroyed()
-		playsound(src, 'sound/machines/tramopen.ogg', 60, TRUE, frequency = 65000)
-		flick("[base_icon_state]_opening", src)
+	unprotect_and_signal()
+	playsound(src, 'sound/machines/tramopen.ogg', 60, TRUE, frequency = 65000)
+	flick("[base_icon_state]_opening", src)
+
 	return ..()
 
 /obj/machinery/netpod/close_machine(mob/user, density_to_set = TRUE)
-	if(isnull(user) || !state_open || panel_open)
+	if(!state_open || panel_open || !is_operational)
 		return
 	playsound(src, 'sound/machines/tramclose.ogg', 60, TRUE, frequency = 65000)
 	flick("[base_icon_state]_closing", src)
@@ -155,44 +147,34 @@
 	protect_occupant(occupant)
 	enter_matrix()
 
-/obj/machinery/netpod/crowbar_act(mob/living/user, obj/item/crowbar)
-	. = ..()
-	if(default_pry_open(crowbar, user))
-		return TRUE
-	if(default_deconstruction_crowbar(crowbar))
-		return TRUE
-	return FALSE
-
 /obj/machinery/netpod/default_pry_open(obj/item/crowbar, mob/living/pryer)
-	if(panel_open && isnull(occupant) && !(flags_1 & NODECONSTRUCT_1) && crowbar.tool_behaviour == TOOL_CROWBAR)
+	if(isnull(occupant))
+		if(!state_open)
+			open_machine()
+		else
+			shut_pod()
 		crowbar.play_tool_sound(src, 50)
-		pryer.visible_message(span_notice("[pryer] pries open [src]."), span_notice("You pry open [src]."), span_notice("You hear a machine being disassembled."))
-		return ..()
+		return TRUE
 
-	if(state_open || isnull(occupant))
-		return ..()
-
-	pryer.visible_message(span_danger("[pryer] starts prying open [src]!"), span_notice("You start to pry open [src]."))
+	pryer.visible_message(
+		span_danger("[pryer] starts prying open [src]!"),
+		span_notice("You start to pry open [src]."),
+		span_notice("You hear loud prying on metal.")
+	)
 	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
+
 	SEND_SIGNAL(src, COMSIG_BITRUNNER_CROWBAR_ALERT, pryer)
 
 	if(do_after(pryer, 15 SECONDS, src))
-		open_machine()
-		return ..()
+		if(!state_open)
+			open_machine()
 
-/obj/machinery/netpod/screwdriver_act(mob/living/user, obj/item/screwdriver)
-	. = ..()
-	if(occupant)
-		balloon_alert(user, "occupied.")
-		return TRUE
-	if(state_open)
-		balloon_alert(user, "close first.")
-		return TRUE
-	if(default_deconstruction_screwdriver(user, "[base_icon_state]_panel", "[base_icon_state]_closed", screwdriver))
-		return TRUE
-	return FALSE
+	return TRUE
 
 /obj/machinery/netpod/ui_interact(mob/user, datum/tgui/ui)
+	if(!is_operational)
+		return
+
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "NetpodOutfits")
@@ -244,9 +226,6 @@
 	mob_occupant.key = null
 	receiving.transfer_to(mob_occupant)
 
-	mob_occupant.actions = cached_actions
-	cached_actions.Cut()
-
 	mob_occupant.playsound_local(src, "sound/magic/blink.ogg", 25, TRUE)
 	mob_occupant.set_static_vision(2 SECONDS)
 	mob_occupant.set_temp_blindness(1 SECONDS)
@@ -257,6 +236,7 @@
 		receiving.UnregisterSignal(server, COMSIG_BITRUNNER_DOMAIN_COMPLETE)
 		receiving.UnregisterSignal(server, COMSIG_BITRUNNER_SEVER_AVATAR)
 		receiving.UnregisterSignal(server, COMSIG_BITRUNNER_SHUTDOWN_ALERT)
+		receiving.UnregisterSignal(server, COMSIG_BITRUNNER_THREAT_CREATED)
 	receiving.UnregisterSignal(src, COMSIG_BITRUNNER_CROWBAR_ALERT)
 	receiving.UnregisterSignal(src, COMSIG_BITRUNNER_NETPOD_INTEGRITY)
 	receiving.UnregisterSignal(src, COMSIG_BITRUNNER_SEVER_AVATAR)
@@ -271,7 +251,7 @@
 
 	mob_occupant.Paralyze(2 SECONDS)
 	mob_occupant.flash_act(override_blindness_check = TRUE, visual = TRUE)
-	mob_occupant.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60)
+	mob_occupant.adjustOrganLoss(ORGAN_SLOT_BRAIN, disconnect_damage)
 	INVOKE_ASYNC(mob_occupant, TYPE_PROC_REF(/mob/living, emote), "scream")
 	to_chat(mob_occupant, span_danger("You've been forcefully disconnected from your avatar! Your thoughts feel scrambled!"))
 
@@ -294,9 +274,9 @@
 		balloon_alert(neo, "no server connected!")
 		return
 
-	var/datum/map_template/virtual_domain/generated_domain = server.generated_domain
-	if(isnull(generated_domain))
-		balloon_alert(neo, "no connection!")
+	var/datum/lazy_template/virtual_domain/generated_domain = server.generated_domain
+	if(isnull(generated_domain) || !server.get_is_ready())
+		balloon_alert(neo, "nothing loaded!")
 		return
 
 	var/mob/living/carbon/current_avatar = avatar_ref?.resolve()
@@ -323,7 +303,6 @@
 
 	var/datum/weakref/neo_mind_ref = WEAKREF(neo.mind)
 	occupant_mind_ref = neo_mind_ref
-	cached_actions += neo.actions
 	SEND_SIGNAL(server, COMSIG_BITRUNNER_CLIENT_CONNECTED, neo_mind_ref)
 	neo.mind.initial_avatar_connection(
 		avatar = current_avatar,
@@ -341,6 +320,7 @@
 	server = locate(/obj/machinery/quantum_server) in oview(4, src)
 	if(server)
 		server_ref = WEAKREF(server)
+		RegisterSignal(server, COMSIG_BITRUNNER_SERVER_UPGRADED, PROC_REF(on_server_upgraded), override = TRUE)
 		return server
 
 	return
@@ -354,9 +334,24 @@
 
 	for(var/path as anything in outfit_list)
 		var/datum/outfit/outfit = path
-		collection["outfits"] += list(list("path" = path, "name" = initial(outfit.name)))
+
+		var/outfit_name = initial(outfit.name)
+		if(findtext(outfit_name, "(") != 0 || findtext(outfit_name, "-") != 0) // No special variants please
+			continue
+
+		collection["outfits"] += list(list("path" = path, "name" = outfit_name))
 
 	return list(collection)
+
+/// Machine has been broken - handles signals and reverting sprites
+/obj/machinery/netpod/proc/on_broken(datum/source)
+	SIGNAL_HANDLER
+
+	if(!state_open)
+		open_machine()
+
+	if(occupant)
+		unprotect_and_signal()
 
 /obj/machinery/netpod/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
@@ -368,14 +363,15 @@
 	examine_text += span_infoplain("It is currently occupied by [occupant].")
 
 /// On unbuckle or break, make sure the occupant ref is null
-/obj/machinery/netpod/proc/on_opened_or_destroyed(datum/source)
-	SIGNAL_HANDLER
-
-	if(isnull(occupant))
-		return
-
+/obj/machinery/netpod/proc/unprotect_and_signal()
 	unprotect_occupant(occupant)
 	SEND_SIGNAL(src, COMSIG_BITRUNNER_SEVER_AVATAR, src)
+
+/// When the server is upgraded, drops brain damage a little
+/obj/machinery/netpod/proc/on_server_upgraded(datum/source, servo_rating)
+	SIGNAL_HANDLER
+
+	disconnect_damage = BASE_DISCONNECT_DAMAGE * (1 - servo_rating)
 
 /// Checks the integrity, alerts occupants
 /obj/machinery/netpod/proc/on_take_damage(datum/source, damage_amount)
@@ -402,7 +398,7 @@
 
 /// Removes the in_netpod state
 /obj/machinery/netpod/proc/unprotect_occupant(mob/living/target)
-	target.remove_status_effect(/datum/status_effect/grouped/embryonic, STASIS_NETPOD_EFFECT)
+	target?.remove_status_effect(/datum/status_effect/grouped/embryonic, STASIS_NETPOD_EFFECT)
 	update_use_power(IDLE_POWER_USE)
 
 /// Resolves a path to an outfit.
@@ -410,3 +406,14 @@
 	var/path = text2path(text)
 	if(ispath(path, /datum/outfit) && locate(path) in subtypesof(/datum/outfit))
 		return path
+
+/// Closes the machine without shoving in an occupant
+/obj/machinery/netpod/proc/shut_pod()
+	state_open = FALSE
+	playsound(src, 'sound/machines/tramclose.ogg', 60, TRUE, frequency = 65000)
+	flick("[base_icon_state]_closing", src)
+	set_density(TRUE)
+
+	update_appearance()
+
+#undef BASE_DISCONNECT_DAMAGE

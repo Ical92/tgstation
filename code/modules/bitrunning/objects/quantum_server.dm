@@ -10,34 +10,28 @@
 	icon = 'icons/obj/machines/bitrunning.dmi'
 	base_icon_state = "qserver"
 	icon_state = "qserver"
-	/// The area type used to delete objects in the vdom
-	var/area/preset_delete_area = /area/virtual_domain/to_delete
-	/// The area type used to spawn hololadders
-	var/area/preset_exit_area = /area/virtual_domain/safehouse/exit
-	/// The area type used as a reference to load templates
-	var/area/preset_mapload_area = /area/virtual_domain/bottom_left
-	/// The area type to receive loot after a domain is completed
-	var/area/preset_receive_area = /area/station/bitrunning/receiving
-	/// The area type used as a reference to load the safehouse
-	var/area/preset_safehouse_area = /area/virtual_domain/safehouse/bottom_left
-	/// The area type used in vdom to send loot and mark completion
-	var/area/preset_send_area = /area/virtual_domain/safehouse/send
-	/// The loaded map template, map_template/virtual_domain
-	var/datum/map_template/virtual_domain/generated_domain
-	/// The loaded safehouse, map_template/safehouse
-	var/datum/map_template/safehouse/generated_safehouse
-	/// The generated z level to spawn other presets onto, datum/space_level
-	var/datum/weakref/vdom_ref
-	/// The connected console
-	var/datum/weakref/console_ref
+	/// Affects server cooldown efficiency
+	var/capacitor_coefficient = 1
 	/// If the server is cooling down from a recent despawn
 	var/cooling_off = FALSE
+	/// The loaded map template, map_template/virtual_domain
+	var/datum/lazy_template/virtual_domain/generated_domain
+	/// The loaded safehouse, map_template/safehouse
+	var/datum/map_template/safehouse/generated_safehouse
+	/// The connected console
+	var/datum/weakref/console_ref
 	/// If the current domain was a random selection
 	var/domain_randomized = FALSE
+	/// If any threats were spawned, adds to rewards
+	var/domain_threats = 0
 	/// List of available domains
 	var/list/available_domains = list()
 	/// Current plugged in users
 	var/list/datum/weakref/occupant_mind_refs = list()
+	/// Cached list of mutable mobs in zone for cybercops
+	var/list/mob/living/mutation_candidates = list()
+	/// Any ghosts that have spawned in
+	var/list/mob/living/spawned_threats = list()
 	/// Currently (un)loading a domain. Prevents multiple user actions.
 	var/loading = FALSE
 	/// Scales loot with extra players
@@ -48,22 +42,14 @@
 	var/retries_spent = 0
 	/// Scanner tier
 	var/scanner_tier = 1
-	/// Server cooldown efficiency
-	var/server_cooldown_efficiency = 1
 	/// Length of time it takes for the server to cool down after despawning a map. Here to give miners downtime so their faces don't get stuck like that
-	var/server_cooldown_time = 2 SECONDS
-	/// Turfs to delete whenever the server is shut down.
-	var/turf/delete_turfs = list()
+	var/server_cooldown_time = 3 MINUTES
+	/// Bonus applied for each servo upgrade
+	var/servo_bonus = 0
 	/// The turfs we can place a hololadder on.
 	var/turf/exit_turfs = list()
-	/// This marks the starting point (bottom left) of the virtual dom map. We use this to spawn templates. Expected: 1
-	var/turf/map_load_turf = list()
 	/// The turfs on station where we generate loot.
 	var/turf/receive_turfs = list()
-	/// This marks the starting point (bottom left) of the safehouse. We use this to spawn the safehouse. Expected: 1
-	var/turf/safehouse_load_turf = list()
-	/// Turfs to look for loot boxes.
-	var/turf/send_turfs = list()
 
 /obj/machinery/quantum_server/Initialize(mapload)
 	. = ..()
@@ -72,6 +58,7 @@
 
 /obj/machinery/quantum_server/LateInitialize()
 	. = ..()
+
 	if(isnull(console_ref))
 		find_console()
 
@@ -85,47 +72,44 @@
 	RegisterSignal(src, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(src, COMSIG_BITRUNNER_CLIENT_CONNECTED, PROC_REF(on_client_connected))
 	RegisterSignal(src, COMSIG_BITRUNNER_CLIENT_DISCONNECTED, PROC_REF(on_client_disconnected))
-	RefreshParts()
+	RegisterSignal(src, COMSIG_BITRUNNER_COP_SPAWNED, PROC_REF(on_threat_created))
 
 	// This further gets sorted in the client by cost so it's random and grouped
-	available_domains = shuffle(subtypesof(/datum/map_template/virtual_domain))
+	available_domains = shuffle(subtypesof(/datum/lazy_template/virtual_domain))
 
 /obj/machinery/quantum_server/Destroy(force)
 	. = ..()
-	occupant_mind_refs.Cut()
+
 	available_domains.Cut()
-	QDEL_NULL(delete_turfs)
+	QDEL_LIST(mutation_candidates)
+	QDEL_LIST(occupant_mind_refs)
+	QDEL_LIST(spawned_threats)
 	QDEL_NULL(exit_turfs)
-	QDEL_NULL(map_load_turf)
 	QDEL_NULL(receive_turfs)
-	QDEL_NULL(safehouse_load_turf)
-	QDEL_NULL(send_turfs)
 	QDEL_NULL(generated_domain)
 	QDEL_NULL(generated_safehouse)
 
 /obj/machinery/quantum_server/update_appearance(updates)
-	if(isnull(vdom_ref))
+	if(isnull(generated_domain) || !is_operational)
 		set_light(0)
 		return ..()
 
-	set_light_color(isnull(generated_domain) ? LIGHT_COLOR_FIRE : LIGHT_COLOR_BABY_BLUE)
+	set_light_color(cooling_off ? LIGHT_COLOR_FIRE : LIGHT_COLOR_BABY_BLUE)
 	set_light(2, 1.5)
 
 	return ..()
 
 /obj/machinery/quantum_server/update_icon_state()
-	if(generated_domain)
-		icon_state = "[base_icon_state]_on"
-		return ..()
-	if(cooling_off)
-		icon_state = "[base_icon_state]_off"
+	if(isnull(generated_domain) || !is_operational)
+		icon_state = base_icon_state
 		return ..()
 
-	icon_state = base_icon_state
+	icon_state = "[base_icon_state]_[cooling_off ? "off" : "on"]"
 	return ..()
 
 /obj/machinery/quantum_server/crowbar_act(mob/living/user, obj/item/crowbar)
 	. = ..()
+
 	if(!get_is_ready())
 		balloon_alert(user, "it's scalding hot!")
 		return TRUE
@@ -138,6 +122,7 @@
 
 /obj/machinery/quantum_server/screwdriver_act(mob/living/user, obj/item/screwdriver)
 	. = ..()
+
 	if(!get_is_ready())
 		balloon_alert(user, "it's scalding hot!")
 		return TRUE
@@ -148,15 +133,23 @@
 /obj/machinery/quantum_server/RefreshParts()
 	. = ..()
 
-	var/capacitor_rating = 1.2
-	for(var/datum/stock_part/capacitor/capacitor in component_parts)
-		capacitor_rating -= capacitor.tier * 0.1
+	var/capacitor_rating = 1.15
+	var/datum/stock_part/capacitor/cap = locate() in component_parts
+	capacitor_rating -= cap.tier * 0.15
 
-	server_cooldown_efficiency = max(capacitor_rating, 0)
+	capacitor_coefficient = capacitor_rating
 
 	var/datum/stock_part/scanning_module/scanner = locate(/datum/stock_part/scanning_module) in component_parts
 	if(scanner)
 		scanner_tier = scanner.tier
+
+	var/servo_rating = 0
+	for(var/datum/stock_part/servo/servo in component_parts)
+		servo_rating += servo.tier * 0.1
+
+	servo_bonus = servo_rating
+
+	SEND_SIGNAL(src, COMSIG_BITRUNNER_SERVER_UPGRADED, scanner_tier)
 
 /// Gives all current occupants a notification that the server is going down
 /obj/machinery/quantum_server/proc/begin_shutdown(mob/user)
@@ -166,26 +159,34 @@
 	if(!length(occupant_mind_refs))
 		balloon_alert(user, "powering down domain...")
 		playsound(src, 'sound/machines/terminal_off.ogg', 40, 2)
-		stop_domain()
+		reset()
 		return
 
 	balloon_alert(user, "notifying clients...")
+	playsound(src, 'sound/machines/terminal_alert.ogg', 100, TRUE)
+	user.visible_message(
+		span_danger("[user] begins depowering the server!"),
+		span_notice("You start disconnecting clients..."),
+		span_danger("You hear frantic keying on a keyboard."),
+	)
+
 	SEND_SIGNAL(src, COMSIG_BITRUNNER_SHUTDOWN_ALERT, user)
 
 	if(!do_after(user, 20 SECONDS, src))
 		return
 
-	stop_domain()
+	reset()
 
-/// Handles calculating rewards based on number of players, parts, etc
+/// Handles calculating rewards based on number of players, parts, threats, etc
 /obj/machinery/quantum_server/proc/calculate_rewards()
 	var/rewards_base = 0.8
 
 	if(domain_randomized)
 		rewards_base += 0.2
 
-	for(var/datum/stock_part/servo/servo in component_parts)
-		rewards_base += servo.tier * 0.1
+	rewards_base += servo_bonus
+
+	rewards_base += (domain_threats * 2)
 
 	for(var/index in 2 to length(occupant_mind_refs))
 		rewards_base += multiplayer_bonus
@@ -198,11 +199,11 @@
  *
  * This is the starting point if you have an id. Does validation and feedback on steps
  */
-/obj/machinery/quantum_server/proc/cold_boot_map(mob/user, map_id)
+/obj/machinery/quantum_server/proc/cold_boot_map(mob/user, map_key)
 	if(!get_is_ready())
 		return FALSE
 
-	if(isnull(map_id))
+	if(isnull(map_key))
 		balloon_alert(user, "no domain specified.")
 		return FALSE
 
@@ -215,40 +216,35 @@
 		return FALSE
 
 	loading = TRUE
-	balloon_alert(user, "initializing virtual domain...")
 	playsound(src, 'sound/machines/terminal_processing.ogg', 30, 2)
 
-	var/datum/space_level/loaded_zlevel = vdom_ref?.resolve()
-	if(isnull(loaded_zlevel) && !initialize_virtual_domain())
-		loading = FALSE
-		return FALSE
-
-	var/datum/map_template/virtual_domain/to_generate = initialize_domain(map_id)
-	if(isnull(to_generate))
+	if(!initialize_domain(map_key))
 		balloon_alert(user, "invalid domain specified.")
 		loading = FALSE
 		return FALSE
 
-	points -= to_generate.cost
+	points -= generated_domain.cost
 	if(points < 0)
 		balloon_alert(user, "not enough points.")
 		loading = FALSE
 		return FALSE
 
-	if(!load_domain(to_generate))
+	if(!initialize_safehouse_turfs())
+		balloon_alert(user, "failed to load safehouse.")
 		loading = FALSE
 		return FALSE
 
 	loading = FALSE
-	balloon_alert(user, "virtual domain generated.")
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 30, 2)
+	balloon_alert(user, "domain loaded.")
+	update_use_power(ACTIVE_POWER_USE)
 
 	return TRUE
 
 /// Resets the cooldown state and updates icons
 /obj/machinery/quantum_server/proc/cool_off()
 	cooling_off = FALSE
-	update_icon_state()
+	update_appearance()
 
 /// Attempts to connect to a quantum console
 /obj/machinery/quantum_server/proc/find_console()
@@ -267,8 +263,24 @@
 /obj/machinery/quantum_server/proc/generate_avatar(obj/structure/hololadder/wayout, datum/outfit/netsuit)
 	var/mob/living/carbon/human/avatar = new(wayout.loc)
 
-	var/datum/outfit/to_wear = generated_domain.forced_outfit || netsuit
+	var/outfit_path = generated_domain.forced_outfit || netsuit
+	var/datum/outfit/to_wear = new outfit_path()
+
+	to_wear.suit_store = null
+	to_wear.belt = null
+	to_wear.glasses = null
+	to_wear.suit = null
+	to_wear.gloves = null
+
 	avatar.equipOutfit(to_wear, visualsOnly = TRUE)
+
+	var/obj/item/storage/backpack/bag = avatar.back
+	if(istype(bag))
+		bag.contents += list(
+			new /obj/item/storage/box/survival,
+			new /obj/item/storage/medkit/regular,
+			new /obj/item/flashlight,
+		)
 
 	var/obj/item/card/id/outfit_id = avatar.wear_id
 	if(outfit_id)
@@ -287,7 +299,7 @@
 		return
 
 	var/turf/destination
-	for(var/turf/dest_turf as anything in exit_turfs)
+	for(var/turf/dest_turf in exit_turfs)
 		if(!locate(/obj/structure/hololadder) in dest_turf)
 			destination = dest_turf
 			break
@@ -305,9 +317,7 @@
 
 /// Generates a reward based on the given domain
 /obj/machinery/quantum_server/proc/generate_loot()
-	if(!length(receive_turfs))
-		receive_turfs = get_area_turfs(preset_receive_area)
-	if(!length(receive_turfs))
+	if(!length(receive_turfs) && !locate_receive_turfs())
 		return FALSE
 
 	points += generated_domain.reward_points
@@ -318,7 +328,16 @@
 		stack_trace("Failed to find a turf to spawn loot crate on.")
 		return FALSE
 
-	var/obj/structure/closet/crate/secure/bitrunner_loot/decrypted/reward_crate = new(dest_turf, generated_domain, calculate_rewards())
+	var/bonus = calculate_rewards()
+
+	var/obj/item/paper/certificate = new()
+	certificate.add_raw_text(get_completion_certificate())
+	certificate.update_appearance()
+
+	var/obj/structure/closet/crate/secure/bitrunner_loot/decrypted/reward_crate = new(dest_turf, generated_domain, bonus)
+	reward_crate.manifest = certificate
+	reward_crate.update_appearance()
+
 	spark_at_location(reward_crate)
 	return TRUE
 
@@ -326,7 +345,7 @@
 /obj/machinery/quantum_server/proc/get_available_domains()
 	var/list/levels = list()
 
-	for(var/datum/map_template/virtual_domain/domain as anything in available_domains)
+	for(var/datum/lazy_template/virtual_domain/domain as anything in available_domains)
 		if(initial(domain.test_only))
 			continue
 		var/can_view = initial(domain.difficulty) < scanner_tier && initial(domain.cost) <= points + 5
@@ -336,7 +355,7 @@
 			"cost" = initial(domain.cost),
 			"desc" = can_view ? initial(domain.desc) : "Limited scanning capabilities. Cannot infer domain details.",
 			"difficulty" = initial(domain.difficulty),
-			"id" = initial(domain.id),
+			"id" = initial(domain.key),
 			"name" = can_view ? initial(domain.name) : REDACTED,
 			"reward" = can_view_reward ? initial(domain.reward_points) : REDACTED,
 		))
@@ -368,6 +387,53 @@
 
 	return hosted_avatars
 
+/// Returns the markdown text containing domain completion information
+/obj/machinery/quantum_server/proc/get_completion_certificate()
+	var/base_points = generated_domain.reward_points
+	if(domain_randomized)
+		base_points -= 1
+
+	var/bonuses = calculate_rewards()
+
+	var/time_difference = world.time - generated_domain.start_time
+
+	var/completion_time = "### Completion Time: [DisplayTimeText(time_difference)]\n"
+
+	var/grade = "\n---\n\n# Rating: [grade_completion(generated_domain.difficulty, domain_threats, base_points, domain_randomized, time_difference)]"
+
+	var/text = "# Certificate of Domain Completion\n\n---\n\n"
+
+	text += "### [generated_domain.name][domain_randomized ? " (Randomized)" : ""]\n"
+	text += "- **Difficulty:** [generated_domain.difficulty]\n"
+	text += "- **Threats:** [domain_threats]\n"
+	text += "- **Base Points:** [base_points][domain_randomized ? " +1" : ""]\n\n"
+	text += "- **Total Bonus:** [bonuses]x\n\n"
+
+	if(bonuses <= 1)
+		text += completion_time
+		text += grade
+		return text
+
+	text += "### Bonuses\n"
+	if(domain_randomized)
+		text += "- **Randomized:** + 0.2\n"
+
+	if(length(occupant_mind_refs) > 1)
+		text += "- **Multiplayer:** + [(length(occupant_mind_refs) - 1) * multiplayer_bonus]\n"
+
+	if(domain_threats > 0)
+		text += "- **Threats:** + [domain_threats * 2]\n"
+
+	var/servo_rating = servo_bonus
+
+	if(servo_rating > 0.2)
+		text += "- **Components:** + [servo_rating]\n"
+
+	text += completion_time
+	text += grade
+
+	return text
+
 /// Returns the current domain name if the server has the proper tier scanner and it isn't randomized
 /obj/machinery/quantum_server/proc/get_current_domain_name()
 	if(isnull(generated_domain))
@@ -386,12 +452,12 @@
 	var/list/random_domains = list()
 	var/total_cost = 0
 
-	for(var/datum/map_template/virtual_domain/available as anything in subtypesof(/datum/map_template/virtual_domain))
+	for(var/datum/lazy_template/virtual_domain/available as anything in subtypesof(/datum/lazy_template/virtual_domain))
 		var/init_cost = initial(available.cost)
 		if(!initial(available.test_only) && init_cost > 0 && init_cost < 4 && init_cost <= points)
 			random_domains += list(list(
 				cost = init_cost,
-				id = initial(available.id),
+				id = initial(available.key),
 			))
 
 	var/random_value = rand(0, total_cost)
@@ -409,71 +475,137 @@
 
 /// Gets all mobs originally generated by the loaded domain and returns a list that are capable of being antagged
 /obj/machinery/quantum_server/proc/get_valid_domain_targets()
-	if(!length(occupant_mind_refs))
-		return
+	// A: No one is playing
+	// B: The domain is not loaded
+	// C: The domain is shutting down
+	// D: There are no mobs
+	if(!length(occupant_mind_refs) || isnull(generated_domain) || !get_is_ready() || !length(mutation_candidates))
+		return list()
 
-	if(isnull(generated_domain))
-		return
-
-	var/list/mutation_candidates = list()
-	for(var/mob/living/creature as anything in generated_domain.created_atoms)
-		if(QDELETED(creature) || !isliving(creature) || creature.mind || !creature.can_be_cybercop)
-			continue
-
-		mutation_candidates += creature
+	for(var/mob/living/creature as anything in mutation_candidates)
+		if(QDELETED(creature) || creature.mind)
+			mutation_candidates -= creature
 
 	return mutation_candidates
 
-/// Returns a new domain if the given id is valid and the user has enough points
-/obj/machinery/quantum_server/proc/initialize_domain(map_id)
-	var/datum/map_template/virtual_domain/to_generate
-	for(var/datum/map_template/virtual_domain/available as anything in subtypesof(/datum/map_template/virtual_domain))
-		if(map_id == initial(available.id) && points >= initial(available.cost))
-			to_generate = new available
-			return to_generate
+/// Grades the player's run based on several factors
+/obj/machinery/quantum_server/proc/grade_completion(difficulty, threats, points, randomized, completion_time)
+	var/score = threats * 5
+	score += points
+	score += randomized ? 1 : 0
 
-/// Generates a new virtual domain
-/obj/machinery/quantum_server/proc/initialize_virtual_domain()
-	var/datum/map_template/virtual_domain/base_map = new()
-	var/datum/space_level/loaded_zlevel = base_map.load_new_z()
+	if(completion_time <= 2 MINUTES)
+		score += difficulty * 4
+	else if(completion_time <= 5 MINUTES)
+		score += difficulty * 3
+	else if (completion_time <= 10 MINUTES)
+		score += difficulty * 2
+	else
+		score += 1
 
-	if(isnull(loaded_zlevel))
-		log_game("The virtual domain z-level failed to load.")
-		message_admins("The virtual domain z-level failed to load. Hackers won't be teleported to the netverse.")
-		CRASH("Failed to initialize virtual domain z-level!")
+	switch(score)
+		if(1 to 4)
+			return "D"
+		if(5 to 7)
+			return "C"
+		if(8 to 10)
+			return "B"
+		if(11 to 13)
+			return "A"
+		else
+			return "S"
 
-	vdom_ref = WEAKREF(loaded_zlevel)
+/// Initializes a new domain if the given key is valid and the user has enough points
+/obj/machinery/quantum_server/proc/initialize_domain(map_key)
+	var/datum/lazy_template/virtual_domain/to_load
 
-	delete_turfs = get_area_turfs(preset_delete_area, loaded_zlevel.z_value)
-	map_load_turf = get_area_turfs(preset_mapload_area, loaded_zlevel.z_value)
-	safehouse_load_turf = get_area_turfs(preset_safehouse_area, loaded_zlevel.z_value)
+	for(var/datum/lazy_template/virtual_domain/available as anything in subtypesof(/datum/lazy_template/virtual_domain))
+		if(map_key != initial(available.key) || points < initial(available.cost))
+			continue
+		to_load = available
+		break
+
+	if(isnull(to_load))
+		return FALSE
+
+	generated_domain = new to_load()
+	generated_domain.lazy_load()
+
+	for(var/atom/thing as anything in generated_domain.created_atoms_list)
+		if(istype(thing, /mob/living))
+			var/mob/living/creature = thing
+			if(creature.can_be_cybercop)
+				mutation_candidates += creature
+			continue
+
+		if(istype(thing, /obj/effect/mob_spawn/ghost_role))
+			RegisterSignal(thing, COMSIG_GHOSTROLE_SPAWNED, PROC_REF(on_threat_created))
 
 	return TRUE
 
-/// Validates target mob as valid to buff/nerf
-/obj/machinery/quantum_server/proc/is_valid_mob(mob/living/creature)
-	return isliving(creature) && isnull(creature.key) && creature.stat != DEAD && creature.health > 10
+/// Loads the safehouse and sets turfs
+/obj/machinery/quantum_server/proc/initialize_safehouse_turfs()
+	var/datum/turf_reservation/res = generated_domain.reservations[1]
 
-/// Loads the safehouse and given domain into the virtual domain
-/obj/machinery/quantum_server/proc/load_domain(datum/map_template/virtual_domain/to_generate)
-	var/datum/map_template/safehouse/safehouse = new to_generate.safehouse_path
+	var/turf/safehouse_load_turf = list()
+	for(var/turf/tile as anything in res.reserved_turfs)
+		var/area/parent = get_area(tile)
+		if(istype(parent, /area/virtual_domain/safehouse/bottom_left))
+			safehouse_load_turf += tile
+			break
 
-	to_generate.load(map_load_turf[ONLY_TURF])
+	if(!length(safehouse_load_turf))
+		CRASH("Failed to find safehouse load landmark on map.")
+
+	var/datum/map_template/safehouse/safehouse = new generated_domain.safehouse_path()
 	safehouse.load(safehouse_load_turf[ONLY_TURF])
-
-	generated_domain = to_generate
 	generated_safehouse = safehouse
 
-	var/datum/space_level/vdom = vdom_ref?.resolve()
-	exit_turfs = get_area_turfs(preset_exit_area, vdom.z_value)
-	send_turfs = get_area_turfs(preset_send_area, vdom.z_value)
+	var/turf/goal_turfs = list()
+	for(var/obj/effect/bitrunning/thing in safehouse.created_atoms)
+		if(istype(thing, /obj/effect/bitrunning/exit_spawn))
+			exit_turfs += get_turf(thing)
+			continue
+		if(istype(thing, /obj/effect/bitrunning/goal_turf))
+			var/turf/tile = get_turf(thing)
+			goal_turfs += tile
+			RegisterSignal(tile, COMSIG_ATOM_ENTERED, PROC_REF(on_send_turf_entered))
+			RegisterSignal(tile, COMSIG_ATOM_EXAMINE, PROC_REF(on_send_turf_examined))
 
-	for(var/turf/tile in send_turfs)
-		RegisterSignal(tile, COMSIG_ATOM_ENTERED, PROC_REF(on_send_turf_entered))
+	for(var/obj/machinery/machine in generated_domain.created_atoms_list)
+		machine.power_change()
 
+	if(!length(exit_turfs))
+		CRASH("Failed to find exit turfs on generated domain.")
+	if(!length(goal_turfs))
+		CRASH("Failed to find send turfs on generated domain.")
+
+	generated_domain.start_time = world.time
 	update_appearance()
 
 	return TRUE
+
+/// Locates any turfs with crate out landmarks
+/obj/machinery/quantum_server/proc/locate_receive_turfs()
+	for(var/turf/open/floor/tile in oview(4, src))
+		if(locate(/obj/effect/bitrunning/reward_spawn) in tile)
+			receive_turfs += tile
+
+	return length(receive_turfs) > 0
+
+/// Finds any mobs with minds in the zones and gives them the bad news
+/obj/machinery/quantum_server/proc/notify_spawned_threats()
+	for(var/mob/living/baddie as anything in spawned_threats)
+		if(QDELETED(baddie) || baddie.stat >= UNCONSCIOUS || isnull(baddie.mind))
+			continue
+
+		baddie.throw_alert(
+			ALERT_BITRUNNER_RESET,
+			/atom/movable/screen/alert/bitrunning/qserver_threat_deletion,
+			new_master = src,
+		)
+
+		to_chat(baddie, span_userdanger("You have been flagged for deletion! Thank you for your service."))
 
 /// If broken via signal, disconnects all users
 /obj/machinery/quantum_server/proc/on_broken(datum/source)
@@ -482,15 +614,15 @@
 	if(isnull(generated_domain))
 		return
 
-	stop_domain()
+	SEND_SIGNAL(src, COMSIG_BITRUNNER_SEVER_AVATAR)
 
-/// Each time someone connects, mob health jumps 1.5x
+/// Someone connected via netpod
 /obj/machinery/quantum_server/proc/on_client_connected(datum/source, datum/weakref/new_mind)
 	SIGNAL_HANDLER
 
 	occupant_mind_refs += new_mind
 
-/// If a client disconnects, remove them from the list & nerf mobs
+/// Someone disconnected
 /obj/machinery/quantum_server/proc/on_client_disconnected(datum/source, datum/weakref/old_mind)
 	SIGNAL_HANDLER
 
@@ -511,6 +643,21 @@
 	if(circuit)
 		qdel(circuit)
 
+/// Handles examining the server. Shows cooldown time and efficiency.
+/obj/machinery/quantum_server/proc/on_examine(datum/source, mob/examiner, list/examine_text)
+	SIGNAL_HANDLER
+
+	if(capacitor_coefficient < 1)
+		examine_text += span_infoplain("Its coolant capacity reduces cooldown time by [(1 - capacitor_coefficient) * 100]%.")
+
+	if(servo_bonus > 0.2)
+		examine_text += span_infoplain("Its manipulation potential is increasing rewards by [servo_bonus]x.")
+		examine_text += span_infoplain("Injury from unsafe ejection reduced [servo_bonus * 100]%.")
+
+	if(!get_is_ready())
+		examine_text += span_notice("It is currently cooling down. Give it a few moments.")
+		return
+
 /// Whenever something enters the send tiles, check if it's a loot crate. If so, alert players.
 /obj/machinery/quantum_server/proc/on_send_turf_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -528,49 +675,55 @@
 	generate_loot()
 
 /// Handles examining the server. Shows cooldown time and efficiency.
-/obj/machinery/quantum_server/proc/on_examine(datum/source, mob/examiner, list/examine_text)
+/obj/machinery/quantum_server/proc/on_send_turf_examined(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 
-	if(server_cooldown_efficiency < 1)
-		examine_text += span_infoplain("Its coolant capacity reduces cooldown time by [(1 - server_cooldown_efficiency) * 100]%.")
+	examine_text += span_info("Beneath your gaze, the floor pulses subtly with streams of encoded data.")
+	examine_text += span_info("It seems to be part of the location designated for retrieving encrypted payloads.")
 
-	var/rewards_bonus = 0.8
-	for(var/datum/stock_part/servo/servo in component_parts)
-		rewards_bonus += servo.tier * 0.1
+/// Handles when cybercops are summoned into the area
+/obj/machinery/quantum_server/proc/on_threat_created(datum/source, mob/living/threat)
+	SIGNAL_HANDLER
 
-	if(rewards_bonus > 1)
-		examine_text += span_infoplain("Its manipulation potential is increasing rewards by [(rewards_bonus)]x.")
+	domain_threats += 1
+	spawned_threats += threat
+	SEND_SIGNAL(src, COMSIG_BITRUNNER_THREAT_CREATED)
 
-	if(!get_is_ready())
-		examine_text += span_notice("It is currently cooling down. Give it a few moments.")
-		return
+/// Stops the current virtual domain and disconnects all users
+/obj/machinery/quantum_server/proc/reset(fast = FALSE)
+	loading = TRUE
+
+	SEND_SIGNAL(src, COMSIG_BITRUNNER_SEVER_AVATAR)
+
+	if(!fast)
+		notify_spawned_threats()
+		addtimer(CALLBACK(src, PROC_REF(scrub_vdom)), 15 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
+	else
+		scrub_vdom() // used in unit testing, no need to wait for callbacks
+
+	cooling_off = TRUE
+	addtimer(CALLBACK(src, PROC_REF(cool_off)), min(server_cooldown_time * capacitor_coefficient), TIMER_UNIQUE|TIMER_STOPPABLE)
+	update_appearance()
+
+	update_use_power(IDLE_POWER_USE)
+	domain_randomized = FALSE
+	domain_threats = 0
+	retries_spent = 0
+	loading = FALSE
 
 /// Deletes all the tile contents
 /obj/machinery/quantum_server/proc/scrub_vdom()
-	for(var/turf/tile in send_turfs)
-		UnregisterSignal(tile, COMSIG_ATOM_ENTERED)
-		UnregisterSignal(tile, COMSIG_ATOM_EXAMINE)
+	SEND_SIGNAL(src, COMSIG_BITRUNNER_SEVER_AVATAR) // just in case
 
-	for(var/turf/tile in exit_turfs)
-		UnregisterSignal(tile, COMSIG_ATOM_ENTERED)
+	if(length(generated_domain.reservations))
+		var/datum/turf_reservation/res = generated_domain.reservations[1]
+		res.Release()
 
-	for(var/turf/tile in delete_turfs)
-		for(var/thing in tile.contents)
-			if(!isobserver(thing))
-				qdel(thing)
-
-		for(var/thing in tile.contents) // some things drop their contents
-			if(!isobserver(thing))
-				qdel(thing)
-
-		tile.baseturfs.Cut(3)
-
-	for(var/turf/tile in safehouse_load_turf) // cleanup that one tile
-		for(var/thing in tile.contents)
-			if(!isobserver(thing))
-				qdel(thing)
-
-		tile.baseturfs.Cut(3)
+	exit_turfs = list()
+	generated_domain = null
+	generated_safehouse = null
+	mutation_candidates.Cut()
+	spawned_threats.Cut()
 
 /// Do some magic teleport sparks
 /obj/machinery/quantum_server/proc/spark_at_location(obj/crate)
@@ -578,25 +731,6 @@
 	var/datum/effect_system/spark_spread/quantum/sparks = new()
 	sparks.set_up(5, 1, get_turf(crate))
 	sparks.start()
-
-/// Stops the current virtual domain and disconnects all users
-/obj/machinery/quantum_server/proc/stop_domain()
-	loading = TRUE
-
-	SEND_SIGNAL(src, COMSIG_BITRUNNER_SEVER_AVATAR)
-
-	scrub_vdom()
-
-	QDEL_NULL(generated_domain)
-	QDEL_NULL(generated_safehouse)
-
-	cooling_off = TRUE
-	addtimer(CALLBACK(src, PROC_REF(cool_off)), min(server_cooldown_time * server_cooldown_efficiency), TIMER_UNIQUE|TIMER_STOPPABLE)
-	update_appearance()
-
-	domain_randomized = FALSE
-	retries_spent = 0
-	loading = FALSE
 
 #undef ONLY_TURF
 #undef REDACTED

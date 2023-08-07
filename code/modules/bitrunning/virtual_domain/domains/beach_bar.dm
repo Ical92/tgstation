@@ -1,11 +1,13 @@
-/datum/map_template/virtual_domain/beach_bar
+/datum/lazy_template/virtual_domain/beach_bar
 	name = "Beach Bar"
 	desc = "A cheerful seaside haven where friendly skeletons serve up drinks. Say, how'd you guys get so dead?"
 	extra_loot = list(/obj/item/toy/beach_ball = 1)
-	filename = "beach_bar.dmm"
-	help_text = "This place is running on a skeleton crew, and they don't seem to be too keen to share details.\
+	help_text = "This place is running on a skeleton crew, and they don't seem to be too keen to share details. \
 	Maybe a few drinks of liquid charm will get the spirits up. As the saying goes, if you can't beat 'em, join 'em."
-	id = "beach_bar"
+	key = "beach_bar"
+	map_name = "beach_bar"
+	map_height = 41
+	map_width = 41
 	safehouse_path = /datum/map_template/safehouse/mine
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/virtual_domain
@@ -19,18 +21,28 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_GLASS_DRANK, PROC_REF(on_drank))
 
-	var/obj/effect/bitrunner_loot_signal/signaler = locate(/obj/effect/bitrunner_loot_signal) in orange(4, src)
-	if(signaler)
-		our_signaler = WEAKREF(signaler)
+	locate_signaler()
 
+/// Where are youuuu
+/obj/item/reagent_containers/cup/glass/drinkingglass/virtual_domain/proc/locate_signaler()
+	for(var/turf/open/floor/light/colour_cycle/dancefloor_a/tile in oview(4, src))
+		var/obj/effect/bitrunning/loot_signal/signaler = locate() in tile
+		if(signaler)
+			our_signaler = WEAKREF(signaler)
+			return TRUE
+
+	return FALSE
+
+/// When drank, send a signal to the signaler.
 /obj/item/reagent_containers/cup/glass/drinkingglass/virtual_domain/proc/on_drank(datum/source, mob/target, mob/user)
 	SIGNAL_HANDLER
 
 	if(target != user) // Hey now!
 		return
 
-	var/obj/effect/bitrunner_loot_signal/signaler = our_signaler?.resolve()
-	if(isnull(signaler))
+	var/obj/effect/bitrunning/loot_signal/signaler = our_signaler?.resolve()
+	if(isnull(signaler) && !locate_signaler())
+		stack_trace("Couldn't find signaler for beach bar drink.")
 		return
 
 	SEND_SIGNAL(signaler, COMSIG_BITRUNNER_GOAL_POINT, 0.5)

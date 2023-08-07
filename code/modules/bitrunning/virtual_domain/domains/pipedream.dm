@@ -1,16 +1,18 @@
-/datum/map_template/virtual_domain/pipedream
+/datum/lazy_template/virtual_domain/pipedream
 	name = "Disposal Pipe Factory"
-	desc = "An abandoned and infested factory manufacturing disposal pipes."
-	filename = "pipedream.dmm"
-	help_text = "Not long ago, this place was thriving with activity. The workers\
-	seemed to have left in a hurry, and now productivity is in the bin. Something\
-	must have caused it, but what?"
-	id = "pipedream"
-	safehouse_path = /datum/map_template/safehouse/shuttle
 	cost = BITRUNNER_COST_LOW
+	desc = "An abandoned and infested factory manufacturing disposal pipes."
 	difficulty = BITRUNNER_DIFFICULTY_MEDIUM
-	reward_points = BITRUNNER_REWARD_LOW
 	extra_loot = list(/obj/item/stack/pipe_cleaner_coil/random/five = 1)
+	help_text = "Not long ago, this place was thriving with activity. The workers \
+	seemed to have left in a hurry, and now productivity is in the bin. Something \
+	must have caused it, but what?"
+	key = "pipedream"
+	map_name = "pipedream"
+	map_height = 48
+	map_width = 36
+	reward_points = BITRUNNER_REWARD_LOW
+	safehouse_path = /datum/map_template/safehouse/shuttle
 
 // ID Trims
 /datum/id_trim/factory

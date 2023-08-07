@@ -14,8 +14,14 @@
 	mappath = "_maps/safehouses/" + filename
 	..(path = mappath)
 
+
+/datum/map_template/safehouse/test_only
+	filename = "test_only_safehouse.dmm"
+
+
 /// The default safehouse map template.
 /datum/map_template/safehouse/wood
+	filename = "wood.dmm"
 
 /datum/map_template/safehouse/den
 	filename = "den.dmm"

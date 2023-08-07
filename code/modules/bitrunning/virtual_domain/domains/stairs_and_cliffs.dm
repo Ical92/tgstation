@@ -1,4 +1,4 @@
-/datum/map_template/virtual_domain/stairs_and_cliffs
+/datum/lazy_template/virtual_domain/stairs_and_cliffs
 	name = "Stairs and Cliffs"
 	cost = BITRUNNER_COST_LOW
 	desc = "A treacherous climb few calves can survive. Great cardio though."
@@ -7,9 +7,11 @@
 	cliff into rough rocks or liquid plasma."
 	extra_loot = list(/obj/item/clothing/suit/costume/snowman = 2)
 	difficulty = BITRUNNER_DIFFICULTY_LOW
-	filename = "stairs_and_cliffs.dmm"
 	forced_outfit = /datum/outfit/job/virtual_domain_iceclimber
-	id = "stairs_and_cliffs"
+	key = "stairs_and_cliffs"
+	map_name = "stairs_and_cliffs"
+	map_height = 75
+	map_width = 75
 	reward_points = BITRUNNER_REWARD_MEDIUM
 	safehouse_path = /datum/map_template/safehouse/ice
 
@@ -25,10 +27,7 @@
 	name = "Ice Climber"
 	uniform = /obj/item/clothing/under/color/grey
 	suit = /obj/item/clothing/suit/hooded/wintercoat
-	backpack_contents = list(
-		/obj/item/flashlight = 1,
-		/obj/item/flashlight/flare = 2,
-		/obj/item/storage/box/survival = 1,
-		)
 	backpack = /obj/item/storage/backpack/duffelbag
 	shoes = /obj/item/clothing/shoes/winterboots
+	l_pocket = /obj/item/flashlight
+	r_pocket = /obj/item/flashlight/flare
