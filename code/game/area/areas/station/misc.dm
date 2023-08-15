@@ -31,3 +31,17 @@
 	requires_power = TRUE
 	ambience_index = AMBIENCE_MINING
 	area_flags = UNIQUE_AREA
+
+/*
+* Ringstation unique areas
+*/
+
+/area/station/lowring
+	name = "\improper Station Outer-Ring"
+	icon_state = "station"
+	requires_power = FALSE
+	ambientsounds = list('sound/ambience/shore.ogg','sound/ambience/ambinice.ogg')
+
+/area/station/uppring
+	name = "\improper Station Inner-Ring"
+	icon_state = "station"
