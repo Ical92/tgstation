@@ -7,10 +7,10 @@
 /// from /obj/machinery/netpod/default_pry_open() : (mob/living/intruder)
 #define COMSIG_BITRUNNER_CROWBAR_ALERT "bitrunner_crowbar"
 
-/// from /obj/effect/spawner/bitrunner_loot() : (points)
+/// from /obj/effect/bitrunning/loot_signal: (points)
 #define COMSIG_BITRUNNER_GOAL_POINT "bitrunner_goal_point"
 
-/// from /obj/machinery/quantum_server/on_exit_turf_entered(): (atom/entered)
+/// from /obj/machinery/quantum_server/on_goal_turf_entered(): (atom/entered, reward_points)
 #define COMSIG_BITRUNNER_DOMAIN_COMPLETE "bitrunner_complete"
 
 /// from /obj/machinery/netpod/on_take_damage()

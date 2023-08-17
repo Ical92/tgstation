@@ -12,8 +12,13 @@
 	safehouse_path = /datum/map_template/safehouse/lavaland_boss
 
 /mob/living/simple_animal/hostile/megafauna/wendigo/virtual_domain
+	achievement_type = null
 	can_be_cybercop = FALSE
-	crusher_loot = list(/obj/structure/closet/crate/secure/bitrunner_loot/encrypted)
-	loot = list(/obj/structure/closet/crate/secure/bitrunner_loot/encrypted)
-	health = 1300
-	maxHealth = 1300
+	crusher_achievement_type = null
+	crusher_loot = list(/obj/structure/closet/crate/secure/bitrunning/encrypted)
+	drop_portal = FALSE
+	guaranteed_butcher_results = list(/obj/item/wendigo_skull = 1)
+	health = 1500
+	loot = list(/obj/structure/closet/crate/secure/bitrunning/encrypted)
+	maxHealth = 1500
+	score_achievement_type = null

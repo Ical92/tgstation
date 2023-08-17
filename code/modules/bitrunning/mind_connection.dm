@@ -26,13 +26,6 @@
 	avatar.set_temp_blindness(1 SECONDS)
 
 	connect_avatar_signals(avatar)
-	RegisterSignals(pilot_mob, list(
-		COMSIG_LIVING_DEATH,
-		COMSIG_LIVING_STATUS_UNCONSCIOUS,
-		COMSIG_MOVABLE_MOVED,
-		),
-		PROC_REF(on_sever_connection),
-	)
 	RegisterSignal(hosting_netpod, COMSIG_BITRUNNER_CROWBAR_ALERT, PROC_REF(on_netpod_crowbar))
 	RegisterSignal(hosting_netpod, COMSIG_BITRUNNER_NETPOD_INTEGRITY, PROC_REF(on_netpod_damaged))
 	RegisterSignal(hosting_netpod, COMSIG_BITRUNNER_SEVER_AVATAR, PROC_REF(on_sever_connection))
@@ -103,10 +96,17 @@
 	if(isnull(pilot) || damage_type == STAMINA || damage_type == OXYLOSS)
 		return
 
+	if(damage >= (pilot.health + MAX_LIVING_HEALTH))
+		full_avatar_disconnect(forced = TRUE)
+		return
+
 	if(damage > 30 && prob(30))
 		INVOKE_ASYNC(pilot, TYPE_PROC_REF(/mob/living, emote), "scream")
 
-	pilot.apply_damage(damage, damage_type, def_zone, blocked, forced)
+	pilot.apply_damage(damage, damage_type, def_zone, blocked, forced, wound_bonus = CANT_WOUND)
+
+	if(pilot.stat > SOFT_CRIT) // KO!
+		full_avatar_disconnect(forced = TRUE)
 
 /// Handles minds being swapped around in subsequent avatars
 /datum/mind/proc/on_mind_transfer(datum/mind/source, mob/living/previous_body)

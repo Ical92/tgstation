@@ -25,6 +25,12 @@
 	initial_gas_mix = "ICEMOON_ATMOS"
 	},
 /area/icemoon/underground/explored/virtual_domain)
+"p" = (
+/obj/structure/marker_beacon/bronze,
+/turf/open/indestructible/necropolis{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/underground/explored/virtual_domain)
 "q" = (
 /obj/structure/marker_beacon/yellow,
 /turf/open/indestructible/necropolis{
@@ -37,6 +43,12 @@
 	initial_gas_mix = "ICEMOON_ATMOS"
 	},
 /area/icemoon/underground/explored/virtual_domain)
+"x" = (
+/obj/structure/marker_beacon/burgundy,
+/turf/open/indestructible/necropolis{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/underground/explored/virtual_domain)
 "H" = (
 /mob/living/simple_animal/hostile/megafauna/wendigo/virtual_domain,
 /turf/open/indestructible/necropolis{
@@ -44,7 +56,7 @@
 	},
 /area/icemoon/underground/explored/virtual_domain)
 "L" = (
-/obj/effect/mob_spawn/corpse/human/miner/explorer,
+/obj/effect/mob_spawn/corpse/human/miner/persistent,
 /turf/open/misc/asteroid/snow/ice/icemoon,
 /area/icemoon/underground/explored/virtual_domain)
 "R" = (
@@ -56,6 +68,9 @@
 "S" = (
 /turf/template_noop,
 /area/template_noop)
+"V" = (
+/turf/template_noop,
+/area/virtual_domain/safehouse)
 "Z" = (
 /turf/template_noop,
 /area/virtual_domain/safehouse/bottom_left)
@@ -597,11 +612,11 @@ b
 e
 e
 e
-S
-S
-S
-S
-S
+V
+V
+V
+V
+V
 Z
 e
 i
@@ -636,12 +651,12 @@ b
 e
 e
 e
-S
-S
-S
-S
-S
-S
+V
+V
+V
+V
+V
+V
 e
 i
 "}
@@ -675,12 +690,12 @@ e
 L
 e
 e
-S
-S
-S
-S
-S
-S
+V
+V
+V
+V
+V
+V
 e
 i
 "}
@@ -704,7 +719,7 @@ a
 a
 a
 a
-a
+x
 a
 a
 a
@@ -714,12 +729,12 @@ e
 e
 R
 e
-S
-S
-S
-S
-S
-S
+V
+V
+V
+V
+V
+V
 e
 i
 "}
@@ -753,12 +768,12 @@ e
 e
 e
 e
-S
-S
-S
-S
-S
-S
+V
+V
+V
+V
+V
+V
 e
 i
 "}
@@ -792,12 +807,12 @@ b
 e
 e
 e
-S
-S
-S
-S
-S
-S
+V
+V
+V
+V
+V
+V
 e
 i
 "}
@@ -816,7 +831,7 @@ a
 a
 a
 a
-a
+p
 a
 a
 a
@@ -831,12 +846,12 @@ b
 e
 e
 e
-S
-S
-S
-S
-S
-S
+V
+V
+V
+V
+V
+V
 e
 i
 "}
@@ -881,7 +896,7 @@ i
 "}
 (22,1,1) = {"
 i
-e
+L
 e
 b
 b

@@ -39,7 +39,8 @@
 	var/datum/supply_pack/custom/mining_pack = new(
 		purchaser = purchaser, \
 		cost = get_total_cost(), \
-		contains = things_to_order,
+		contains = things_to_order, \
+		pack_name = "Mining"
 	)
 	var/datum/supply_order/new_order = new(
 		pack = mining_pack,
@@ -59,7 +60,7 @@
 	radio.talk_into(src, "A shaft miner has ordered equipment which will arrive on the cargo shuttle! Please make sure it gets to them as soon as possible!", radio_channel)
 	SSshuttle.shopping_list += new_order
 
-/obj/machinery/computer/order_console/mining/retrive_points(obj/item/card/id/id_card)
+/obj/machinery/computer/order_console/mining/retrieve_points(obj/item/card/id/id_card)
 	return round(id_card.registered_account.mining_points)
 
 /obj/machinery/computer/order_console/mining/ui_act(action, params)

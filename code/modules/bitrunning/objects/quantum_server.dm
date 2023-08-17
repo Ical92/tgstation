@@ -42,7 +42,7 @@
 	var/retries_spent = 0
 	/// Scanner tier
 	var/scanner_tier = 1
-	/// Length of time it takes for the server to cool down after despawning a map. Here to give miners downtime so their faces don't get stuck like that
+	/// Length of time it takes for the server to cool down after resetting. Here to give miners downtime so their faces don't get stuck like that
 	var/server_cooldown_time = 3 MINUTES
 	/// Bonus applied for each servo upgrade
 	var/servo_bonus = 0
@@ -62,12 +62,7 @@
 	if(isnull(console_ref))
 		find_console()
 
-	RegisterSignals(src, list(
-		COMSIG_MACHINERY_BROKEN,
-		COMSIG_MACHINERY_POWER_LOST,
-		),
-		PROC_REF(on_broken)
-	)
+	RegisterSignals(src, list(COMSIG_MACHINERY_BROKEN, COMSIG_MACHINERY_POWER_LOST), PROC_REF(on_broken))
 	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(on_delete))
 	RegisterSignal(src, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(src, COMSIG_BITRUNNER_CLIENT_CONNECTED, PROC_REF(on_client_connected))
@@ -218,26 +213,19 @@
 	loading = TRUE
 	playsound(src, 'sound/machines/terminal_processing.ogg', 30, 2)
 
-	if(!initialize_domain(map_key))
-		balloon_alert(user, "invalid domain specified.")
-		loading = FALSE
-		return FALSE
-
-	points -= generated_domain.cost
-	if(points < 0)
-		balloon_alert(user, "not enough points.")
-		loading = FALSE
-		return FALSE
-
-	if(!initialize_safehouse_turfs())
-		balloon_alert(user, "failed to load safehouse.")
+	if(!initialize_domain(map_key) || !initialize_safehouse() || !initialize_map_items())
+		balloon_alert(user, "initialization failed.")
+		scrub_vdom()
 		loading = FALSE
 		return FALSE
 
 	loading = FALSE
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 30, 2)
 	balloon_alert(user, "domain loaded.")
+	generated_domain.start_time = world.time
+	points -= generated_domain.cost
 	update_use_power(ACTIVE_POWER_USE)
+	update_appearance()
 
 	return TRUE
 
@@ -267,7 +255,7 @@
 	var/datum/outfit/to_wear = new outfit_path()
 
 	to_wear.suit_store = null
-	to_wear.belt = null
+	to_wear.belt = /obj/item/bitrunning_host_monitor
 	to_wear.glasses = null
 	to_wear.suit = null
 	to_wear.gloves = null
@@ -334,7 +322,7 @@
 	certificate.add_raw_text(get_completion_certificate())
 	certificate.update_appearance()
 
-	var/obj/structure/closet/crate/secure/bitrunner_loot/decrypted/reward_crate = new(dest_turf, generated_domain, bonus)
+	var/obj/structure/closet/crate/secure/bitrunning/decrypted/reward_crate = new(dest_turf, generated_domain, bonus)
 	reward_crate.manifest = certificate
 	reward_crate.update_appearance()
 
@@ -369,7 +357,7 @@
 	for(var/datum/weakref/mind_ref in occupant_mind_refs)
 		var/datum/mind/this_mind = mind_ref.resolve()
 		if(isnull(this_mind))
-			occupant_mind_refs -= this_mind
+			occupant_mind_refs.Remove(this_mind)
 			continue
 
 		var/mob/living/creature = this_mind.current
@@ -434,16 +422,6 @@
 
 	return text
 
-/// Returns the current domain name if the server has the proper tier scanner and it isn't randomized
-/obj/machinery/quantum_server/proc/get_current_domain_name()
-	if(isnull(generated_domain))
-		return null
-
-	if(scanner_tier < generated_domain.difficulty || domain_randomized)
-		return REDACTED
-
-	return generated_domain.name
-
 /// Gets a random available domain given the current points. Weighted towards higher cost domains.
 /obj/machinery/quantum_server/proc/get_random_domain_id()
 	if(points < 1)
@@ -484,7 +462,7 @@
 
 	for(var/mob/living/creature as anything in mutation_candidates)
 		if(QDELETED(creature) || creature.mind)
-			mutation_candidates -= creature
+			mutation_candidates.Remove(creature)
 
 	return mutation_candidates
 
@@ -531,27 +509,60 @@
 	generated_domain = new to_load()
 	generated_domain.lazy_load()
 
-	for(var/atom/thing as anything in generated_domain.created_atoms_list)
-		if(istype(thing, /mob/living))
+	return TRUE
+
+/// Loads in necessary map items, sets mutation targets, etc
+/obj/machinery/quantum_server/proc/initialize_map_items()
+	for(var/thing in generated_domain.created_atoms_list)
+		if(isliving(thing)) // so we can mutate them
 			var/mob/living/creature = thing
 			if(creature.can_be_cybercop)
 				mutation_candidates += creature
+
 			continue
 
-		if(istype(thing, /obj/effect/mob_spawn/ghost_role))
+		if(istype(thing, /obj/effect/mob_spawn/ghost_role)) // so we get threat alerts
 			RegisterSignal(thing, COMSIG_GHOSTROLE_SPAWNED, PROC_REF(on_threat_created))
+			continue
+
+		if(istype(thing, /obj/effect/mob_spawn/corpse)) // corpses are valid targets too
+			var/obj/effect/mob_spawn/corpse/spawner = thing
+			var/mob/living/creature = spawner.mob_ref?.resolve()
+
+			if(!creature?.can_be_cybercop)
+				continue
+
+			mutation_candidates += creature
+			qdel(spawner)
+
+	var/turf/goal_turfs = list()
+	for(var/obj/thing in generated_safehouse.created_atoms)
+		if(istype(thing, /obj/effect/bitrunning/exit_spawn)) // so there's a place to put the hololadder
+			exit_turfs += get_turf(thing)
+			continue
+
+		if(istype(thing, /obj/effect/bitrunning/goal_turf)) // so there's a place to put the loot
+			var/turf/tile = get_turf(thing)
+			goal_turfs += tile
+			RegisterSignal(tile, COMSIG_ATOM_ENTERED, PROC_REF(on_goal_turf_entered))
+			RegisterSignal(tile, COMSIG_ATOM_EXAMINE, PROC_REF(on_goal_turf_examined))
+			continue
+
+	if(!length(exit_turfs))
+		CRASH("Failed to find exit turfs on generated domain.")
+	if(!length(goal_turfs))
+		CRASH("Failed to find send turfs on generated domain.")
 
 	return TRUE
 
-/// Loads the safehouse and sets turfs
-/obj/machinery/quantum_server/proc/initialize_safehouse_turfs()
+/// Loads the safehouse
+/obj/machinery/quantum_server/proc/initialize_safehouse()
 	var/datum/turf_reservation/res = generated_domain.reservations[1]
 
 	var/turf/safehouse_load_turf = list()
-	for(var/turf/tile as anything in res.reserved_turfs)
-		var/area/parent = get_area(tile)
-		if(istype(parent, /area/virtual_domain/safehouse/bottom_left))
-			safehouse_load_turf += tile
+	for(var/turf/open/space/space_tile in res.reserved_turfs) // must be a template tile, therefore empty space
+		if(istype(get_area(space_tile), /area/virtual_domain/safehouse/bottom_left))
+			safehouse_load_turf += space_tile
 			break
 
 	if(!length(safehouse_load_turf))
@@ -560,28 +571,6 @@
 	var/datum/map_template/safehouse/safehouse = new generated_domain.safehouse_path()
 	safehouse.load(safehouse_load_turf[ONLY_TURF])
 	generated_safehouse = safehouse
-
-	var/turf/goal_turfs = list()
-	for(var/obj/effect/bitrunning/thing in safehouse.created_atoms)
-		if(istype(thing, /obj/effect/bitrunning/exit_spawn))
-			exit_turfs += get_turf(thing)
-			continue
-		if(istype(thing, /obj/effect/bitrunning/goal_turf))
-			var/turf/tile = get_turf(thing)
-			goal_turfs += tile
-			RegisterSignal(tile, COMSIG_ATOM_ENTERED, PROC_REF(on_send_turf_entered))
-			RegisterSignal(tile, COMSIG_ATOM_EXAMINE, PROC_REF(on_send_turf_examined))
-
-	for(var/obj/machinery/machine in generated_domain.created_atoms_list)
-		machine.power_change()
-
-	if(!length(exit_turfs))
-		CRASH("Failed to find exit turfs on generated domain.")
-	if(!length(goal_turfs))
-		CRASH("Failed to find send turfs on generated domain.")
-
-	generated_domain.start_time = world.time
-	update_appearance()
 
 	return TRUE
 
@@ -620,13 +609,13 @@
 /obj/machinery/quantum_server/proc/on_client_connected(datum/source, datum/weakref/new_mind)
 	SIGNAL_HANDLER
 
-	occupant_mind_refs += new_mind
+	occupant_mind_refs.Add(new_mind)
 
 /// Someone disconnected
 /obj/machinery/quantum_server/proc/on_client_disconnected(datum/source, datum/weakref/old_mind)
 	SIGNAL_HANDLER
 
-	occupant_mind_refs -= old_mind
+	occupant_mind_refs.Remove(old_mind)
 
 /// Being qdeleted - make sure the circuit and connected mobs go with it
 /obj/machinery/quantum_server/proc/on_delete(datum/source)
@@ -659,23 +648,30 @@
 		return
 
 /// Whenever something enters the send tiles, check if it's a loot crate. If so, alert players.
-/obj/machinery/quantum_server/proc/on_send_turf_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/obj/machinery/quantum_server/proc/on_goal_turf_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
-	if(!istype(arrived, /obj/structure/closet/crate/secure/bitrunner_loot/encrypted))
+	if(!istype(arrived, /obj/structure/closet/crate/secure/bitrunning/encrypted))
 		return
 
-	var/obj/structure/closet/crate/secure/bitrunner_loot/encrypted/loot_crate = arrived
+	var/obj/structure/closet/crate/secure/bitrunning/encrypted/loot_crate = arrived
 	if(!istype(loot_crate))
 		return
 
+	for(var/mob/person in loot_crate.contents)
+		if(isnull(person.mind))
+			person.forceMove(get_turf(loot_crate))
+
+		var/datum/mind/this_mind = person.mind
+		this_mind.full_avatar_disconnect()
+
 	spark_at_location(loot_crate)
 	qdel(loot_crate)
-	SEND_SIGNAL(src, COMSIG_BITRUNNER_DOMAIN_COMPLETE, arrived)
+	SEND_SIGNAL(src, COMSIG_BITRUNNER_DOMAIN_COMPLETE, arrived, generated_domain.reward_points)
 	generate_loot()
 
 /// Handles examining the server. Shows cooldown time and efficiency.
-/obj/machinery/quantum_server/proc/on_send_turf_examined(datum/source, mob/examiner, list/examine_text)
+/obj/machinery/quantum_server/proc/on_goal_turf_examined(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 
 	examine_text += span_info("Beneath your gaze, the floor pulses subtly with streams of encoded data.")
@@ -702,7 +698,7 @@
 		scrub_vdom() // used in unit testing, no need to wait for callbacks
 
 	cooling_off = TRUE
-	addtimer(CALLBACK(src, PROC_REF(cool_off)), min(server_cooldown_time * capacitor_coefficient), TIMER_UNIQUE|TIMER_STOPPABLE)
+	addtimer(CALLBACK(src, PROC_REF(cool_off)), min(server_cooldown_time * capacitor_coefficient), TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
 	update_appearance()
 
 	update_use_power(IDLE_POWER_USE)
@@ -718,6 +714,13 @@
 	if(length(generated_domain.reservations))
 		var/datum/turf_reservation/res = generated_domain.reservations[1]
 		res.Release()
+
+	var/list/mob/living/creatures = spawned_threats + mutation_candidates
+	for(var/mob/living/creature as anything in creatures)
+		if(QDELETED(creature))
+			continue
+
+		creature.dust() // sometimes mobs just don't die
 
 	exit_turfs = list()
 	generated_domain = null

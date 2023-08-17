@@ -7,7 +7,6 @@
 /// In case you want to gate the crate behind a special condition.
 /obj/effect/bitrunning/loot_signal
 	name = "Mysterious aura"
-
 	/// The amount required to spawn a crate
 	var/points_goal = 10
 	/// A special condition limits this from spawning a crate
@@ -37,7 +36,7 @@
 /obj/effect/bitrunning/loot_signal/proc/reveal()
 	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
 	var/turf/tile = get_turf(src)
-	var/obj/structure/closet/crate/secure/bitrunner_loot/encrypted/loot = new(tile)
+	var/obj/structure/closet/crate/secure/bitrunning/encrypted/loot = new(tile)
 	var/datum/effect_system/spark_spread/quantum/sparks = new(tile)
 	sparks.set_up(5, 1, get_turf(loot))
 	sparks.start()
@@ -52,7 +51,7 @@
 	name = "Bitrunning hololadder spawn"
 	icon_state = "bit_exit"
 
-/// Place this where you want the receive turf to be
+/// Place this where you want crates to end up
 /obj/effect/bitrunning/goal_turf
 	name = "Bitrunning goal turf"
 	icon_state = "bit_goal"

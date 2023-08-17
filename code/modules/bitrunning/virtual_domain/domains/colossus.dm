@@ -7,13 +7,13 @@
 	key = "colossus"
 	map_name = "colossus"
 	map_height = 46
-	map_width = 35
+	map_width = 45
 	reward_points = BITRUNNER_REWARD_HIGH
 	safehouse_path = /datum/map_template/safehouse/lavaland_boss
 
 /mob/living/simple_animal/hostile/megafauna/colossus/virtual_domain
 	can_be_cybercop = FALSE
-	crusher_loot = list(/obj/structure/closet/crate/secure/bitrunner_loot/encrypted)
-	loot = list(/obj/structure/closet/crate/secure/bitrunner_loot/encrypted)
-	health = 1100
-	maxHealth = 1100
+	crusher_loot = list(/obj/structure/closet/crate/secure/bitrunning/encrypted)
+	loot = list(/obj/structure/closet/crate/secure/bitrunning/encrypted)
+	health = 1200
+	maxHealth = 1200

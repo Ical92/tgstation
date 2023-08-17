@@ -15,23 +15,19 @@
 	TEST_ASSERT_EQUAL(connected_server, server, "Quantum server did not set console_ref correctly")
 
 /// Initializing map templates
-/datum/unit_test/qserver_initialize_domain/Run()
+/datum/unit_test/qserver_initialize/Run()
 	var/obj/machinery/quantum_server/server = allocate(/obj/machinery/quantum_server)
 
 	TEST_ASSERT_EQUAL(server.initialize_domain(TEST_MAP), TRUE, "Should initialize a domain with a valid map")
 	TEST_ASSERT_NOTNULL(server.generated_domain, "Should set the generated_domain var")
 	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Should have initialized the proper map")
 
-/// Loads safehouse and turfs, etc
-/datum/unit_test/qserver_initialize_safehouse/Run()
-	var/obj/machinery/quantum_server/server = allocate(/obj/machinery/quantum_server)
+	TEST_ASSERT_EQUAL(server.initialize_safehouse(), TRUE, "Should initialize safehouse turfs")
+	TEST_ASSERT_NOTNULL(server.generated_safehouse, "Should set the generated_safehouse var")
 
-	TEST_ASSERT_EQUAL(server.initialize_domain(map_key = TEST_MAP), TRUE, "Should initialize a domain with a valid map")
-	TEST_ASSERT_EQUAL(server.generated_domain.key, TEST_MAP, "Sanity: Did not load test map correctly")
-
-	TEST_ASSERT_EQUAL(server.initialize_safehouse_turfs(), TRUE, "Should initialize safehouse turfs")
-	TEST_ASSERT_NOTNULL(server.generated_safehouse, "Did not load generated_safehouse correctly")
+	TEST_ASSERT_EQUAL(server.initialize_map_items(), TRUE, "Should initialize safehouse turfs")
 	TEST_ASSERT_EQUAL(length(server.exit_turfs), 3, "Did not load the correct number of exit turfs")
+	TEST_ASSERT_EQUAL(length(server.mutation_candidates), 2, "Did not set the correct number of mutation candidates")
 
 /// Handles cases with stopping domains. The server should cool down etc
 /datum/unit_test/qserver_reset/Run()
@@ -290,7 +286,7 @@
 	var/mob/living/carbon/human/labrat = allocate(/mob/living/carbon/human/consistent)
 	var/obj/machinery/quantum_server/server = allocate(/obj/machinery/quantum_server, locate(run_loc_floor_bottom_left.x + 1, run_loc_floor_bottom_left.y, run_loc_floor_bottom_left.z))
 	var/obj/machinery/netpod/netpod = allocate(/obj/machinery/netpod, locate(run_loc_floor_bottom_left.x + 2, run_loc_floor_bottom_left.y, run_loc_floor_bottom_left.z))
-	var/obj/structure/closet/crate/secure/bitrunner_loot/encrypted/crate = allocate(/obj/structure/closet/crate/secure/bitrunner_loot/encrypted)
+	var/obj/structure/closet/crate/secure/bitrunning/encrypted/crate = allocate(/obj/structure/closet/crate/secure/bitrunning/encrypted)
 
 	labrat.mind_initialize()
 	labrat.mock_client = new()
@@ -357,7 +353,7 @@
 	TEST_ASSERT_EQUAL(server.generate_loot(), TRUE, "Should generate loot with a receive turf")
 
 	// This is a pretty shallow test. I keep getting null crates with locate(), so I'm not sure how to test this
-	// var/obj/structure/closet/crate/secure/bitrunner_loot/decrypted/crate = locate(/obj/structure/closet/crate/secure/bitrunner_loot/decrypted) in tiles
+	// var/obj/structure/closet/crate/secure/bitrunning/decrypted/crate = locate(/obj/structure/closet/crate/secure/bitrunning/decrypted) in tiles
 	// TEST_ASSERT_NOTNULL(crate, "Should generate a loot crate")
 
 /// Server side randomization of domains
@@ -386,26 +382,34 @@
 	TEST_ASSERT_EQUAL(length(mobs), 0, "Shouldn't get a list without players")
 
 	server.occupant_mind_refs += WEAKREF(labrat.mind)
-	mobs = server.get_valid_domain_targets()
+	mobs += server.get_valid_domain_targets()
 
 	var/datum/turf_reservation/res = server.generated_domain.reservations[1]
 	TEST_ASSERT_NOTNULL(res, "Sanity: Did not generate a reservation")
 
 	var/mob/living/basic/pet/dog/corgi/pupper
-	for(var/turf/open/floor/tile in res.reserved_turfs)
-		for(var/mob/living/basic/pet/dog/corgi/doggo in tile)
+	var/mob/living/carbon/human/corpse
+	for(var/turf/tile as anything in res.reserved_turfs)
+		var/mob/living/basic/pet/dog/corgi/doggo = locate() in tile
+		if(doggo)
 			pupper = doggo
+			continue
+		var/mob/living/carbon/human/husk = locate() in tile
+		if(husk)
+			corpse = husk
 
 	TEST_ASSERT_NOTNULL(pupper, "Should be a corgi on test map")
+	TEST_ASSERT_NOTNULL(corpse, "Should be a corpse on test map")
 
-	mobs = server.get_valid_domain_targets()
-	TEST_ASSERT_EQUAL(length(mobs), 1, "Should return a list of mobs")
+	mobs.Cut()
+	mobs += server.get_valid_domain_targets()
+	TEST_ASSERT_EQUAL(length(mobs), 2, "Should return a list of mobs")
 
 	mobs.Cut()
 	pupper.mind_initialize()
 	pupper.mock_client = new()
-	mobs = server.get_valid_domain_targets()
-	TEST_ASSERT_EQUAL(length(mobs), 0, "Should not return mobs with minds")
+	mobs += server.get_valid_domain_targets()
+	TEST_ASSERT_EQUAL(length(mobs), 1, "Should not return mobs with minds")
 
 /// Tests the ability to create hololadders and effectively, retries
 /datum/unit_test/qserver_generate_hololadder/Run()
@@ -469,7 +473,7 @@
 
 /// Ensures loot crates can spawn a proper number of items
 /datum/unit_test/bitrunning_loot_crate_rewards/Run()
-	var/obj/structure/closet/crate/secure/bitrunner_loot/decrypted/crate = allocate(/obj/structure/closet/crate/secure/bitrunner_loot/decrypted)
+	var/obj/structure/closet/crate/secure/bitrunning/decrypted/crate = allocate(/obj/structure/closet/crate/secure/bitrunning/decrypted)
 
 	var/total = 0
 	total = crate.calculate_loot(1, 1, 1)
@@ -508,7 +512,7 @@
 
 /// Ensures settings on vdoms are being set correctly
 /datum/unit_test/bitrunner_vdom_settings/Run()
-	var/obj/structure/closet/crate/secure/bitrunner_loot/decrypted/crate = allocate(/obj/structure/closet/crate/secure/bitrunner_loot/decrypted)
+	var/obj/structure/closet/crate/secure/bitrunning/decrypted/crate = allocate(/obj/structure/closet/crate/secure/bitrunning/decrypted)
 
 	for(var/path in subtypesof(/datum/lazy_template/virtual_domain))
 		var/datum/lazy_template/virtual_domain/vdom = new path

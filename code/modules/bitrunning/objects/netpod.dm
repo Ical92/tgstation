@@ -11,14 +11,14 @@
 	max_integrity = 300
 	obj_flags = BLOCKS_CONSTRUCTION
 	state_open = TRUE
+	/// A player selected outfit by clicking the netpod
+	var/datum/outfit/netsuit = /datum/outfit/job/bitrunner
 	/// Holds this to see if it needs to generate a new one
 	var/datum/weakref/avatar_ref
 	/// Mind weakref used to keep track of the original mind
 	var/datum/weakref/occupant_mind_ref
 	/// The linked quantum server
 	var/datum/weakref/server_ref
-	/// A player selected outfit by clicking the netpod
-	var/datum/outfit/netsuit = /datum/outfit/job/bitrunner
 	/// The amount of brain damage done from force disconnects
 	var/disconnect_damage
 	/// Static list of outfits to select from
@@ -80,8 +80,13 @@
 	return ..()
 
 /obj/machinery/netpod/MouseDrop_T(mob/target, mob/user)
-	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user) || !is_operational)
+	var/mob/living/carbon/player = user
+	if(!iscarbon(player))
 		return
+
+	if((HAS_TRAIT(player, TRAIT_UI_BLOCKED) && !player.resting) || !Adjacent(player) || !player.Adjacent(target) || !ISADVANCEDTOOLUSER(player) || !is_operational)
+		return
+
 	close_machine(target)
 
 /obj/machinery/netpod/crowbar_act(mob/living/user, obj/item/tool)
@@ -139,16 +144,21 @@
 	return ..()
 
 /obj/machinery/netpod/close_machine(mob/user, density_to_set = TRUE)
-	if(!state_open || panel_open || !is_operational)
+	if(!state_open || panel_open || !is_operational || !iscarbon(user))
 		return
+
 	playsound(src, 'sound/machines/tramclose.ogg', 60, TRUE, frequency = 65000)
 	flick("[base_icon_state]_closing", src)
 	..()
-	protect_occupant(occupant)
+
+	if(!iscarbon(occupant))
+		open_machine()
+		return
+
 	enter_matrix()
 
 /obj/machinery/netpod/default_pry_open(obj/item/crowbar, mob/living/pryer)
-	if(isnull(occupant))
+	if(isnull(occupant) || !iscarbon(occupant))
 		if(!state_open)
 			open_machine()
 		else
@@ -210,6 +220,21 @@
 
 	return FALSE
 
+/// Disconnects the occupant after a certain time so they aren't just hibernating in netpod stasis. A balance change
+/obj/machinery/netpod/proc/auto_disconnect()
+	if(isnull(occupant) || state_open)
+		return
+
+	if(!iscarbon(occupant))
+		open_machine()
+		return
+
+	var/mob/living/carbon/player = occupant
+
+	player.playsound_local(src, 'sound/effects/splash.ogg', 60, TRUE)
+	to_chat(player, span_notice("The machine disconnects itself and begins to drain."))
+	open_machine()
+
 /**
  * ### Disconnect occupant
  * If this goes smoothly, should reconnect a receiving mind to the occupant's body
@@ -242,9 +267,12 @@
 	receiving.UnregisterSignal(src, COMSIG_BITRUNNER_SEVER_AVATAR)
 	occupant_mind_ref = null
 
-	if(mob_occupant.stat >= HARD_CRIT)
+	if(mob_occupant.stat == DEAD)
 		open_machine()
 		return
+
+	var/heal_time = (mob_occupant.stat + 2) * 5
+	addtimer(CALLBACK(src, PROC_REF(auto_disconnect)), heal_time SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
 
 	if(!forced)
 		return
@@ -290,6 +318,7 @@
 		avatar_ref = WEAKREF(current_avatar)
 
 	neo.set_static_vision(3 SECONDS)
+	protect_occupant(occupant)
 	if(!do_after(neo, 2 SECONDS, src))
 		return
 
@@ -318,12 +347,14 @@
 		return server
 
 	server = locate(/obj/machinery/quantum_server) in oview(4, src)
-	if(server)
-		server_ref = WEAKREF(server)
-		RegisterSignal(server, COMSIG_BITRUNNER_SERVER_UPGRADED, PROC_REF(on_server_upgraded), override = TRUE)
-		return server
+	if(isnull(server))
+		return
 
-	return
+	server_ref = WEAKREF(server)
+	RegisterSignal(server, COMSIG_BITRUNNER_SERVER_UPGRADED, PROC_REF(on_server_upgraded), override = TRUE)
+	RegisterSignal(server, COMSIG_BITRUNNER_DOMAIN_COMPLETE, PROC_REF(on_domain_complete), override = TRUE)
+
+	return server
 
 /// Creates a list of outfit entries for the UI.
 /obj/machinery/netpod/proc/make_outfit_collection(identifier, list/outfit_list)
@@ -352,6 +383,21 @@
 
 	if(occupant)
 		unprotect_and_signal()
+
+/// Puts points on the current occupant's card account
+/obj/machinery/netpod/proc/on_domain_complete(datum/source, atom/movable/crate, reward_points)
+	SIGNAL_HANDLER
+
+	if(isnull(occupant) || isnull(occupant_mind_ref) || !iscarbon(occupant))
+		return
+
+	var/mob/living/carbon/player = occupant
+
+	var/datum/bank_account/account = player.get_bank_account()
+	if(isnull(account))
+		return
+
+	account.bitrunning_points += reward_points * 100
 
 /obj/machinery/netpod/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
@@ -392,13 +438,24 @@
 	if(target != occupant)
 		return
 
-	target.apply_status_effect(/datum/status_effect/grouped/embryonic, STASIS_NETPOD_EFFECT)
+	target.AddComponent(/datum/component/netpod_healing, \
+		brute_heal = 1, \
+		burn_heal = 1, \
+		toxin_heal = 1, \
+		clone_heal = 1, \
+		blood_heal = 1, \
+	)
+
+	target.playsound_local(src, 'sound/effects/submerge.ogg', 20, TRUE)
 	target.extinguish_mob()
 	update_use_power(ACTIVE_POWER_USE)
 
 /// Removes the in_netpod state
 /obj/machinery/netpod/proc/unprotect_occupant(mob/living/target)
-	target?.remove_status_effect(/datum/status_effect/grouped/embryonic, STASIS_NETPOD_EFFECT)
+	var/datum/component/netpod_healing/healing_eff = target?.GetComponent(/datum/component/netpod_healing)
+	if(healing_eff)
+		qdel(healing_eff)
+
 	update_use_power(IDLE_POWER_USE)
 
 /// Resolves a path to an outfit.
