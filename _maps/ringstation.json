@@ -1,0 +1,17 @@
+{
+	"version": 1,
+	"map_name": "Ringstation",
+	"map_path": "map_files/RingStation",
+	"map_file": "RingStation.dmm",
+	"traits": [
+		{
+			"Up": true,
+			"Linkage": "Cross"
+		},
+		{
+			"Down": true,
+			"Baseturf": "/turf/open/openspace",
+			"Linkage": "Cross"
+		}
+	]
+}
