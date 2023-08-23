@@ -43,7 +43,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/floor/iron,
 /area/station/hallway/secondary/service)
 "bX" = (
 /turf/open/floor/plating,
@@ -136,9 +136,6 @@
 	},
 /turf/open/floor/wood/parquet,
 /area/station/service/cafeteria)
-"eU" = (
-/turf/closed/mineral,
-/area/space)
 "fv" = (
 /turf/open/openspace,
 /turf/closed/mineral,
@@ -148,8 +145,8 @@
 /turf/open/floor/wood,
 /area/station/commons/lounge)
 "go" = (
-/turf/open/space/basic,
-/area/space)
+/turf/cordon,
+/area/misc/cordon)
 "gp" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/effect/decal/cleanable/dirt,
@@ -542,7 +539,6 @@
 /turf/open/misc/beach/sand,
 /area/station/lowring)
 "oE" = (
-/turf/open/space/basic,
 /turf/closed/mineral,
 /area/station/lowring)
 "oR" = (
@@ -627,7 +623,7 @@
 /area/station/service/cafeteria)
 "qG" = (
 /turf/closed/wall,
-/area/space)
+/area/station/hallway/primary/starboard)
 "qU" = (
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/iron,
@@ -809,7 +805,7 @@
 /area/station/hallway/primary/port)
 "wT" = (
 /turf/open/floor/iron,
-/area/space)
+/area/station/hallway/primary/starboard)
 "xm" = (
 /turf/closed/wall,
 /area/station/service/theater)
@@ -887,6 +883,10 @@
 	},
 /turf/open/floor/wood/parquet,
 /area/station/service/cafeteria)
+"zZ" = (
+/obj/machinery/light/directional/west,
+/turf/open/floor/wood,
+/area/station/commons/lounge)
 "Ad" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -911,7 +911,6 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/port)
 "BC" = (
-/turf/open/space/basic,
 /turf/closed/mineral,
 /area/station/service/bar/backroom)
 "BF" = (
@@ -1043,6 +1042,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
 	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/wood,
 /area/station/commons/lounge)
 "ER" = (
@@ -1123,6 +1123,10 @@
 	pixel_x = -16
 	},
 /turf/open/misc/beach/sand,
+/area/station/lowring)
+"GC" = (
+/obj/machinery/light/floor,
+/turf/open/floor/wood,
 /area/station/lowring)
 "GN" = (
 /obj/structure/railing,
@@ -1376,7 +1380,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/floor/wood,
 /area/station/commons/lounge)
 "Oq" = (
 /obj/machinery/door/airlock/public/glass,
@@ -1658,7 +1662,7 @@
 /obj/structure/stairs/wood{
 	dir = 1
 	},
-/turf/open/floor/wood/large,
+/turf/open/floor/wood,
 /area/station/service/theater)
 "Ws" = (
 /turf/open/floor/wood,
@@ -1712,9 +1716,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/service/bar)
-"Xg" = (
-/turf/open/floor/plating,
-/area/space)
 "Xj" = (
 /obj/structure/flora/tree/jungle/small/style_4{
 	pixel_x = -40;
@@ -1824,6 +1825,10 @@
 "ZL" = (
 /obj/structure/bookcase/random/nonfiction,
 /turf/open/floor/wood/parquet,
+/area/station/commons/lounge)
+"ZN" = (
+/obj/machinery/light/directional/south,
+/turf/open/floor/wood,
 /area/station/commons/lounge)
 "ZP" = (
 /obj/effect/turf_decal/trimline/yellow/filled/corner{
@@ -28181,7 +28186,7 @@ vZ
 FV
 vZ
 sD
-Yg
+ZN
 vI
 go
 go
@@ -29198,8 +29203,8 @@ go
 xm
 Oy
 gH
-xm
-xm
+rA
+rA
 xm
 Zb
 Kd
@@ -29209,13 +29214,13 @@ Ug
 Kc
 Ug
 nj
-Yg
+ZN
 vI
-qG
-qG
-eU
-eU
-eU
+Gu
+Gu
+CR
+CR
+CR
 go
 go
 go
@@ -29455,11 +29460,11 @@ go
 xm
 xF
 Ca
-xm
+rA
 Zi
 Gu
-CR
-rA
+Gu
+xm
 uY
 Wo
 Yg
@@ -29472,7 +29477,7 @@ cA
 cA
 cA
 cA
-eU
+CR
 go
 go
 go
@@ -29716,7 +29721,7 @@ xm
 ZV
 cA
 cA
-CR
+Gu
 Gu
 Gu
 jV
@@ -29729,7 +29734,7 @@ Gu
 Gu
 cA
 cA
-qG
+Gu
 go
 go
 go
@@ -29986,7 +29991,7 @@ cA
 Gu
 cA
 cA
-qG
+Gu
 go
 go
 go
@@ -30243,7 +30248,7 @@ cA
 Gu
 cA
 cA
-qG
+Gu
 go
 go
 go
@@ -30500,7 +30505,7 @@ cA
 cA
 cA
 cA
-qG
+Gu
 go
 go
 go
@@ -31010,7 +31015,7 @@ hA
 Eo
 rm
 Yg
-Yg
+zZ
 Yg
 Yg
 Yg
@@ -31270,7 +31275,7 @@ Mj
 Yg
 Yg
 Yg
-Yg
+ZN
 vI
 go
 go
@@ -32041,7 +32046,7 @@ jz
 Yg
 Yg
 Yg
-Yg
+ZN
 vI
 go
 go
@@ -33065,10 +33070,10 @@ cd
 Kl
 ZT
 FG
-Oe
+GC
 yl
 yl
-Oe
+GC
 aj
 Oj
 dC
@@ -85976,7 +85981,7 @@ xY
 xY
 xY
 xY
-go
+xY
 xY
 xY
 xY
@@ -93199,11 +93204,11 @@ bQ
 Xv
 bQ
 bQ
-Xg
-Xg
-Xg
-Xg
-Xg
+bX
+bX
+bX
+bX
+bX
 km
 km
 km
@@ -93446,11 +93451,11 @@ xY
 xY
 xY
 xY
-qG
-qG
-qG
-qG
-qG
+bQ
+bQ
+bQ
+bQ
+bQ
 bQ
 bX
 KV
@@ -93703,11 +93708,11 @@ xY
 xY
 xY
 xY
-qG
-Xg
-Xg
-Xg
-Xg
+bQ
+bX
+bX
+bX
+bX
 xm
 Yq
 cU
@@ -93960,11 +93965,11 @@ xY
 xY
 xY
 xY
-qG
-Xg
-Xg
-Xg
-Xg
+bQ
+bX
+bX
+bX
+bX
 xm
 Tv
 cU
@@ -94217,11 +94222,11 @@ xY
 xY
 xY
 xY
-qG
-Xg
-Xg
-Xg
-Xg
+bQ
+bX
+bX
+bX
+bX
 xm
 dn
 cU
@@ -94474,11 +94479,11 @@ xY
 xY
 xY
 xY
-qG
-Xg
-Xg
-Xg
-Xg
+bQ
+bX
+bX
+bX
+bX
 xm
 dL
 cU
@@ -94731,9 +94736,9 @@ xY
 xY
 xY
 xY
-qG
-Xg
-Xg
+bQ
+bX
+bX
 bQ
 bQ
 xm
@@ -94988,9 +94993,9 @@ xY
 xY
 xY
 xY
-qG
-Xg
-Xg
+bQ
+bX
+bX
 bQ
 hb
 bQ
@@ -95245,9 +95250,9 @@ xY
 xY
 xY
 xY
-qG
-Xg
-Xg
+bQ
+bX
+bX
 bX
 bX
 bX
@@ -102971,9 +102976,9 @@ xY
 xY
 xY
 qG
-xY
-xY
-xY
+wT
+wT
+wT
 qG
 xY
 xY
@@ -103228,9 +103233,9 @@ xY
 xY
 xY
 qG
-xY
-xY
-xY
+qG
+qG
+qG
 qG
 xY
 xY

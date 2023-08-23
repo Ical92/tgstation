@@ -41,7 +41,11 @@
 	icon_state = "station"
 	requires_power = FALSE
 	ambientsounds = list('sound/ambience/shore.ogg','sound/ambience/ambinice.ogg')
+	base_lighting_alpha = 255
+	base_lighting_color = "#FFFFCC"
 
 /area/station/uppring
 	name = "\improper Station Inner-Ring"
 	icon_state = "station"
+	base_lighting_alpha = 255
+	base_lighting_color = "#FFFFCC"
