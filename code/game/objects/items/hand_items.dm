@@ -1,7 +1,7 @@
 /// For all of the items that are really just the user's hand used in different ways, mostly (all, really) from emotes
 /obj/item/hand_item
 	icon = 'icons/obj/weapons/hand.dmi'
-	icon_state = "latexballon"
+	icon_state = "latexballoon"
 	force = 0
 	throwforce = 0
 	item_flags = DROPDEL | ABSTRACT | HAND_ITEM
@@ -22,16 +22,16 @@
 	var/mob/living/owner = loc
 	if(!istype(owner))
 		return
-	RegisterSignal(owner, COMSIG_PARENT_EXAMINE, PROC_REF(ownerExamined))
+	RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(ownerExamined))
 
 /obj/item/hand_item/circlegame/Destroy()
 	var/mob/owner = loc
 	if(istype(owner))
-		UnregisterSignal(owner, COMSIG_PARENT_EXAMINE)
+		UnregisterSignal(owner, COMSIG_ATOM_EXAMINE)
 	return ..()
 
 /obj/item/hand_item/circlegame/dropped(mob/user)
-	UnregisterSignal(user, COMSIG_PARENT_EXAMINE) //loc will have changed by the time this is called, so Destroy() can't catch it
+	UnregisterSignal(user, COMSIG_ATOM_EXAMINE) //loc will have changed by the time this is called, so Destroy() can't catch it
 	// this is a dropdel item.
 	return ..()
 
@@ -128,7 +128,7 @@
 		return FALSE
 
 	var/obj/item/bodypart/head/the_head = target.get_bodypart(BODY_ZONE_HEAD)
-	if(!(the_head.biological_state & BIO_FLESH) || !IS_ORGANIC_LIMB(the_head))
+	if(!(the_head.biological_state & BIO_FLESH))
 		to_chat(user, span_warning("You can't noogie [target], [target.p_they()] [target.p_have()] no skin on [target.p_their()] head!"))
 		return
 
@@ -266,6 +266,12 @@
 					span_notice("You slap [slapped] in the face!"),
 					span_hear("You hear a slap."),
 				)
+	else if(user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM)
+		user.visible_message(
+			span_danger("[user] gives [slapped] a slap on the wrist!"),
+			span_notice("You give [slapped] a slap on the wrist!"),
+			span_hear("You hear a slap."),
+		)
 	else
 		user.visible_message(
 			span_danger("[user] slaps [slapped]!"),

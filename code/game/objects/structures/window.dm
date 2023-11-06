@@ -1,12 +1,13 @@
 /obj/structure/window
 	name = "window"
-	desc = "A window."
+	desc = "A directional window."
 	icon_state = "window"
 	density = TRUE
 	layer = ABOVE_OBJ_LAYER //Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE //initially is 0 for tile smoothing
 	flags_1 = ON_BORDER_1
+	obj_flags = CAN_BE_HIT | BLOCKS_CONSTRUCTION_DIR | IGNORE_DENSITY
 	max_integrity = 50
 	can_be_unanchored = TRUE
 	resistance_flags = ACID_PROOF
@@ -56,6 +57,8 @@
 
 	if(fulltile)
 		setDir()
+		obj_flags &= ~BLOCKS_CONSTRUCTION_DIR
+		obj_flags &= ~IGNORE_DENSITY
 		AddElement(/datum/element/can_barricade)
 
 	//windows only block while reinforced and fulltile
@@ -76,6 +79,9 @@
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
+	if(flags_1 & NODECONSTRUCT_1)
+		return
+
 	switch(state)
 		if(WINDOW_SCREWED_TO_FRAME)
 			. += span_notice("The window is <b>screwed</b> to the frame.")
@@ -88,16 +94,14 @@
 				. += span_notice("The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.")
 
 /obj/structure/window/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	switch(the_rcd.mode)
-		if(RCD_DECONSTRUCT)
-			return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 5)
+	if(the_rcd.mode == RCD_DECONSTRUCT)
+		return list("delay" = 2 SECONDS, "cost" = 5)
 	return FALSE
 
-/obj/structure/window/rcd_act(mob/user, obj/item/construction/rcd/the_rcd)
-	switch(the_rcd.mode)
-		if(RCD_DECONSTRUCT)
-			qdel(src)
-			return TRUE
+/obj/structure/window/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, list/rcd_data)
+	if(rcd_data["[RCD_DESIGN_MODE]"] == RCD_DECONSTRUCT)
+		qdel(src)
+		return TRUE
 	return FALSE
 
 /obj/structure/window/narsie_act()
@@ -123,10 +127,10 @@
 
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/moved_window = mover
-		return valid_window_location(loc, moved_window.dir, is_fulltile = moved_window.fulltile)
+		return valid_build_direction(loc, moved_window.dir, is_fulltile = moved_window.fulltile)
 
 	if(istype(mover, /obj/structure/windoor_assembly) || istype(mover, /obj/machinery/door/window))
-		return valid_window_location(loc, mover.dir, is_fulltile = FALSE)
+		return valid_build_direction(loc, mover.dir, is_fulltile = FALSE)
 
 	return TRUE
 
@@ -311,7 +315,7 @@
 	return TRUE
 
 
-/obj/structure/window/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+/obj/structure/window/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(.) //received damage
 		update_nearby_icons()
@@ -358,8 +362,10 @@
 /obj/structure/window/proc/AfterRotation(mob/user, degrees)
 	air_update_turf(TRUE, FALSE)
 
-/obj/structure/window/proc/on_painted(obj/structure/window/source, is_dark_color)
+/obj/structure/window/proc/on_painted(obj/structure/window/source, mob/user, obj/item/toy/crayon/spraycan/spraycan, is_dark_color)
 	SIGNAL_HANDLER
+	if(!spraycan.actually_paints)
+		return
 	if (is_dark_color && fulltile) //Opaque directional windows restrict vision even in directions they are not placed in, please don't do this
 		set_opacity(255)
 	else
@@ -428,7 +434,7 @@
 /obj/structure/window/get_dumping_location()
 	return null
 
-/obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/obj/structure/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
 	if(fulltile || (dir == to_dir))
@@ -440,6 +446,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/spawner, 0)
 
 /obj/structure/window/unanchored
 	anchored = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/unanchored/spawner, 0)
 
 /obj/structure/window/reinforced
 	name = "reinforced window"
@@ -470,12 +478,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/spawner, 0)
 	acid = 100
 
 /obj/structure/window/reinforced/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	switch(the_rcd.mode)
-		if(RCD_DECONSTRUCT)
-			return list("mode" = RCD_DECONSTRUCT, "delay" = 30, "cost" = 15)
+	if(the_rcd.mode == RCD_DECONSTRUCT)
+		return list("delay" = 3 SECONDS, "cost" = 15)
 	return FALSE
 
 /obj/structure/window/reinforced/attackby_secondary(obj/item/tool, mob/user, params)
+	if(flags_1 & NODECONSTRUCT_1)
+		return ..()
+
 	switch(state)
 		if(RWINDOW_SECURE)
 			if(tool.tool_behaviour == TOOL_WELDER)
@@ -554,6 +564,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/spawner, 0)
 
 /obj/structure/window/reinforced/examine(mob/user)
 	. = ..()
+	if(flags_1 & NODECONSTRUCT_1)
+		return
 	switch(state)
 		if(RWINDOW_SECURE)
 			. += span_notice("It's been screwed in with one way screws, you'd need to <b>heat them</b> to have any chance of backing them out.")
@@ -571,6 +583,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/spawner, 0)
 /obj/structure/window/reinforced/unanchored
 	anchored = FALSE
 	state = WINDOW_OUT_OF_FRAME
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/unanchored/spawner, 0)
 
 /obj/structure/window/plasma
 	name = "plasma window"
@@ -634,28 +648,35 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/spawner, 0)
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	icon_state = "twindow"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/spawner, 0)
+
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	icon_state = "fwindow"
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/frosted/spawner, 0)
+
 /* Full Tile Windows (more atom_integrity) */
 
 /obj/structure/window/fulltile
+	name = "full tile window"
+	desc = "A full tile window."
 	icon = 'icons/obj/smooth_structures/window.dmi'
 	icon_state = "window-0"
 	base_icon_state = "window"
 	max_integrity = 100
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
 	glass_amount = 2
 
 /obj/structure/window/fulltile/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	switch(the_rcd.mode)
-		if(RCD_DECONSTRUCT)
-			return list("mode" = RCD_DECONSTRUCT, "delay" = 25, "cost" = 10)
+	if(the_rcd.mode == RCD_DECONSTRUCT)
+		return list("delay" = 2.5 SECONDS, "cost" = 10)
 	return FALSE
 
 /obj/structure/window/fulltile/unanchored
@@ -668,6 +689,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/spawner, 0)
 	max_integrity = 400
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
@@ -684,6 +706,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/spawner, 0)
 	max_integrity = 1000
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
@@ -694,12 +717,15 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/spawner, 0)
 	state = WINDOW_OUT_OF_FRAME
 
 /obj/structure/window/reinforced/fulltile
+	name = "full tile reinforced window"
+	desc = "A full tile reinforced window"
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 	icon_state = "reinforced_window-0"
 	base_icon_state = "reinforced_window"
 	max_integrity = 150
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	state = RWINDOW_SECURE
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
@@ -707,9 +733,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/spawner, 0)
 	glass_amount = 2
 
 /obj/structure/window/reinforced/fulltile/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	switch(the_rcd.mode)
-		if(RCD_DECONSTRUCT)
-			return list("mode" = RCD_DECONSTRUCT, "delay" = 40, "cost" = 20)
+	if(the_rcd.mode == RCD_DECONSTRUCT)
+		return list("mode" = RCD_DECONSTRUCT, "delay" = 4 SECONDS, "cost" = 20)
 	return FALSE
 
 /obj/structure/window/reinforced/fulltile/unanchored
@@ -722,6 +747,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/spawner, 0)
 	base_icon_state = "tinted_window"
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
@@ -748,6 +774,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/spawner, 0)
 	reinf = TRUE
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	reinf = TRUE
 	heat_resistance = 1600
 	armor_type = /datum/armor/reinforced_shuttle
@@ -795,6 +822,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/spawner, 0)
 	wtype = "shuttle"
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	heat_resistance = 1600
 	armor_type = /datum/armor/plasma_plastitanium
 	smoothing_flags = SMOOTH_BITMASK
@@ -827,6 +855,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/spawner, 0)
 	max_integrity = 15
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_PAPERFRAME
 	canSmoothWith = SMOOTH_GROUP_PAPERFRAME
@@ -916,6 +945,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/spawner, 0)
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
+	obj_flags = CAN_BE_HIT
 	max_integrity = 50
 	glass_amount = 2
 

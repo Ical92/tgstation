@@ -105,7 +105,7 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, span_notice("Your [name] starts pulsing..."))
 			if(do_after(user, 40, target = user))
-				var/mob/living/simple_animal/slime/S = new(get_turf(user), "grey")
+				var/mob/living/simple_animal/slime/S = new(get_turf(user), SLIME_TYPE_GREY)
 				playsound(user, 'sound/effects/splat.ogg', 50, TRUE)
 				to_chat(user, span_notice("You spit out [S]."))
 				return 350
@@ -233,7 +233,7 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			var/turf/open/T = get_turf(user)
 			if(istype(T))
-				T.atmos_spawn_air("plasma=20")
+				T.atmos_spawn_air("[GAS_PLASMA]=20")
 			to_chat(user, span_warning("You activate [src], and a cloud of plasma bursts out of your skin!"))
 			return 900
 
@@ -339,7 +339,7 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			var/turf/open/T = get_turf(user)
 			if(istype(T))
-				T.atmos_spawn_air("nitrogen=40;TEMP=2.7")
+				T.atmos_spawn_air("[GAS_N2]=40;[TURF_TEMPERATURE(2.7)]")
 			to_chat(user, span_warning("You activate [src], and icy air bursts out of your skin!"))
 			return 900
 
@@ -460,7 +460,7 @@
 				to_chat(user, span_userdanger("You explode!"))
 				explosion(user, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 6, explosion_cause = src)
 				user.investigate_log("has been gibbed by an oil slime extract explosion.", INVESTIGATE_DEATHS)
-				user.gib()
+				user.gib(DROP_ALL_REMAINS)
 				return
 			to_chat(user, span_notice("You stop feeding [src], and the feeling passes."))
 
@@ -473,25 +473,26 @@
 /obj/item/slime_extract/adamantine/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			if(species.armor > 0)
+			if(HAS_TRAIT(user, TRAIT_ADAMANTINE_EXTRACT_ARMOR))
 				to_chat(user, span_warning("Your skin is already hardened!"))
 				return
+			ADD_TRAIT(user, TRAIT_ADAMANTINE_EXTRACT_ARMOR, ADAMANTINE_EXTRACT_TRAIT)
 			to_chat(user, span_notice("You feel your skin harden and become more resistant."))
-			species.armor += 25
-			addtimer(CALLBACK(src, PROC_REF(reset_armor), species), 1200)
+			user.physiology.damage_resistance += 25
+			addtimer(CALLBACK(src, PROC_REF(reset_armor), user), 120 SECONDS)
 			return 450
 
 		if(SLIME_ACTIVATE_MAJOR)
-			to_chat(user, span_warning("You feel your body rapidly crystallizing..."))
+			to_chat(user, span_warning("You feel your body rapidly hardening..."))
 			if(do_after(user, 120, target = user))
 				to_chat(user, span_warning("You feel solid."))
-				user.set_species(pick(/datum/species/golem/adamantine))
+				user.set_species(/datum/species/golem)
 				return
 			to_chat(user, span_notice("You stop feeding [src], and your body returns to its slimelike state."))
 
-/obj/item/slime_extract/adamantine/proc/reset_armor(datum/species/jelly/luminescent/species)
-	if(istype(species))
-		species.armor -= 25
+/obj/item/slime_extract/adamantine/proc/reset_armor(mob/living/carbon/human/user)
+	REMOVE_TRAIT(user, TRAIT_ADAMANTINE_EXTRACT_ARMOR, ADAMANTINE_EXTRACT_TRAIT)
+	user.physiology.damage_resistance -= 25
 
 /obj/item/slime_extract/bluespace
 	name = "bluespace slime extract"
@@ -572,7 +573,7 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			var/turf/open/T = get_turf(user)
 			if(istype(T))
-				T.atmos_spawn_air("o2=11;n2=41;TEMP=293.15")
+				T.atmos_spawn_air("[GAS_O2]=11;[GAS_N2]=41;[TURF_TEMPERATURE(T20C)]")
 				to_chat(user, span_warning("You activate [src], and fresh air bursts out of your skin!"))
 				return 600
 
@@ -704,19 +705,28 @@
 	balloon_alert(user, "offering...")
 	being_used = TRUE
 
-	var/list/candidates = poll_candidates_for_mob("Do you want to play as [dumb_mob.name]?", ROLE_SENTIENCE, ROLE_SENTIENCE, 5 SECONDS, dumb_mob, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
-	if(!LAZYLEN(candidates))
+	var/datum/callback/to_call = CALLBACK(src, PROC_REF(on_poll_concluded), user, dumb_mob)
+	dumb_mob.AddComponent(/datum/component/orbit_poll, \
+		ignore_key = POLL_IGNORE_SENTIENCE_POTION, \
+		job_bans = ROLE_SENTIENCE, \
+		to_call = to_call, \
+	)
+
+/// Assign the chosen ghost to the mob
+/obj/item/slimepotion/slime/sentience/proc/on_poll_concluded(mob/user, mob/living/dumb_mob, mob/dead/observer/ghost)
+	if(isnull(ghost))
 		balloon_alert(user, "try again later!")
 		being_used = FALSE
-		return ..()
+		return
 
-	var/mob/dead/observer/C = pick(candidates)
-	dumb_mob.key = C.key
+	dumb_mob.key = ghost.key
 	dumb_mob.mind.enslave_mind_to_creator(user)
 	SEND_SIGNAL(dumb_mob, COMSIG_SIMPLEMOB_SENTIENCEPOTION, user)
+
 	if(isanimal(dumb_mob))
 		var/mob/living/simple_animal/smart_animal = dumb_mob
 		smart_animal.sentience_act()
+
 	dumb_mob.mind.add_antag_datum(/datum/antagonist/sentient_creature)
 	balloon_alert(user, "success")
 	after_success(user, dumb_mob)
@@ -776,7 +786,6 @@
 	SEND_SIGNAL(switchy_mob, COMSIG_SIMPLEMOB_TRANSFERPOTION, user)
 	switchy_mob.faction = user.faction.Copy()
 	switchy_mob.copy_languages(user, LANGUAGE_MIND)
-	switchy_mob.update_atom_languages()
 	user.death()
 	to_chat(switchy_mob, span_notice("In a quick flash, you feel your consciousness flow into [switchy_mob]!"))
 	to_chat(switchy_mob, span_warning("You are now [switchy_mob]. Your allegiances, alliances, and role is still the same as it was prior to consciousness transfer!"))
@@ -1020,7 +1029,7 @@
 	inhand_icon_state = "tile-bluespace"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	mats_per_unit = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=SMALL_MATERIAL_AMOUNT*5)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
@@ -1037,7 +1046,7 @@
 	inhand_icon_state = "tile-sepia"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	mats_per_unit = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=SMALL_MATERIAL_AMOUNT*5)
 	throwforce = 10
 	throw_speed = 0.1
 	throw_range = 28

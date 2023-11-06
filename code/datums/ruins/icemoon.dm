@@ -12,6 +12,12 @@
 
 // above ground only
 
+/datum/map_template/ruin/icemoon/gas
+	name = "Lizard Gas Station"
+	id = "lizgasruin"
+	description = "A gas station. It appears to have been recently open and is in mint condition."
+	suffix = "icemoon_surface_gas.dmm"
+
 /datum/map_template/ruin/icemoon/lust
 	name = "Ruin of Lust"
 	id = "lust"
@@ -54,6 +60,12 @@
 	id = "pizzeria"
 	description = "Moffuchi's Family Pizzeria chain has a reputation for providing affordable artisanal meals of questionable edibility. This particular pizzeria seems to have been abandoned for some time."
 	suffix = "icemoon_surface_pizza.dmm"
+
+/datum/map_template/ruin/icemoon/frozen_phonebooth
+	name = "Frozen Phonebooth"
+	id = "frozen_phonebooth"
+	description = "A venture by nanotrasen to help popularize the use of holopads. This one was sent to a icemoon."
+	suffix = "icemoon_surface_phonebooth.dmm"
 
 /datum/map_template/ruin/icemoon/smoking_room
 	name = "Smoking Room"

@@ -225,6 +225,22 @@
 	crate_name = "energy gun crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 
+/datum/supply_pack/security/armory/laser_carbine
+	name = "Laser Carbine Crate"
+	desc = "Contains three laser carbines, capable of rapidly firing weak lasers."
+	cost = CARGO_CRATE_VALUE * 9
+	contains = list(/obj/item/gun/energy/laser/carbine = 3)
+	crate_name = "laser carbine crate"
+	crate_type = /obj/structure/closet/crate/secure/plasma
+
+/datum/supply_pack/security/armory/disabler_smg
+	name = "Disabler SMG Crate"
+	desc = "Contains three disabler SMGs, capable of rapidly firing weak disabler beams."
+	cost = CARGO_CRATE_VALUE * 7
+	contains = list(/obj/item/gun/energy/disabler/smg = 3)
+	crate_name = "disabler smg crate"
+	crate_type = /obj/structure/closet/crate/secure/plasma
+
 /datum/supply_pack/security/armory/exileimp
 	name = "Exile Implants Crate"
 	desc = "Contains five Exile implants."
@@ -299,7 +315,7 @@
 	name = "SWAT Crate"
 	desc = "Contains two fullbody sets of tough, fireproof suits designed in a joint \
 		effort by IS-ERI and Nanotrasen. Each set contains a suit, helmet, mask, combat belt, \
-		and combat gloves."
+		and gorilla gloves."
 	cost = CARGO_CRATE_VALUE * 7
 	contains = list(/obj/item/clothing/head/helmet/swat/nanotrasen = 2,
 					/obj/item/clothing/suit/armor/swat = 2,
@@ -316,3 +332,11 @@
 	cost = CARGO_CRATE_VALUE * 7
 	contains = list(/obj/item/storage/belt/holster/energy/thermal = 2)
 	crate_name = "thermal pistol crate"
+
+/datum/supply_pack/security/sunglasses
+	name = "Sunglasses Crate"
+	desc = "A single pair of flash-proof sunglasses."
+	cost = CARGO_CRATE_VALUE * 2
+	access_view = ACCESS_SECURITY
+	contains = list(/obj/item/clothing/glasses/sunglasses = 1)
+	crate_name = "sunglasses crate"

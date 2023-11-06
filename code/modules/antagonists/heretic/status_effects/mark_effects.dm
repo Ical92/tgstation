@@ -61,8 +61,7 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
 		var/obj/item/bodypart/bodypart = pick(human_owner.bodyparts)
-		var/datum/wound/slash/severe/crit_wound = new()
-		crit_wound.apply_wound(bodypart)
+		human_owner.cause_wound_of_type_and_severity(WOUND_SLASH, bodypart, WOUND_SEVERITY_SEVERE)
 
 	return ..()
 
@@ -144,13 +143,13 @@
 /datum/status_effect/eldritch/blade/on_apply()
 	. = ..()
 	RegisterSignal(owner, COMSIG_MOVABLE_PRE_THROW, PROC_REF(on_pre_throw))
-	RegisterSignal(owner, COMSIG_MOVABLE_TELEPORTED, PROC_REF(on_teleport))
+	RegisterSignal(owner, COMSIG_MOVABLE_TELEPORTING, PROC_REF(on_teleport))
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 /datum/status_effect/eldritch/blade/on_remove()
 	UnregisterSignal(owner, list(
 		COMSIG_MOVABLE_PRE_THROW,
-		COMSIG_MOVABLE_TELEPORTED,
+		COMSIG_MOVABLE_TELEPORTING,
 		COMSIG_MOVABLE_MOVED,
 	))
 
@@ -246,4 +245,18 @@
 	)
 	new teleport_effect(get_turf(owner))
 	owner.Paralyze(2 SECONDS)
+	return ..()
+
+// MARK OF KNOCK
+
+/datum/status_effect/eldritch/knock
+	effect_icon_state = "emark7"
+	duration = 10 SECONDS
+
+/datum/status_effect/eldritch/knock/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_ALWAYS_NO_ACCESS, STATUS_EFFECT_TRAIT)
+
+/datum/status_effect/eldritch/knock/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_ALWAYS_NO_ACCESS, STATUS_EFFECT_TRAIT)
 	return ..()

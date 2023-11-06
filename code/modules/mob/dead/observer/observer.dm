@@ -106,10 +106,11 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 		if(ishuman(body))
 			var/mob/living/carbon/human/body_human = body
-			if(HAIR in body_human.dna.species.species_traits)
+			var/datum/species/human_species = body_human.dna.species
+			if(human_species.check_head_flags(HEAD_HAIR))
 				hairstyle = body_human.hairstyle
 				hair_color = brighten_color(body_human.hair_color)
-			if(FACEHAIR in body_human.dna.species.species_traits)
+			if(human_species.check_head_flags(HEAD_FACIAL_HAIR))
 				facial_hairstyle = body_human.facial_hairstyle
 				facial_hair_color = brighten_color(body_human.facial_hair_color)
 
@@ -218,9 +219,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		setDir(2 )//reset the dir to its default so the sprites all properly align up
 
 	if(ghost_accs == GHOST_ACCS_FULL && (icon_state in GLOB.ghost_forms_with_accessories_list)) //check if this form supports accessories and if the client wants to show them
-		var/datum/sprite_accessory/S
 		if(facial_hairstyle)
-			S = GLOB.facial_hairstyles_list[facial_hairstyle]
+			var/datum/sprite_accessory/S = GLOB.facial_hairstyles_list[facial_hairstyle]
 			if(S)
 				facial_hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", -HAIR_LAYER)
 				if(facial_hair_color)
@@ -228,12 +228,13 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 				facial_hair_overlay.alpha = 200
 				add_overlay(facial_hair_overlay)
 		if(hairstyle)
-			S = GLOB.hairstyles_list[hairstyle]
+			var/datum/sprite_accessory/hair/S = GLOB.hairstyles_list[hairstyle]
 			if(S)
 				hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", -HAIR_LAYER)
 				if(hair_color)
 					hair_overlay.color = hair_color
 				hair_overlay.alpha = 200
+				hair_overlay.pixel_y = S.y_offset
 				add_overlay(hair_overlay)
 
 /*
@@ -303,6 +304,7 @@ Works together with spawning an observer, noted above.
 	ghost.client?.init_verbs()
 	if(!can_reenter_corpse)// Disassociates observer mind from the body mind
 		ghost.mind = null
+	ghost.client?.player_details.time_of_death = ghost.mind?.current ? mind.current.timeofdeath : world.time
 	SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZED)
 	return ghost
 
@@ -320,7 +322,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Ghost"
 	set desc = "Relinquish your life and enter the land of the dead."
 
-	if(stat != DEAD)
+	if(stat != CONSCIOUS && stat != DEAD)
 		succumb()
 	if(stat == DEAD)
 		if(!HAS_TRAIT(src, TRAIT_CORPSELOCKED)) //corpse-locked have to confirm with the alert below
@@ -486,9 +488,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if (!istype(target) || (is_secret_level(target.z) && !client?.holder))
 		return
 
-	var/icon/I = icon(target.icon,target.icon_state,target.dir)
-
-	var/orbitsize = (I.Width()+I.Height())*0.5
+	var/list/icon_dimensions = get_icon_dimensions(target.icon)
+	var/orbitsize = (icon_dimensions["width"] + icon_dimensions["height"]) * 0.5
 	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
 
 	var/rot_seg
@@ -727,6 +728,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			if(istype(target) && (target != src))
 				ManualFollow(target)
 				return
+
 		if(href_list["x"] && href_list["y"] && href_list["z"])
 			var/tx = text2num(href_list["x"])
 			var/ty = text2num(href_list["y"])
@@ -735,9 +737,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			if(istype(target))
 				abstract_move(target)
 				return
+
 		if(href_list["reenter"])
 			reenter_corpse()
 			return
+
+		if(href_list["jump"])
+			var/atom/movable/target = locate(href_list["jump"])
+			var/turf/target_turf = get_turf(target)
+			if(target_turf && isturf(target_turf))
+				abstract_move(target_turf)
+
+		if(href_list["play"])
+			var/atom/movable/target = locate(href_list["play"])
+			if(istype(target) && (target != src))
+				target.attack_ghost(usr)
+				return
 
 //We don't want to update the current var
 //But we will still carry a mind.
@@ -826,12 +841,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/species_type = client.prefs.read_preference(/datum/preference/choiced/species)
 	var/datum/species/species = new species_type
-
-	if(HAIR in species.species_traits)
+	if(species.check_head_flags(HEAD_HAIR))
 		hairstyle = client.prefs.read_preference(/datum/preference/choiced/hairstyle)
 		hair_color = brighten_color(client.prefs.read_preference(/datum/preference/color/hair_color))
 
-	if(FACEHAIR in species.species_traits)
+	if(species.check_head_flags(HEAD_FACIAL_HAIR))
 		facial_hairstyle = client.prefs.read_preference(/datum/preference/choiced/facial_hairstyle)
 		facial_hair_color = brighten_color(client.prefs.read_preference(/datum/preference/color/facial_hair_color))
 
@@ -905,6 +919,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if (!isobserver(usr))
 		return
 
+	reset_perspective(null) // Reset again for sanity
+
 	var/mob/chosen_target = possible_destinations[target]
 
 	// During the break between opening the input menu and selecting our target, has this become an invalid option?
@@ -917,6 +933,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(isnewplayer(mob_eye))
 		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")
 		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone in the lobby: [ADMIN_LOOKUPFLW(mob_eye)]. This should not be possible and has been blocked.")
+		return
+
+	if(!isnull(observetarget))
+		stack_trace("do_observe called on an observer ([src]) who was already observing something! (observing: [observetarget], new target: [mob_eye])")
+		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone while already observing someone, \
+			this is a bug (and a past exploit) and should be investigated.")
 		return
 
 	//Istype so we filter out points of interest that are not mobs
@@ -968,12 +990,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	var/datum/mafia_controller/game = GLOB.mafia_game //this needs to change if you want multiple mafia games up at once.
 	if(!game)
-		game = create_mafia_game("mafia")
+		game = create_mafia_game()
 	game.ui_interact(usr)
 
 /mob/dead/observer/CtrlShiftClick(mob/user)
 	if(isobserver(user) && check_rights(R_SPAWN))
-		change_mob_type( /mob/living/carbon/human , null, null, TRUE) //always delmob, ghosts shouldn't be left lingering
+		change_mob_type(/mob/living/carbon/human , null, null, TRUE) //always delmob, ghosts shouldn't be left lingering
 
 /mob/dead/observer/examine(mob/user)
 	. = ..()
@@ -988,7 +1010,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 
 /mob/dead/observer/proc/set_invisibility(value)
-	invisibility = value
+	SetInvisibility(value, id=type)
 	set_light_on(!value ? TRUE : FALSE)
 
 

@@ -126,6 +126,12 @@
 	name = "Derelict 8"
 	description = "An auxiliary storage bay might be the least respected room on any functional station, but studies show they are the least likely to be hit in an artillery strike."
 
+/datum/map_template/ruin/space/derelict9
+	id = "derelict9"
+	suffix = "derelict9.dmm"
+	name = "Derelict 9"
+	description = "Someone already found this high-security supply cache already, but were unable to get inside. Perhaps the next visitor will have more luck."
+
 /datum/map_template/ruin/space/empty_shell
 	id = "empty-shell"
 	suffix = "emptyshell.dmm"
@@ -376,6 +382,12 @@
 	name = "The Faceoff"
 	description = "What do you get when a meeting of the enemy corporations get crashed?"
 
+/datum/map_template/ruin/space/meatstation
+	id = "meatderelict"
+	suffix = "meatderelict.dmm"
+	name = "Bioresearch Outpost"
+	description = "A bioresearch experiment gone wrong."
+
 /datum/map_template/ruin/space/ghost_restaurant
 	id = "space_ghost_restaurant.dmm"
 	suffix = "space_ghost_restaurant.dmm"
@@ -394,7 +406,6 @@
 	name = "Mass driver Router"
 	description = "An old, still functional router for some long destroyed system."
 
-
 /datum/map_template/ruin/space/prey_pod
 	id = "prey"
 	suffix = "prey_pod.dmm"
@@ -406,6 +417,12 @@
 	suffix = "travelers_rest.dmm"
 	name = "Traveler's Rest"
 	description = "An abandoned capsule floating through space. It seems as if somebody was in here not too long ago."
+
+/datum/map_template/ruin/space/prison_shuttle
+	id = "prison_shuttle"
+	suffix = "prison_shuttle.dmm"
+	name = "Crashed Prisoner Shuttle"
+	description = "A prisoner transport shuttle that had crashed into a stray asteroid long ago."
 
 /datum/map_template/ruin/space/botanical_haven
 	id = "botanical_haven"
@@ -431,9 +448,15 @@
 	name = "Waystation"
 	description = "A waytation for a backwater subsector of Spinward gets attacked by the syndicate due to bad luck."
 
+/datum/map_template/ruin/space/allamericandiner
+	id = "allamericandiner"
+	suffix = "allamericandiner.dmm"
+	name = "The All-American Diner"
+	description = "A mothballed \"Restaurant\" station of the popular \"The All-American Diner\" franchise."
+
 /datum/map_template/ruin/space/mimesvclowns
 	id = "mimesvclowns"
-	suffix = "mimesvclowns.dmm"
+	suffix = "mimesvsclowns.dmm"
 	name = "Abandoned Mime Outpost"
 	description = "When you fight mimes, you better bring more than slips."
 
@@ -442,6 +465,12 @@
 	suffix = "transit_booth.dmm"
 	name = "Transit Booth"
 	description = "Make sure to check out the duty-free store!"
+
+/datum/map_template/ruin/space/space_phonebooth
+	id = "Space_phonebooth"
+	suffix = "phonebooth.dmm"
+	name = "Space Phonebooth"
+	description = "A venture by nanotrasen to help popularize the use of holopads."
 
 /datum/map_template/ruin/space/the_outlet
 	id = "the_outlet"
