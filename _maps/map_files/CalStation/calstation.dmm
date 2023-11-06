@@ -212,7 +212,8 @@
 /area/awaymission/secret/powered)
 "eg" = (
 /obj/machinery/door/window/left/directional/south,
-/turf/open/floor/catwalk_floor,
+/obj/structure/lattice/catwalk,
+/turf/open/openspace,
 /area/awaymission/secret/powered)
 "el" = (
 /obj/structure/table,
@@ -279,13 +280,15 @@
 "fC" = (
 /obj/effect/turf_decal/siding/white,
 /obj/machinery/button/curtain{
-	pixel_x = -24
+	pixel_x = -24;
+	id = "theater_curtains"
 	},
 /turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "fF" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/catwalk_floor,
+/obj/structure/lattice/catwalk,
+/turf/open/openspace,
 /area/awaymission/secret/powered)
 "fG" = (
 /obj/effect/turf_decal/trimline/yellow/corner,
@@ -412,7 +415,8 @@
 "hY" = (
 /obj/machinery/light/red/dim/directional/west,
 /obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/catwalk_floor,
+/obj/structure/lattice/catwalk,
+/turf/open/openspace,
 /area/awaymission/secret/powered)
 "id" = (
 /turf/open/floor/wood/tile,
@@ -441,6 +445,12 @@
 /obj/effect/turf_decal/trimline/red/corner,
 /obj/machinery/holopad,
 /turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"iB" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
+/obj/structure/cable,
+/turf/closed/wall,
 /area/awaymission/secret/powered)
 "iD" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored/oxygen_output{
@@ -787,6 +797,10 @@
 "px" = (
 /obj/effect/turf_decal/trimline/red/warning,
 /turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"pI" = (
+/obj/structure/lattice/catwalk,
+/turf/open/openspace,
 /area/awaymission/secret/powered)
 "qc" = (
 /obj/machinery/door/poddoor/shutters{
@@ -1187,7 +1201,8 @@
 "zZ" = (
 /obj/machinery/light/red/dim/directional/east,
 /obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/catwalk_floor,
+/obj/structure/lattice/catwalk,
+/turf/open/openspace,
 /area/awaymission/secret/powered)
 "Ad" = (
 /turf/closed/wall,
@@ -1227,6 +1242,10 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"Av" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
+/turf/closed/wall,
 /area/awaymission/secret/powered)
 "AV" = (
 /obj/effect/turf_decal/box/corners{
@@ -1293,7 +1312,8 @@
 /area/awaymission/secret/powered)
 "BY" = (
 /obj/machinery/button/curtain{
-	pixel_x = -24
+	pixel_x = -24;
+	id = "theater_curtains"
 	},
 /turf/open/floor/wood/tile,
 /area/awaymission/secret/powered)
@@ -1502,6 +1522,10 @@
 "GR" = (
 /obj/structure/table,
 /turf/open/floor/iron/dark,
+/area/awaymission/secret/powered)
+"GX" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
+/turf/closed/wall,
 /area/awaymission/secret/powered)
 "Hc" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -1721,9 +1745,17 @@
 /obj/effect/turf_decal/siding/dark/corner,
 /turf/open/floor/iron/white,
 /area/awaymission/secret/powered)
+"Ly" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible/layer2,
+/obj/structure/cable,
+/turf/closed/wall,
+/area/awaymission/secret/powered)
 "LN" = (
 /obj/structure/railing,
 /turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"LO" = (
+/turf/open/floor/plating,
 /area/awaymission/secret/powered)
 "LP" = (
 /obj/effect/turf_decal/trimline/yellow/warning{
@@ -1964,7 +1996,8 @@
 /turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "QH" = (
-/turf/open/floor/catwalk_floor,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/awaymission/secret/powered)
 "QT" = (
 /obj/effect/turf_decal/trimline/purple/warning,
@@ -2056,6 +2089,11 @@
 	},
 /turf/open/floor/carpet/green,
 /area/awaymission/secret/powered)
+"Sz" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible/layer4,
+/obj/structure/cable,
+/turf/closed/wall,
+/area/awaymission/secret/powered)
 "SA" = (
 /obj/machinery/griddle,
 /turf/open/floor/iron/kitchen,
@@ -2084,6 +2122,10 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/green,
+/area/awaymission/secret/powered)
+"Tk" = (
+/obj/structure/cable,
+/turf/closed/wall,
 /area/awaymission/secret/powered)
 "Tp" = (
 /turf/closed/indestructible/fakedoor/maintenance,
@@ -92131,7 +92173,7 @@ xK
 xK
 Ad
 Ad
-Ad
+Ly
 Ad
 Ad
 Ad
@@ -92643,7 +92685,7 @@ Ad
 Ad
 Ad
 xK
-Ad
+GX
 xI
 UE
 UE
@@ -92651,7 +92693,7 @@ UE
 Rl
 xW
 xW
-Ad
+iB
 xK
 xK
 xK
@@ -93414,7 +93456,7 @@ Sc
 bP
 Ad
 xK
-Ad
+Av
 KG
 Rl
 UE
@@ -93422,7 +93464,7 @@ UE
 gW
 xI
 xI
-Ad
+GX
 xK
 xK
 xK
@@ -94187,10 +94229,10 @@ xK
 xK
 Ad
 Ad
+Sz
 Ad
 Ad
-Ad
-Ad
+Tk
 Ad
 Ad
 Ad
@@ -158181,7 +158223,7 @@ vM
 xB
 hN
 vj
-Gm
+LO
 Gm
 Gm
 YO
@@ -158442,7 +158484,7 @@ Gm
 Gm
 Gm
 YO
-QH
+pI
 fF
 Uu
 aM
@@ -158699,7 +158741,7 @@ Gm
 Gm
 Gm
 jJ
-QH
+pI
 eg
 gq
 aM
@@ -158956,7 +158998,7 @@ Gm
 Gm
 Gm
 YO
-QH
+pI
 fF
 HL
 aM
@@ -159209,7 +159251,7 @@ vM
 xB
 TO
 hu
-Gm
+LO
 Gm
 Gm
 YO
