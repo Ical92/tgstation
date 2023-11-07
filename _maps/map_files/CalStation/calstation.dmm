@@ -216,8 +216,8 @@
 /turf/open/openspace,
 /area/awaymission/secret/powered)
 "el" = (
-/obj/structure/table,
 /obj/machinery/light/directional/west,
+/obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "en" = (
@@ -1206,6 +1206,11 @@
 /area/awaymission/secret/powered)
 "Ad" = (
 /turf/closed/wall,
+/area/awaymission/secret/powered)
+"Ag" = (
+/obj/structure/dresser,
+/obj/structure/mirror/directional/west,
+/turf/open/floor/wood,
 /area/awaymission/secret/powered)
 "Ah" = (
 /obj/machinery/light/small/red/dim/directional/south,
@@ -100135,9 +100140,9 @@ Ad
 Ad
 Ad
 Ad
-DT
+Ag
 el
-DT
+Bu
 Ad
 Ad
 Ad
