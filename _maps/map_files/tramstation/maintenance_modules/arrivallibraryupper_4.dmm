@@ -1,0 +1,773 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aD" = (
+/obj/effect/decal/cleanable/rubble,
+/turf/open/misc/asteroid,
+/area/station/asteroid)
+"aX" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/station/maintenance/port/aft)
+"bg" = (
+/obj/structure/table,
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/warning/directional/south,
+/turf/open/floor/iron/smooth,
+/area/station/asteroid)
+"cg" = (
+/obj/effect/turf_decal/weather,
+/obj/effect/turf_decal/siding/wideplating_new/dark,
+/obj/structure/sign/warning/no_smoking/circle/directional/west,
+/turf/open/floor/plating,
+/area/station/maintenance/port/aft)
+"cE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/iron/smooth,
+/area/station/maintenance/port/aft)
+"de" = (
+/turf/closed/wall,
+/area/template_noop)
+"dx" = (
+/obj/item/toy/plush/lizard_plushie/space{
+	name = "Yearns-The-Mines"
+	},
+/turf/open/misc/asteroid,
+/area/station/asteroid)
+"eg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/engineering/material_cheap,
+/obj/effect/spawner/random/engineering/tool,
+/obj/effect/turf_decal/box/corners{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth,
+/area/station/asteroid)
+"er" = (
+/obj/effect/turf_decal/weather,
+/turf/open/floor/plating,
+/area/station/maintenance/port/aft)
+"eC" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"eY" = (
+/obj/machinery/door/airlock/external{
+	name = "External Access"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"fn" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/turf/open/floor/iron/grimy,
+/area/station/maintenance/port/aft)
+"fA" = (
+/turf/closed/wall,
+/area/station/asteroid)
+"fH" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/station/asteroid)
+"hd" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/station/asteroid)
+"hL" = (
+/obj/structure/railing,
+/obj/item/chair,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/station/maintenance/port/aft)
+"hZ" = (
+/obj/machinery/door/airlock/external{
+	name = "External Access"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/station/asteroid)
+"jJ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/random/decoration/generic,
+/obj/structure/rack,
+/turf/open/floor/iron/grimy,
+/area/station/asteroid)
+"kn" = (
+/obj/structure/sign/warning/vacuum/external,
+/turf/closed/wall,
+/area/station/asteroid)
+"kN" = (
+/obj/item/flashlight/lantern,
+/turf/open/misc/asteroid,
+/area/station/maintenance/port/aft)
+"lS" = (
+/obj/structure/flora/rock/pile/style_random,
+/turf/open/misc/asteroid,
+/area/station/asteroid)
+"nd" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/catwalk_floor,
+/area/station/asteroid)
+"on" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/structure/closet_maintenance,
+/turf/open/floor/iron/smooth,
+/area/station/asteroid)
+"oF" = (
+/obj/structure/chair,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/station/maintenance/port/aft)
+"oT" = (
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/the_big_gas_giant_truth/directional/east,
+/turf/open/floor/iron/grimy,
+/area/station/maintenance/port/aft)
+"pr" = (
+/obj/structure/closet/crate/cardboard,
+/obj/effect/spawner/random/maintenance/three,
+/turf/open/misc/asteroid,
+/area/station/asteroid)
+"pC" = (
+/obj/modular_map_connector,
+/obj/structure/cable,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/catwalk_floor,
+/area/station/maintenance/port/aft)
+"rs" = (
+/obj/structure/flora/rock/style_random,
+/turf/open/misc/asteroid,
+/area/station/maintenance/port/aft)
+"sx" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/obj/structure/flora/rock/pile/style_random,
+/turf/open/misc/asteroid/airless,
+/area/station/asteroid)
+"sF" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/spawner/random/engineering/canister,
+/turf/open/floor/plating,
+/area/station/maintenance/port/aft)
+"tp" = (
+/obj/item/weldingtool/empty,
+/turf/open/misc/asteroid/airless,
+/area/template_noop)
+"tL" = (
+/obj/effect/spawner/random/structure/chair_maintenance,
+/turf/open/floor/iron/grimy,
+/area/station/asteroid)
+"wF" = (
+/turf/closed/mineral/random/stationside/asteroid/porus,
+/area/station/asteroid)
+"xA" = (
+/obj/effect/decal/cleanable/rubble,
+/turf/open/misc/asteroid/airless,
+/area/station/asteroid)
+"xD" = (
+/turf/closed/mineral/random/stationside/asteroid/porus,
+/area/station/maintenance/port/aft)
+"ye" = (
+/obj/structure/fluff/minepost,
+/turf/open/misc/asteroid,
+/area/station/maintenance/port/aft)
+"yz" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/gun/ballistic/revolver/russian,
+/obj/structure/sign/poster/contraband/random/directional/east,
+/turf/open/floor/iron/smooth,
+/area/station/maintenance/port/aft)
+"yE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/structure/closet_maintenance,
+/obj/effect/turf_decal/box/corners{
+	dir = 4
+	},
+/turf/open/floor/iron/smooth,
+/area/station/maintenance/port/aft)
+"yR" = (
+/turf/template_noop,
+/area/station/asteroid)
+"AL" = (
+/turf/closed/mineral/random/stationside/asteroid/porus,
+/area/template_noop)
+"AV" = (
+/obj/effect/decal/cleanable/ash,
+/turf/open/misc/asteroid/airless,
+/area/template_noop)
+"BE" = (
+/obj/structure/cable,
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/catwalk_floor,
+/area/station/maintenance/port/aft)
+"BH" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 4
+	},
+/turf/open/misc/asteroid/airless,
+/area/station/asteroid)
+"Cl" = (
+/obj/structure/flora/rock/style_random,
+/turf/open/misc/asteroid,
+/area/station/asteroid)
+"CZ" = (
+/obj/item/clothing/head/helmet/space/eva{
+	pixel_x = -5;
+	pixel_y = 3
+	},
+/obj/structure/table,
+/obj/item/clothing/suit/space/eva{
+	pixel_y = 7;
+	pixel_x = 4
+	},
+/turf/open/floor/iron/smooth,
+/area/station/asteroid)
+"De" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/generic,
+/turf/open/floor/plating,
+/area/station/maintenance/port/aft)
+"Ep" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/station/asteroid)
+"Fw" = (
+/turf/closed/wall,
+/area/station/maintenance/port/aft)
+"GQ" = (
+/obj/structure/cable,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/catwalk_floor,
+/area/station/maintenance/port/aft)
+"Il" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/c38{
+	pixel_y = -10;
+	pixel_x = 11
+	},
+/obj/structure/railing/corner/end,
+/turf/open/floor/iron/smooth,
+/area/station/maintenance/port/aft)
+"Iq" = (
+/obj/effect/spawner/random/engineering/atmospherics_portable,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/smooth,
+/area/station/asteroid)
+"LJ" = (
+/turf/template_noop,
+/area/template_noop)
+"Mm" = (
+/obj/machinery/door/airlock/maintenance/external/glass,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/iron/smooth,
+/area/station/maintenance/port/aft)
+"MA" = (
+/obj/structure/rack,
+/obj/item/tank/internals/oxygen/empty,
+/turf/open/floor/iron/smooth,
+/area/station/asteroid)
+"MT" = (
+/obj/machinery/door/airlock/maintenance/external/glass,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/station/asteroid)
+"Nm" = (
+/obj/item/binoculars,
+/turf/open/misc/asteroid,
+/area/station/asteroid)
+"Nv" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/turf/open/misc/asteroid,
+/area/station/maintenance/port/aft)
+"NP" = (
+/obj/structure/cable,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/catwalk_floor,
+/area/station/asteroid)
+"Pk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/smooth,
+/area/station/maintenance/port/aft)
+"Pl" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/station/asteroid)
+"PE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/structure/tank_holder,
+/turf/open/floor/iron/smooth,
+/area/station/maintenance/port/aft)
+"Qd" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 8
+	},
+/turf/open/misc/asteroid,
+/area/station/asteroid)
+"Qy" = (
+/obj/item/pickaxe/rusted,
+/turf/open/misc/asteroid,
+/area/station/maintenance/port/aft)
+"RY" = (
+/turf/open/misc/asteroid,
+/area/station/asteroid)
+"UE" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/plating,
+/area/station/asteroid)
+"UV" = (
+/obj/structure/flora/rock/pile/style_random,
+/turf/open/misc/asteroid,
+/area/station/maintenance/port/aft)
+"Wh" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/catwalk_floor,
+/area/station/maintenance/port/aft)
+"WM" = (
+/turf/open/misc/asteroid/airless,
+/area/station/asteroid)
+"Yf" = (
+/obj/effect/decal/cleanable/rubble,
+/turf/open/misc/asteroid/airless,
+/area/template_noop)
+"Yi" = (
+/obj/structure/fluff/minepost,
+/turf/open/misc/asteroid,
+/area/station/asteroid)
+"Ys" = (
+/turf/open/misc/asteroid,
+/area/station/maintenance/port/aft)
+"ZO" = (
+/obj/effect/decal/cleanable/oil/streak,
+/turf/open/misc/asteroid/airless,
+/area/template_noop)
+
+(1,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+"}
+(2,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+fA
+de
+de
+fA
+fA
+fA
+WM
+xA
+WM
+WM
+WM
+yR
+yR
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+"}
+(3,1,1) = {"
+Fw
+Fw
+Fw
+Fw
+fA
+Iq
+hd
+on
+bg
+fA
+BH
+BH
+BH
+BH
+sx
+BH
+BH
+fA
+de
+de
+eY
+de
+LJ
+"}
+(4,1,1) = {"
+pC
+GQ
+GQ
+GQ
+NP
+NP
+NP
+hd
+hd
+MT
+Pl
+Pl
+Pl
+Pl
+Pl
+Pl
+Pl
+MT
+hd
+fH
+eC
+de
+LJ
+"}
+(5,1,1) = {"
+LJ
+LJ
+Pk
+Pk
+Il
+aX
+GQ
+Fw
+Mm
+Fw
+Nv
+Nv
+Qd
+Qd
+Qd
+Qd
+Qd
+fA
+hd
+kn
+hZ
+de
+Yf
+"}
+(6,1,1) = {"
+LJ
+LJ
+cE
+oF
+yz
+hL
+BE
+Fw
+er
+cg
+Ys
+Ys
+RY
+Nm
+aD
+RY
+lS
+fA
+hd
+hd
+hd
+fA
+AV
+"}
+(7,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+xD
+UV
+kN
+RY
+RY
+RY
+pr
+RY
+fA
+hd
+MA
+CZ
+fA
+tp
+"}
+(8,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+xD
+ye
+Qy
+dx
+RY
+RY
+Cl
+wF
+fA
+Ep
+fA
+fA
+fA
+ZO
+"}
+(9,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+xD
+xD
+rs
+lS
+aD
+Yi
+wF
+wF
+fA
+nd
+eg
+fA
+wF
+AL
+"}
+(10,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+xD
+xD
+xD
+xD
+xD
+xD
+xD
+xD
+Fw
+Wh
+PE
+Fw
+wF
+wF
+"}
+(11,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+xD
+xD
+xD
+xD
+xD
+xD
+xD
+Fw
+Wh
+yE
+Fw
+fA
+fA
+"}
+(12,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+Fw
+Fw
+Fw
+Wh
+Pk
+fn
+tL
+UE
+"}
+(13,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+sF
+De
+Wh
+Pk
+oT
+jJ
+UE
+"}
+(14,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+Wh
+Wh
+Wh
+Fw
+Fw
+fA
+fA
+"}
+(15,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+Wh
+Pk
+Pk
+fA
+wF
+wF
+wF
+"}
+(16,1,1) = {"
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+LJ
+"}
