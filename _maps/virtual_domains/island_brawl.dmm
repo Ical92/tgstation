@@ -1340,11 +1340,8 @@
 /turf/open/floor/wood,
 /area/virtual_domain)
 "rG" = (
-/obj/machinery/telecomms/allinone,
-/obj/item/wirecutters{
-	pixel_y = 9
-	},
 /obj/machinery/light/directional/south,
+/obj/effect/mob_spawn/ghost_role/human/virtual_domain/islander,
 /turf/open/floor/iron/dark/diagonal,
 /area/virtual_domain)
 "rI" = (
@@ -2911,10 +2908,6 @@
 	},
 /turf/open/floor/wood/parquet,
 /area/virtual_domain)
-"KT" = (
-/obj/effect/mob_spawn/ghost_role/human/virtual_domain/islander,
-/turf/open/floor/iron/dark/diagonal,
-/area/virtual_domain)
 "KZ" = (
 /obj/structure/railing{
 	dir = 1
@@ -3365,9 +3358,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock_note_placer{
-	note_info = "Dear IT: Please fix the fax machine"
-	},
 /turf/open/floor/iron/dark/diagonal,
 /area/virtual_domain)
 "Qx" = (
@@ -3466,11 +3456,14 @@
 /area/virtual_domain/fullbright)
 "Rk" = (
 /obj/structure/table/glass,
-/obj/machinery/fax{
-	fax_name = "Beach Hotel Fax";
-	name = "Beach Hotel's Fax Machine";
-	pixel_y = 8;
-	visible_to_network = 0
+/obj/item/stack/sheet/mineral/wood{
+	amount = 4;
+	pixel_x = -12;
+	pixel_y = 6
+	},
+/obj/item/restraints/handcuffs/cable/zipties{
+	pixel_y = 7;
+	pixel_x = 4
 	},
 /turf/open/floor/iron/dark/diagonal,
 /area/virtual_domain)
@@ -6941,7 +6934,7 @@ eK
 Bq
 lW
 lW
-KT
+lW
 DA
 In
 Bq
