@@ -1,4 +1,31 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ao" = (
+/obj/structure/chair/plastic{
+	dir = 4
+	},
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
+"av" = (
+/obj/structure/cable,
+/obj/machinery/exoscanner{
+	name = "communications dish";
+	desc = "A communications dish, sending and receiving signals through space. Part of a larger array."
+	},
+/turf/open/floor/plating,
+/area/misc/cordon)
+"aE" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/misc/grass,
+/area/misc/cordon)
+"aU" = (
+/obj/structure/broken_flooring/corner/always_floorplane/directional/south,
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/misc/cordon)
 "bi" = (
 /obj/machinery/computer{
 	dir = 4
@@ -19,6 +46,14 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"cr" = (
+/obj/structure/sign/warning/electric_shock/directional/north,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 11;
+	pixel_x = -3
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
 "cS" = (
 /turf/closed/wall/mineral/titanium,
 /area/awaymission/secret/unpowered/outdoors/jungle)
@@ -32,6 +67,10 @@
 "dg" = (
 /turf/closed/wall,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"dP" = (
+/obj/structure/table/wood,
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
 "dZ" = (
 /turf/open/misc/dirt/jungle,
 /area/awaymission/secret/unpowered/outdoors/jungle)
@@ -48,6 +87,24 @@
 	},
 /turf/open/floor/engine,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"fu" = (
+/obj/machinery/photocopier,
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
+"fB" = (
+/obj/structure/fake_stairs/directional/east,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/cordon/secret,
+/area/misc/cordon)
+"gf" = (
+/obj/structure/broken_flooring/pile/always_floorplane/directional/east,
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/misc/cordon)
 "gW" = (
 /obj/structure/broken_flooring/corner/always_floorplane/directional/west,
 /turf/open/floor/plating,
@@ -58,6 +115,57 @@
 "if" = (
 /turf/cordon/secret,
 /area/misc/cordon)
+"ij" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/structure/railing/corner,
+/turf/open/misc/grass,
+/area/misc/cordon)
+"ip" = (
+/obj/item/paper/fluff/scrambled_pass{
+	puzzle_id = "museum_r_wing_puzzle";
+	icon_state = "scrap_bloodied";
+	pixel_x = 14;
+	pixel_y = -10
+	},
+/turf/cordon/secret,
+/area/misc/cordon)
+"iZ" = (
+/turf/open/floor/iron,
+/area/misc/cordon)
+"ja" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/landmark/awaystart/relay,
+/turf/open/floor/iron/white,
+/area/awaymission/secret/unpowered/outdoors/jungle)
+"jd" = (
+/obj/machinery/computer{
+	icon_screen = "comm_logs";
+	name = "data monitor console";
+	desc = "Some kind of broken console. Looks like it logged signals from a communication array, before the screen was smashed in, at least."
+	},
+/turf/cordon/secret,
+/area/misc/cordon)
+"jg" = (
+/turf/closed/wall,
+/area/misc/cordon)
+"jO" = (
+/obj/structure/railing/corner/end/flip,
+/turf/open/misc/dirt/jungle,
+/area/misc/cordon)
+"jR" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/open/misc/grass,
+/area/misc/cordon)
+"jZ" = (
+/obj/effect/landmark/awaystart/relay,
+/turf/open/floor/plating,
+/area/awaymission/secret/unpowered/outdoors/jungle)
 "ke" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "#000000";
@@ -79,6 +187,12 @@
 /obj/machinery/door/airlock/shuttle/glass,
 /turf/open/floor/iron/white/textured_half,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"mO" = (
+/obj/structure/fluff/paper/stack{
+	dir = 10
+	},
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
 "nl" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -101,6 +215,16 @@
 /obj/effect/turf_decal/trimline/yellow/warning,
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"nL" = (
+/obj/machinery/power/floodlight{
+	anchored = 1
+	},
+/turf/cordon/secret,
+/area/misc/cordon)
+"nW" = (
+/obj/effect/mapping_helpers/burnt_floor,
+/turf/open/floor/iron,
+/area/misc/cordon)
 "oa" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
@@ -130,6 +254,25 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"pi" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/misc/grass,
+/area/misc/cordon)
+"pj" = (
+/obj/structure/broken_flooring/corner/always_floorplane/directional/south,
+/obj/structure/cable,
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/misc/cordon)
+"pk" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters,
+/turf/open/floor/plating,
+/area/misc/cordon)
 "pZ" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 1
@@ -161,10 +304,42 @@
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"rf" = (
+/obj/structure/fake_stairs/directional/south,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/misc/dirt/jungle,
+/area/misc/cordon)
+"sg" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/turf/open/misc/grass,
+/area/misc/cordon)
 "sy" = (
 /obj/structure/broken_flooring/corner/always_floorplane/directional/south,
-/turf/open/misc/grass,
+/turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"sT" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 10
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
+"th" = (
+/obj/machinery/door/airlock/grunge,
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
+"ts" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/reagent_dispensers/foamtank,
+/turf/open/floor/iron,
+/area/misc/cordon)
+"tH" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
 "uc" = (
 /obj/machinery/power/shuttle_engine/heater{
 	dir = 4
@@ -182,18 +357,79 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"vf" = (
+/obj/effect/mapping_helpers/broken_floor,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/misc/cordon)
+"vw" = (
+/obj/structure/railing/corner,
+/turf/open/misc/grass,
+/area/misc/cordon)
+"vC" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/open/misc/dirt/jungle,
+/area/misc/cordon)
+"vV" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
 "wa" = (
 /turf/open/floor/iron/white,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"we" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
+"wg" = (
+/obj/machinery/computer{
+	icon_screen = "comm_logs";
+	name = "data monitor console";
+	desc = "Some kind of broken console. Looks like it logged signals from a communication array, before the screen was smashed in, at least."
+	},
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
+"wo" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 6
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
 "ws" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 8
 	},
 /turf/open/floor/engine,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"xb" = (
+/obj/item/toy/plush/lizard_plushie{
+	name = "Hears-The-Void"
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
 "xk" = (
 /turf/open/genturf,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"xA" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/open/misc/grass,
+/area/misc/cordon)
+"xE" = (
+/obj/machinery/exoscanner{
+	name = "communications dish";
+	desc = "A communications dish, sending and receiving signals through space. Part of a larger array."
+	},
+/turf/cordon/secret,
+/area/misc/cordon)
 "xI" = (
 /obj/vehicle/ridden/atv{
 	dir = 4
@@ -214,6 +450,10 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"yh" = (
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor/iron_smooth,
+/area/misc/cordon)
 "yt" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/siding/thinplating_new{
@@ -221,6 +461,24 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"yC" = (
+/obj/structure/railing/corner/end,
+/turf/open/misc/dirt/jungle,
+/area/misc/cordon)
+"yD" = (
+/obj/structure/railing/corner/end/flip{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
+"yK" = (
+/obj/structure/broken_flooring/pile/always_floorplane/directional/north,
+/obj/structure/cable,
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/misc/cordon)
 "yM" = (
 /obj/vehicle/ridden/atv{
 	dir = 8
@@ -228,6 +486,15 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"zg" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/thinplating_new/end{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
 "zm" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "#000000";
@@ -236,6 +503,23 @@
 	},
 /turf/open/misc/grass,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"zy" = (
+/obj/structure/railing,
+/turf/open/misc/grass,
+/area/misc/cordon)
+"zT" = (
+/obj/structure/filingcabinet,
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
+"zU" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/misc/grass,
+/area/misc/cordon)
+"zZ" = (
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
 "Am" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/siding/thinplating_new{
@@ -243,6 +527,14 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"AE" = (
+/obj/machinery/computer/terminal{
+	icon_screen = "comm_logs";
+	name = "communications array console";
+	desc = "Some kind of console. It's screen shows a bright red error message."
+	},
+/turf/cordon/secret,
+/area/misc/cordon)
 "AN" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/siding/thinplating_new{
@@ -265,10 +557,59 @@
 /obj/structure/broken_flooring/side/always_floorplane/directional/west,
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"BC" = (
+/obj/structure/table,
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
 "BG" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/white,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"BS" = (
+/obj/machinery/exoscanner{
+	name = "communications dish";
+	desc = "A communications dish, sending and receiving signals through space. Part of a larger array."
+	},
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/misc/cordon)
+"Cb" = (
+/obj/effect/turf_decal/siding/thinplating_new/end{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
+"Cx" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/misc/grass,
+/area/misc/cordon)
+"CJ" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
+"CW" = (
+/obj/structure/fluff/paper/stack{
+	dir = 1
+	},
+/obj/item/paper/fluff/scrambled_pass{
+	puzzle_id = "museum_r_wing_puzzle";
+	icon_state = "scrap_bloodied";
+	pixel_x = 14;
+	pixel_y = -10
+	},
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
+"Dl" = (
+/obj/item/wrench{
+	pixel_y = 5;
+	pixel_x = -9
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
 "Dt" = (
 /obj/structure/railing{
 	dir = 1
@@ -281,6 +622,22 @@
 	},
 /turf/open/floor/engine,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"DL" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 1
+	},
+/obj/structure/closet/crate/preopen,
+/turf/open/floor/iron,
+/area/misc/cordon)
+"DQ" = (
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/misc/cordon)
+"Fb" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet,
+/turf/open/floor/iron,
+/area/misc/cordon)
 "Fc" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -290,6 +647,9 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Fd" = (
+/turf/open/misc/dirt/jungle,
+/area/misc/cordon)
 "Gn" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/siding/thinplating_new{
@@ -297,6 +657,13 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Gy" = (
+/obj/structure/cable,
+/obj/structure/railing/corner/end/flip{
+	dir = 4
+	},
+/turf/open/floor/catwalk_floor/iron_smooth,
+/area/misc/cordon)
 "GE" = (
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
@@ -308,6 +675,23 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Ha" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/misc/grass,
+/area/misc/cordon)
+"Hd" = (
+/obj/machinery/exoscanner{
+	name = "communications dish";
+	desc = "A communications dish, sending and receiving signals through space. Part of a larger array."
+	},
+/obj/effect/mapping_helpers/broken_machine,
+/turf/open/floor/plating,
+/area/misc/cordon)
 "HO" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -315,6 +699,16 @@
 /obj/effect/turf_decal/siding/thinplating_new/corner,
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Ic" = (
+/obj/machinery/spaceship_navigation_beacon{
+	desc = "A device that constantly transmits its position over several different commonly used maritime navigation frequencies. This one seems to have some fried wires, and only transmits one frequency."
+	},
+/turf/cordon/secret,
+/area/misc/cordon)
+"Ig" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/misc/cordon)
 "IT" = (
 /obj/vehicle/ridden/atv{
 	dir = 4
@@ -322,11 +716,44 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Jf" = (
+/obj/item/chair/wood,
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
 "Jm" = (
-/obj/machinery/power/floodlight,
 /obj/structure/cable,
+/obj/machinery/power/floodlight{
+	anchored = 1
+	},
 /turf/open/floor/iron,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Jt" = (
+/obj/structure/chair/plastic{
+	dir = 8
+	},
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
+"JF" = (
+/obj/structure/broken_flooring/side/always_floorplane/directional/west,
+/obj/effect/turf_decal/trimline/yellow/warning{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/misc/cordon)
+"JN" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 9
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
+"Km" = (
+/obj/structure/table/wood,
+/obj/item/paper/crumpled{
+	pixel_y = 3;
+	pixel_x = -2
+	},
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
 "Ko" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
@@ -342,6 +769,12 @@
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Lm" = (
+/obj/structure/fluff/paper/stack{
+	dir = 9
+	},
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
 "Ly" = (
 /obj/machinery/door/airlock/maintenance/external,
 /turf/open/floor/iron,
@@ -352,6 +785,37 @@
 	},
 /obj/structure/marker_beacon/yellow,
 /turf/open/floor/plating,
+/area/awaymission/secret/unpowered/outdoors/jungle)
+"Mg" = (
+/obj/structure/fake_stairs/directional/south,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/misc/dirt/jungle,
+/area/misc/cordon)
+"Ml" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/misc/grass,
+/area/misc/cordon)
+"Ms" = (
+/obj/effect/landmark/awaystart/relay,
+/turf/open/floor/iron,
+/area/awaymission/secret/unpowered/outdoors/jungle)
+"Nh" = (
+/obj/structure/cable,
+/obj/machinery/spaceship_navigation_beacon{
+	desc = "A device that constantly transmits its position over several different commonly used maritime navigation frequencies. This one seems to have some fried wires, and only transmits one frequency."
+	},
+/turf/open/floor/iron,
+/area/awaymission/secret/unpowered/outdoors/jungle)
+"NL" = (
+/turf/open/misc/grass,
+/area/misc/cordon)
+"Os" = (
+/obj/structure/cable,
+/turf/open/floor/catwalk_floor/iron,
 /area/awaymission/secret/unpowered/outdoors/jungle)
 "OD" = (
 /obj/effect/decal/cleanable/blood/tracks{
@@ -367,6 +831,12 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"OS" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
 "OZ" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "#000000";
@@ -386,15 +856,68 @@
 	},
 /turf/open/misc/dirt/jungle,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Qg" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/misc/grass,
+/area/misc/cordon)
+"Qn" = (
+/obj/effect/landmark/awaystart/relay,
+/turf/open/misc/dirt/jungle,
+/area/awaymission/secret/unpowered/outdoors/jungle)
 "Rf" = (
 /turf/open/water/jungle,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Rp" = (
+/obj/structure/cable,
+/obj/structure/railing/corner/end{
+	dir = 8
+	},
+/turf/open/floor/catwalk_floor/iron_smooth,
+/area/misc/cordon)
 "RB" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Se" = (
+/obj/effect/turf_decal/siding/thinplating_new,
+/turf/open/floor/iron,
+/area/misc/cordon)
+"SA" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/open/misc/dirt/jungle,
+/area/misc/cordon)
+"SF" = (
+/obj/structure/railing/corner/end{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating_new/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating_new/corner{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
+"Tm" = (
+/obj/structure/fake_stairs/directional/west,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
 "TD" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"TR" = (
+/obj/structure/railing{
+	dir = 5
+	},
+/turf/open/misc/grass,
+/area/misc/cordon)
 "UW" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "#000000";
@@ -409,6 +932,14 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Vg" = (
+/obj/machinery/door/airlock/grunge,
+/obj/effect/mapping_helpers/airlock/inaccessible,
+/obj/effect/mapping_helpers/airlock_note_placer{
+	note_info = "Access reader issues, use other door!"
+	},
+/turf/closed/wall,
+/area/misc/cordon)
 "Vn" = (
 /turf/open/misc/grass,
 /area/awaymission/secret/unpowered/outdoors/jungle)
@@ -423,12 +954,46 @@
 "Xc" = (
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"Xk" = (
+/obj/effect/turf_decal/siding/thinplating_new/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating_new/corner{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
+"Xp" = (
+/obj/structure/fluff/paper/stack{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/iron/grimy,
+/area/misc/cordon)
+"XT" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "#000000";
+	alpha = 100;
+	name = "tire tracks"
+	},
+/turf/cordon/secret,
+/area/misc/cordon)
+"YU" = (
+/obj/effect/landmark/awaystart/relay,
+/turf/open/floor/iron/white,
+/area/awaymission/secret/unpowered/outdoors/jungle)
 "Zh" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
 	},
 /turf/open/floor/plating,
 /area/awaymission/secret/unpowered/outdoors/jungle)
+"ZV" = (
+/obj/effect/turf_decal/siding/thinplating_new{
+	dir = 5
+	},
+/turf/open/floor/iron,
+/area/misc/cordon)
 
 (1,1,1) = {"
 if
@@ -24553,7 +25118,7 @@ Vn
 Vn
 Vn
 Vn
-Vn
+dZ
 dZ
 Jm
 oa
@@ -24809,11 +25374,11 @@ Vn
 Vn
 Vn
 Vn
-Vn
+dZ
 dZ
 dZ
 Ko
-Xc
+jZ
 Zh
 Xc
 Xc
@@ -25066,9 +25631,9 @@ Vn
 Vn
 Vn
 Vn
-Vn
 dZ
-dZ
+Nh
+Os
 Ko
 Xc
 Xc
@@ -25322,8 +25887,8 @@ Vn
 Vn
 Vn
 Vn
-Vn
-Vn
+dZ
+Qn
 dZ
 dZ
 Ko
@@ -25579,10 +26144,10 @@ Vn
 Vn
 Vn
 Vn
-Vn
-Vn
 dZ
-Pq
+dZ
+dZ
+Ms
 lB
 Xc
 RB
@@ -25844,7 +26409,7 @@ uT
 Xc
 RB
 wa
-eG
+ja
 RB
 Xc
 HO
@@ -26357,8 +26922,8 @@ gW
 uT
 Xc
 lG
-wa
-eG
+YU
+ja
 GE
 Xc
 AZ
@@ -27109,8 +27674,8 @@ Vn
 Vn
 Vn
 Vn
-Vn
-Vn
+dZ
+dZ
 Vn
 Vn
 Vn
@@ -27649,7 +28214,7 @@ yb
 Jm
 dZ
 dZ
-Vn
+dZ
 Vn
 dZ
 dZ
@@ -28159,7 +28724,7 @@ AN
 qU
 dZ
 dZ
-Vn
+dZ
 dZ
 dZ
 dZ
@@ -28411,14 +28976,14 @@ dZ
 dZ
 Vn
 Vn
-Vn
 dZ
 dZ
+dZ
+dZ
+dZ
 Vn
 Vn
-Vn
-Vn
-Vn
+dZ
 dZ
 dZ
 Vn
@@ -32281,7 +32846,7 @@ if
 if
 if
 if
-if
+XT
 if
 if
 if
@@ -32513,6 +33078,22 @@ if
 if
 if
 if
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+NL
 if
 if
 if
@@ -32522,23 +33103,7 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+xE
 if
 if
 if
@@ -32770,6 +33335,22 @@ if
 if
 if
 if
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+Fd
+Fd
+NL
+NL
+NL
+NL
+NL
+NL
+NL
 if
 if
 if
@@ -32779,23 +33360,7 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+jd
 if
 if
 if
@@ -33027,6 +33592,22 @@ if
 if
 if
 if
+NL
+NL
+NL
+NL
+NL
+NL
+Fd
+Fd
+Fd
+Fd
+NL
+NL
+NL
+NL
+NL
+NL
 if
 if
 if
@@ -33036,25 +33617,9 @@ if
 if
 if
 if
+AE
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+ip
 if
 if
 if
@@ -33284,6 +33849,22 @@ if
 if
 if
 if
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+Fd
+Fd
+Fd
+Fd
+Fd
+NL
+NL
+NL
+NL
 if
 if
 if
@@ -33293,23 +33874,7 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+nL
 if
 if
 if
@@ -33541,6 +34106,22 @@ if
 if
 if
 if
+NL
+NL
+NL
+NL
+NL
+Fd
+NL
+NL
+Fd
+Fd
+NL
+NL
+NL
+NL
+NL
+NL
 if
 if
 if
@@ -33550,23 +34131,7 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+Ic
 if
 if
 if
@@ -33798,22 +34363,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+NL
+NL
+NL
+NL
+Fd
+Fd
+Fd
+NL
+NL
+NL
+NL
+Fd
+Fd
+NL
+NL
+NL
 if
 if
 if
@@ -34055,22 +34620,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+NL
+NL
+NL
+NL
+Fd
+Fd
+NL
+NL
+NL
+NL
+Fd
+Fd
+Fd
+NL
+NL
+NL
 if
 if
 if
@@ -34312,22 +34877,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+NL
+NL
+vw
+Cx
+ij
+Cx
+Qg
+NL
+NL
+NL
+yC
+rf
+SA
+Fd
+NL
+NL
 if
 if
 if
@@ -34569,22 +35134,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+vw
+Cx
+jR
+Cb
+Tm
+zg
+TR
+Cx
+Qg
+NL
+jg
+jg
+th
+jg
+NL
+NL
 if
 if
 if
@@ -34826,22 +35391,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+zy
+JN
+we
+Xk
+Rp
+SF
+we
+sT
+aE
+NL
+jg
+zT
+zZ
+jg
+jg
+jg
 if
 if
 if
@@ -35083,22 +35648,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+zy
+OS
+BS
+pj
+yh
+DQ
+BS
+Se
+aE
+NL
+jg
+fu
+zZ
+zZ
+ao
+jg
 if
 if
 if
@@ -35340,22 +35905,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+zy
+OS
+iZ
+iZ
+yh
+iZ
+iZ
+Se
+aE
+NL
+pk
+Km
+zZ
+zZ
+BC
+jg
 if
 if
 if
@@ -35597,22 +36162,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+zy
+OS
+jg
+cr
+yh
+yh
+yh
+yh
+aE
+NL
+pk
+wg
+zZ
+zZ
+Jt
+jg
 if
 if
 if
@@ -35854,22 +36419,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+zy
+OS
+gf
+xb
+yh
+iZ
+JF
+nW
+aE
+NL
+pk
+wg
+Jf
+zZ
+zZ
+jg
 if
 if
 if
@@ -36111,22 +36676,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+zy
+OS
+BS
+yK
+yh
+vf
+Hd
+Se
+aE
+NL
+pk
+dP
+zZ
+CW
+Lm
+jg
 if
 if
 if
@@ -36368,22 +36933,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+zy
+OS
+iZ
+Dl
+yh
+iZ
+aU
+Se
+aE
+NL
+jg
+tH
+zZ
+mO
+Xp
+jg
 if
 if
 if
@@ -36625,22 +37190,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+zy
+OS
+Ig
+Ig
+yh
+Fb
+ts
+Se
+aE
+NL
+jg
+zZ
+zZ
+jg
+jg
+jg
 if
 if
 if
@@ -36882,22 +37447,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+zy
+DL
+iZ
+iZ
+yh
+iZ
+iZ
+Se
+aE
+NL
+jg
+jg
+Vg
+jg
+NL
+NL
 if
 if
 if
@@ -37139,22 +37704,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+zy
+OS
+av
+DQ
+yh
+DQ
+av
+Se
+aE
+NL
+jO
+Mg
+vC
+Fd
+NL
+NL
 if
 if
 if
@@ -37396,22 +37961,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+zy
+ZV
+vV
+iZ
+Gy
+yD
+vV
+wo
+aE
+Fd
+Fd
+Fd
+Fd
+Fd
+NL
+NL
 if
 if
 if
@@ -37653,22 +38218,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+pi
+zU
+xA
+iZ
+fB
+CJ
+sg
+zU
+Ml
+NL
+NL
+Fd
+Fd
+NL
+NL
+NL
 if
 if
 if
@@ -37910,22 +38475,22 @@ if
 if
 if
 if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
-if
+NL
+NL
+pi
+zU
+Ha
+zU
+Ml
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+NL
+NL
 if
 if
 if

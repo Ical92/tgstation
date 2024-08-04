@@ -45,6 +45,10 @@ GLOBAL_LIST_INIT(potentialConfigRandomZlevels, generate_map_list_from_directory(
 /obj/effect/landmark/awaystart/nodelay
 	delay = FALSE
 
+/obj/effect/landmark/awaystart/relay
+	name = "relay station away spawn"
+	id = AWAYSTART_RELAY
+
 /obj/effect/landmark/awaystart/beach
 	name = "beach away spawn"
 	id = AWAYSTART_BEACH

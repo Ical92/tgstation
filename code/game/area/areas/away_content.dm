@@ -55,9 +55,6 @@ Unused icons for new areas are "awaycontent1" ~ "awaycontent30"
 /area/awaymission/secret/unpowered/outdoors
 	outdoors = TRUE
 
-/area/awaymission/secret/unpowered/outdoors/jungle
-	map_generator = /datum/map_generator/jungle_generator
-
 /area/awaymission/secret/unpowered/no_grav
 	has_gravity = FALSE
 

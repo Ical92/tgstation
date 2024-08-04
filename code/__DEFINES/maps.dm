@@ -224,6 +224,7 @@ Always compile, always use that verb, and always make sure that it works for wha
 #define CHECK_MAP_JOB_CHANGE(job, change) SSmapping.config.job_changes?[job]?[change]
 
 ///Identifiers for away mission spawnpoints
+#define AWAYSTART_RELAY "AWAYSTART_RELAY"
 #define AWAYSTART_BEACH "AWAYSTART_BEACH"
 #define AWAYSTART_MUSEUM "AWAYSTART_MUSEUM"
 #define AWAYSTART_RESEARCH "AWAYSTART_RESEARCH"
