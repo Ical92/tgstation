@@ -65,12 +65,12 @@
 /area/ruin/space/has_grav/travelers_rest)
 "cr" = (
 /obj/structure/cable,
-/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 9
 	},
 /obj/machinery/chem_dispenser,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/travelers_rest)
 "gF" = (
@@ -79,8 +79,6 @@
 /turf/open/floor/iron/solarpanel/airless,
 /area/ruin/space/has_grav/travelers_rest)
 "gN" = (
-/obj/machinery/shower/directional/east,
-/obj/structure/extinguisher_cabinet/directional/west,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
@@ -88,6 +86,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/shower/directional/west,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/travelers_rest)
 "hL" = (
@@ -113,8 +112,7 @@
 	dir = 8
 	},
 /obj/machinery/chem_dispenser/drinks/beer{
-	dir = 4;
-	pixel_y = 0
+	dir = 4
 	},
 /obj/item/reagent_containers/cup/rag{
 	pixel_x = 6;
@@ -161,7 +159,6 @@
 /area/ruin/space/has_grav/travelers_rest)
 "sn" = (
 /obj/item/kirbyplants/organic/plant10,
-/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 10
 	},
@@ -194,9 +191,9 @@
 /area/ruin/space/has_grav/travelers_rest)
 "xk" = (
 /obj/structure/cable,
-/obj/machinery/door/window/brigdoor/left/directional/north,
 /obj/effect/turf_decal/trimline/yellow,
 /obj/machinery/light/floor,
+/obj/machinery/door/window/left/directional/north,
 /turf/open/floor/iron/textured,
 /area/ruin/space/has_grav/travelers_rest)
 "xq" = (
@@ -303,8 +300,7 @@
 	dir = 10
 	},
 /obj/machinery/chem_dispenser/drinks{
-	dir = 4;
-	pixel_y = 0
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/travelers_rest)
@@ -354,10 +350,10 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/travelers_rest)
 "Ob" = (
-/obj/structure/chair/stool/bar/directional/south,
 /obj/effect/turf_decal/trimline/dark_green/filled/line{
 	dir = 5
 	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/travelers_rest)
 "Px" = (
@@ -404,9 +400,7 @@
 /obj/structure/secure_safe/directional/north{
 	pixel_y = 45
 	},
-/obj/structure/sink/kitchen/directional/south{
-	pixel_y = 14
-	},
+/obj/structure/sink/kitchen/directional/north,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/travelers_rest)
 "Vn" = (

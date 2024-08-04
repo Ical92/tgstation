@@ -175,7 +175,9 @@
 /turf/open/floor/iron/terracotta/small,
 /area/ruin/space/has_grav/powered/botanical_haven)
 "P" = (
-/obj/structure/door_assembly/door_assembly_ext,
+/obj/structure/door_assembly/door_assembly_ext{
+	anchored = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/botanical_haven)
 "Q" = (
@@ -183,6 +185,7 @@
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
 	},
+/obj/item/kirbyplants/fern,
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/botanical_haven)
 "R" = (
@@ -196,7 +199,6 @@
 /obj/effect/turf_decal/stripes/asteroid/corner,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/red/dim/directional/south,
-/obj/item/kirbyplants/fern,
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/botanical_haven)
 "V" = (
